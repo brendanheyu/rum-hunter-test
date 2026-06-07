@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 300" fill="currentColor">
+  <!-- Symmetric bottle outline: base, body, shoulder curves, neck, collar, and cap -->
+  <path d="M 20,290 
+           C 20,295 25,300 30,300 
+           L 70,300 
+           C 75,300 80,295 80,290 
+           L 80,120 
+           C 80,95 72,80 58,70 
+           L 58,25 
+           C 60,25 61,24 61,22
+           L 61,15
+           C 61,13 60,12 58,12
+           L 58,0
+           L 42,0
+           L 42,12
+           C 40,12 39,13 39,15
+           L 39,22
+           C 39,24 40,25 42,25
+           L 42,70
+           C 28,80 20,95 20,120
+           Z" />
+</svg>

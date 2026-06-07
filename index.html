@@ -619,6 +619,10 @@
       transform: scale(1.05) translateY(-5px);
     }
 
+    .card-container:hover .svg-silhouette {
+      opacity: 0.38 !important;
+    }
+
     .card-meta {
       font-size: 0.75rem;
       text-transform: uppercase;
@@ -2506,6 +2510,40 @@
           { month: "Nov", low: 74.99, high: 74.99 },
           { month: "Dec", low: 74.99, high: 74.99 }
         ]
+      },
+      {
+        id: 25,
+        name: "Distillery Vault Secret Reserve",
+        origin: "Jamaica",
+        age: 18,
+        size: 700,
+        alc: 46,
+        price: 149.99,
+        historicalLowest: 149.99,
+        status: "New",
+        image: "bottle_silhouette.svg",
+        inStock: true,
+        tastingNotes: "Deep molasses, vanilla bean, coffee bean, dark chocolate.",
+        heritage: "A secret recipe distilled and stored in the dark vaults, now released without standard labeling.",
+        stores: [
+          { name: "Dan Murphy's", price: 149.99 },
+          { name: "BWS", price: 154.99 },
+          { name: "Vintage Cellars", price: 152.00 }
+        ],
+        history: [
+          { month: "Jan", low: 149.99, high: 159.99 },
+          { month: "Feb", low: 149.99, high: 159.99 },
+          { month: "Mar", low: 149.99, high: 154.99 },
+          { month: "Apr", low: 149.99, high: 154.99 },
+          { month: "May", low: 149.99, high: 154.99 },
+          { month: "Jun", low: 149.99, high: 154.99 },
+          { month: "Jul", low: 149.99, high: 152.00 },
+          { month: "Aug", low: 149.99, high: 152.00 },
+          { month: "Sep", low: 149.99, high: 152.00 },
+          { month: "Oct", low: 149.99, high: 152.00 },
+          { month: "Nov", low: 149.99, high: 149.99 },
+          { month: "Dec", low: 149.99, high: 149.99 }
+        ]
       }
     ];
 
@@ -2972,6 +3010,23 @@
         // Metadata line
         const metadataText = getMetadataText(rum);
 
+        // SVG Bottle Silhouette layout helper
+        let imageHTML = `<img src="${rum.image}" alt="${rum.name}" class="card-bottle-img">`;
+        let thumbHTML = `<img src="${rum.image}" alt="${rum.name}" class="list-thumb">`;
+        if (rum.image === 'bottle_silhouette.svg') {
+          const svgPath = 'M 20,290 C 20,295 25,300 30,300 L 70,300 C 75,300 80,295 80,290 L 80,120 C 80,95 72,80 58,70 L 58,25 C 60,25 61,24 61,22 L 61,15 C 61,13 60,12 58,12 L 58,0 L 42,0 L 42,12 C 40,12 39,13 39,15 L 39,22 C 39,24 40,25 42,25 L 42,70 C 28,80 20,95 20,120 Z';
+          imageHTML = `
+            <svg class="card-bottle-img svg-silhouette" viewBox="0 0 100 300" style="height:100%; max-height:100%; color:var(--color-rum-amber); opacity:0.18; transition: opacity var(--transition-base), transform var(--transition-base);">
+              <path fill="currentColor" stroke="var(--color-refraction-gold)" stroke-width="2" stroke-linejoin="round" d="${svgPath}" />
+            </svg>
+          `;
+          thumbHTML = `
+            <svg class="list-thumb svg-silhouette" viewBox="0 0 100 300" style="height:100%; width:auto; color:var(--color-rum-amber); opacity:0.3;">
+              <path fill="currentColor" stroke="var(--color-refraction-gold)" stroke-width="4" d="${svgPath}" />
+            </svg>
+          `;
+        }
+
         // --- GRID VIEW CARD (3D FLIP) ---
         const cardHTML = `
           <div class="card-container ${rum.inStock ? '' : 'out-of-stock'}" data-id="${rum.id}" style="view-transition-name: card-${rum.id}" onclick="toggleFlip(this)">
@@ -2985,7 +3040,7 @@
                   </button>
                 </div>
                 <div class="card-img-box">
-                  <img src="${rum.image}" alt="${rum.name}" class="card-bottle-img">
+                  ${imageHTML}
                 </div>
                 <div>
                   <div class="card-meta">${metadataText}</div>
@@ -3061,7 +3116,7 @@
           <tr class="list-item-row ${rum.inStock ? '' : 'out-of-stock'}" data-id="${rum.id}" style="view-transition-name: row-${rum.id}" onclick="openDetailsModal(${rum.id})">
             <td>
               <div class="list-thumb-box">
-                <img src="${rum.image}" alt="${rum.name}" class="list-thumb">
+                ${thumbHTML}
               </div>
             </td>
             <td class="list-name-col">

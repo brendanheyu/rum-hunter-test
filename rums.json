@@ -1,0 +1,2344 @@
+[
+  {
+    "id": 1,
+    "name": "Corteza Mahogany Cask Strength Single Barrel Charred Oak Reserve",
+    "origin": "Barbados",
+    "age": 21,
+    "size": 700,
+    "alc": 43,
+    "price": 179.99,
+    "historicalLowest": 179.99,
+    "status": "New",
+    "image": "premium_rum_bottle.png",
+    "inStock": true,
+    "tastingNotes": "Charred oak, caramelized fig, dark molasses, toasted cacao.",
+    "heritage": "Aged for 21 years in French white oak. Bottled at source at 43% ABV.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 179.99
+      },
+      {
+        "name": "Costco Liquors",
+        "price": 178.5
+      },
+      {
+        "name": "BWS Retailer",
+        "price": 182
+      },
+      {
+        "name": "Vintage Cellars",
+        "price": 189.95
+      },
+      {
+        "name": "Nick's Wine Merchant",
+        "price": 184.99
+      },
+      {
+        "name": "Liquorland Outlet",
+        "price": 185
+      },
+      {
+        "name": "First Choice Liquor",
+        "price": 183.5
+      },
+      {
+        "name": "Boozebud Online",
+        "price": 181.99
+      },
+      {
+        "name": "Kogan Plaza Cellars",
+        "price": 188
+      },
+      {
+        "name": "Myer Wine Club",
+        "price": 189
+      },
+      {
+        "name": "Oak & Barrel Sydney",
+        "price": 182.5
+      },
+      {
+        "name": "Cellarbrations HQ",
+        "price": 184
+      },
+      {
+        "name": "The Bottle-O Local",
+        "price": 186
+      },
+      {
+        "name": "SipnSave Cellars",
+        "price": 185.5
+      },
+      {
+        "name": "Thirsty Camel Pubs",
+        "price": 187
+      },
+      {
+        "name": "Local Liquor Store",
+        "price": 184.5
+      },
+      {
+        "name": "Porters Mitchelton",
+        "price": 189.99
+      },
+      {
+        "name": "Bayside Wine & Spirit",
+        "price": 192
+      },
+      {
+        "name": "Shorty's Commercial",
+        "price": 184
+      },
+      {
+        "name": "Jimmy Brings Delivery",
+        "price": 189.99
+      },
+      {
+        "name": "Weno Cellar Shop",
+        "price": 185
+      },
+      {
+        "name": "Kent Street Cellars",
+        "price": 187.5
+      },
+      {
+        "name": "Amato's Liquors Leichhardt",
+        "price": 183
+      },
+      {
+        "name": "Prince Wine Store",
+        "price": 189
+      },
+      {
+        "name": "Different Drop Store",
+        "price": 191
+      },
+      {
+        "name": "Seca Vault Online",
+        "price": 184
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 178.5,
+        "high": 195
+      },
+      {
+        "month": "Feb",
+        "low": 180,
+        "high": 195
+      },
+      {
+        "month": "Mar",
+        "low": 182,
+        "high": 192
+      },
+      {
+        "month": "Apr",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "May",
+        "low": 179.99,
+        "high": 189.95
+      },
+      {
+        "month": "Jun",
+        "low": 178.5,
+        "high": 189.95
+      },
+      {
+        "month": "Jul",
+        "low": 178.5,
+        "high": 184.99
+      },
+      {
+        "month": "Aug",
+        "low": 178.5,
+        "high": 182.5
+      },
+      {
+        "month": "Sep",
+        "low": 178.5,
+        "high": 182
+      },
+      {
+        "month": "Oct",
+        "low": 178.5,
+        "high": 184
+      },
+      {
+        "month": "Nov",
+        "low": 178.5,
+        "high": 179.99
+      },
+      {
+        "month": "Dec",
+        "low": 178.5,
+        "high": 179.99
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Aurum Aged Reserve",
+    "origin": "Barbados",
+    "age": 12,
+    "size": 700,
+    "alc": 40,
+    "price": 84.99,
+    "historicalLowest": 95,
+    "status": "On Sale",
+    "image": "rum_bottle_gold.png",
+    "inStock": true,
+    "tastingNotes": "Vanilla custard, honey glow, toasted almond, spice finish.",
+    "heritage": "Distilled in traditional copper pot stills and aged in former bourbon casks.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 84.99
+      },
+      {
+        "name": "BWS",
+        "price": 89.99
+      },
+      {
+        "name": "First Class Cellars",
+        "price": 95
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 95,
+        "high": 105
+      },
+      {
+        "month": "Feb",
+        "low": 95,
+        "high": 105
+      },
+      {
+        "month": "Mar",
+        "low": 92.5,
+        "high": 99.99
+      },
+      {
+        "month": "Apr",
+        "low": 92.5,
+        "high": 98
+      },
+      {
+        "month": "May",
+        "low": 89.99,
+        "high": 98
+      },
+      {
+        "month": "Jun",
+        "low": 89.99,
+        "high": 95
+      },
+      {
+        "month": "Jul",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Aug",
+        "low": 89.99,
+        "high": 95
+      },
+      {
+        "month": "Sep",
+        "low": 84.99,
+        "high": 95
+      },
+      {
+        "month": "Oct",
+        "low": 84.99,
+        "high": 89.99
+      },
+      {
+        "month": "Nov",
+        "low": 84.99,
+        "high": 89.99
+      },
+      {
+        "month": "Dec",
+        "low": 84.99,
+        "high": 89.99
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Blackbeard's Spiced Cask",
+    "origin": null,
+    "age": 15,
+    "size": 700,
+    "alc": 37.5,
+    "price": 64.95,
+    "historicalLowest": 64.95,
+    "status": "New",
+    "image": "rum_bottle_dark.png",
+    "inStock": true,
+    "tastingNotes": "Rich cinnamon, clove, ginger root, heavy charred wood smoke.",
+    "heritage": "A high-ester Jamaican rum infused with organic mountain spices.",
+    "stores": [
+      {
+        "name": "First Choice Liquor",
+        "price": 64.95
+      },
+      {
+        "name": "Liquorland",
+        "price": 69.99
+      },
+      {
+        "name": "Vintage Cellars",
+        "price": 72.5
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 69.99,
+        "high": 79.99
+      },
+      {
+        "month": "Feb",
+        "low": 69.99,
+        "high": 79.99
+      },
+      {
+        "month": "Mar",
+        "low": 67.5,
+        "high": 75
+      },
+      {
+        "month": "Apr",
+        "low": 67.5,
+        "high": 72.5
+      },
+      {
+        "month": "May",
+        "low": 64.95,
+        "high": 72.5
+      },
+      {
+        "month": "Jun",
+        "low": 64.95,
+        "high": 69.99
+      },
+      {
+        "month": "Jul",
+        "low": 64.95,
+        "high": 69.99
+      },
+      {
+        "month": "Aug",
+        "low": 64.95,
+        "high": 69.99
+      },
+      {
+        "month": "Sep",
+        "low": 64.95,
+        "high": 69.99
+      },
+      {
+        "month": "Oct",
+        "low": 64.95,
+        "high": 64.95
+      },
+      {
+        "month": "Nov",
+        "low": 64.95,
+        "high": 64.95
+      },
+      {
+        "month": "Dec",
+        "low": 64.95,
+        "high": 64.95
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Aurora Ultra White",
+    "origin": "Martinique",
+    "age": null,
+    "size": 700,
+    "alc": 40,
+    "price": 44.99,
+    "historicalLowest": 44.99,
+    "status": "Back in Stock",
+    "image": "rum_bottle_clear.png",
+    "inStock": true,
+    "tastingNotes": "Fresh cane juice, citrus zest, floral jasmine, crisp sea salt.",
+    "heritage": "Rhum Agricole distilled from fresh sugar cane juice at sea level.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 44.99
+      },
+      {
+        "name": "BWS",
+        "price": 47.99
+      },
+      {
+        "name": "Liquorland",
+        "price": 49.95
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 46.5,
+        "high": 52
+      },
+      {
+        "month": "Feb",
+        "low": 46.5,
+        "high": 52
+      },
+      {
+        "month": "Mar",
+        "low": 44.99,
+        "high": 49.99
+      },
+      {
+        "month": "Apr",
+        "low": 44.99,
+        "high": 49.95
+      },
+      {
+        "month": "May",
+        "low": 44.99,
+        "high": 49.95
+      },
+      {
+        "month": "Jun",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Jul",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Aug",
+        "low": 44.99,
+        "high": 47.99
+      },
+      {
+        "month": "Sep",
+        "low": 44.99,
+        "high": 47.99
+      },
+      {
+        "month": "Oct",
+        "low": 44.99,
+        "high": 47.99
+      },
+      {
+        "month": "Nov",
+        "low": 44.99,
+        "high": 44.99
+      },
+      {
+        "month": "Dec",
+        "low": 44.99,
+        "high": 44.99
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Corteza Cask Strength Double Matured Charred Cask Reserve",
+    "origin": null,
+    "age": null,
+    "size": 700,
+    "alc": 58,
+    "price": 259.99,
+    "historicalLowest": 239.99,
+    "status": "Standard",
+    "image": "premium_rum_bottle.png",
+    "isAnimated": true,
+    "inStock": false,
+    "lastSeenStock": "14 May 2026",
+    "tastingNotes": "Toasted oak, tobacco leaf, espresso bean, burnt orange.",
+    "heritage": "Extremely limited batch from the oldest vaults. Bottled at 58% ABV.",
+    "stores": [
+      {
+        "name": "Nick's Wine Merchant",
+        "price": 259.99
+      },
+      {
+        "name": "Vintage Cellars",
+        "price": 275
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 239.99,
+        "high": 260
+      },
+      {
+        "month": "Feb",
+        "low": 239.99,
+        "high": 260
+      },
+      {
+        "month": "Mar",
+        "low": 245,
+        "high": 265
+      },
+      {
+        "month": "Apr",
+        "low": 245,
+        "high": 270
+      },
+      {
+        "month": "May",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Jun",
+        "low": 250,
+        "high": 275
+      },
+      {
+        "month": "Jul",
+        "low": 250,
+        "high": 275
+      },
+      {
+        "month": "Aug",
+        "low": 255,
+        "high": 275
+      },
+      {
+        "month": "Sep",
+        "low": 259.99,
+        "high": 275
+      },
+      {
+        "month": "Oct",
+        "low": 259.99,
+        "high": 275
+      },
+      {
+        "month": "Nov",
+        "low": 259.99,
+        "high": 275
+      },
+      {
+        "month": "Dec",
+        "low": 259.99,
+        "high": 275
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Aurum Gold Solera",
+    "origin": "Guatemala",
+    "age": 18,
+    "size": 700,
+    "alc": 40,
+    "price": 109.99,
+    "historicalLowest": 125,
+    "status": "On Sale",
+    "image": "rum_bottle_gold.png",
+    "inStock": true,
+    "tastingNotes": "Toffee, caramelized walnuts, brown sugar, vanilla orchid.",
+    "heritage": "Aged using the solera method in high-altitude mountain warehouses.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 109.99
+      },
+      {
+        "name": "Vintage Cellars",
+        "price": 125
+      },
+      {
+        "name": "First Choice Liquor",
+        "price": 115
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 125,
+        "high": 135
+      },
+      {
+        "month": "Feb",
+        "low": 125,
+        "high": 135
+      },
+      {
+        "month": "Mar",
+        "low": 125,
+        "high": 130
+      },
+      {
+        "month": "Apr",
+        "low": 120,
+        "high": 130
+      },
+      {
+        "month": "May",
+        "low": 120,
+        "high": 125
+      },
+      {
+        "month": "Jun",
+        "low": 115,
+        "high": 125
+      },
+      {
+        "month": "Jul",
+        "low": 115,
+        "high": 125
+      },
+      {
+        "month": "Aug",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Sep",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Oct",
+        "low": 115,
+        "high": 125
+      },
+      {
+        "month": "Nov",
+        "low": 109.99,
+        "high": 115
+      },
+      {
+        "month": "Dec",
+        "low": 109.99,
+        "high": 115
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Blackbeard's Dark Overproof",
+    "origin": "Jamaica",
+    "age": 8,
+    "size": 700,
+    "alc": 57,
+    "price": 54.99,
+    "historicalLowest": 54.99,
+    "status": "Back in Stock",
+    "image": "rum_bottle_dark.png",
+    "inStock": true,
+    "tastingNotes": "Black molasses, dark chocolate, smoke, black pepper.",
+    "heritage": "A full-bodied, overproof dark rum bottled at 57% ABV.",
+    "stores": [
+      {
+        "name": "Liquorland",
+        "price": 54.99
+      },
+      {
+        "name": "BWS",
+        "price": 57.5
+      },
+      {
+        "name": "Dan Murphy's",
+        "price": 54.99
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 57.5,
+        "high": 62.99
+      },
+      {
+        "month": "Feb",
+        "low": 57.5,
+        "high": 62.99
+      },
+      {
+        "month": "Mar",
+        "low": 56,
+        "high": 59.99
+      },
+      {
+        "month": "Apr",
+        "low": 56,
+        "high": 59.99
+      },
+      {
+        "month": "May",
+        "low": 54.99,
+        "high": 58
+      },
+      {
+        "month": "Jun",
+        "low": 54.99,
+        "high": 58
+      },
+      {
+        "month": "Jul",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Aug",
+        "low": 54.99,
+        "high": 57.5
+      },
+      {
+        "month": "Sep",
+        "low": 54.99,
+        "high": 57.5
+      },
+      {
+        "month": "Oct",
+        "low": 54.99,
+        "high": 57.5
+      },
+      {
+        "month": "Nov",
+        "low": 54.99,
+        "high": 54.99
+      },
+      {
+        "month": "Dec",
+        "low": 54.99,
+        "high": 54.99
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Aurora Botanica",
+    "origin": "Martinique",
+    "age": 5,
+    "size": 700,
+    "alc": 40,
+    "price": 58.99,
+    "historicalLowest": 58.99,
+    "status": "New",
+    "image": "rum_bottle_clear.png",
+    "isAnimated": true,
+    "inStock": true,
+    "tastingNotes": "Lemongrass, green apple, vanilla essence, herbal tea.",
+    "heritage": "A unique botanical rum infusion capturing the volcanic soils of Martinique.",
+    "stores": [
+      {
+        "name": "Vintage Cellars",
+        "price": 58.99
+      },
+      {
+        "name": "First Choice Liquor",
+        "price": 62.99
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 62.99,
+        "high": 69.99
+      },
+      {
+        "month": "Feb",
+        "low": 62,
+        "high": 65
+      },
+      {
+        "month": "Mar",
+        "low": 60,
+        "high": 65
+      },
+      {
+        "month": "Apr",
+        "low": 59.99,
+        "high": 62.99
+      },
+      {
+        "month": "May",
+        "low": 58.99,
+        "high": 62.99
+      },
+      {
+        "month": "Jun",
+        "low": 58.99,
+        "high": 62.99
+      },
+      {
+        "month": "Jul",
+        "low": 58.99,
+        "high": 60
+      },
+      {
+        "month": "Aug",
+        "low": 58.99,
+        "high": 58.99
+      },
+      {
+        "month": "Sep",
+        "low": 58.99,
+        "high": 58.99
+      },
+      {
+        "month": "Oct",
+        "low": 58.99,
+        "high": 58.99
+      },
+      {
+        "month": "Nov",
+        "low": 58.99,
+        "high": 58.99
+      },
+      {
+        "month": "Dec",
+        "low": 58.99,
+        "high": 58.99
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Vanguard Spiced Reserve",
+    "origin": "Fiji",
+    "age": 10,
+    "size": 700,
+    "alc": 40,
+    "price": 79.99,
+    "historicalLowest": 79.99,
+    "status": "Standard",
+    "image": "rum_bottle_gold.png",
+    "inStock": true,
+    "tastingNotes": "Sweet nutmeg, cream soda, vanilla bean, subtle oak.",
+    "heritage": "Column distilled molasses aged in ex-bourbon casks in Fiji.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 79.99
+      },
+      {
+        "name": "BWS",
+        "price": 82.5
+      },
+      {
+        "name": "Vintage Cellars",
+        "price": 84.99
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 79.99,
+        "high": 89.99
+      },
+      {
+        "month": "Feb",
+        "low": 79.99,
+        "high": 89.99
+      },
+      {
+        "month": "Mar",
+        "low": 79.99,
+        "high": 87.5
+      },
+      {
+        "month": "Apr",
+        "low": 79.99,
+        "high": 85
+      },
+      {
+        "month": "May",
+        "low": 79.99,
+        "high": 84.99
+      },
+      {
+        "month": "Jun",
+        "low": 79.99,
+        "high": 84.99
+      },
+      {
+        "month": "Jul",
+        "low": 79.99,
+        "high": 79.99
+      },
+      {
+        "month": "Aug",
+        "low": 79.99,
+        "high": 79.99
+      },
+      {
+        "month": "Sep",
+        "low": 79.99,
+        "high": 79.99
+      },
+      {
+        "month": "Oct",
+        "low": 79.99,
+        "high": 79.99
+      },
+      {
+        "month": "Nov",
+        "low": 79.99,
+        "high": 79.99
+      },
+      {
+        "month": "Dec",
+        "low": 79.99,
+        "high": 79.99
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Elixir Rare White",
+    "origin": "Cuba",
+    "age": 3,
+    "size": 750,
+    "alc": 37.5,
+    "price": 39.99,
+    "historicalLowest": 45,
+    "status": "On Sale",
+    "image": "rum_bottle_clear.png",
+    "inStock": true,
+    "tastingNotes": "Freshly cut sugar cane, light lime zest, coconut water.",
+    "heritage": "Classic Cuban white rum, charcoal filtered for ultimate mixability.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 39.99
+      },
+      {
+        "name": "First Choice Liquor",
+        "price": 42.99
+      },
+      {
+        "name": "Liquorland",
+        "price": 44.95
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 45,
+        "high": 49.99
+      },
+      {
+        "month": "Feb",
+        "low": 45,
+        "high": 49.99
+      },
+      {
+        "month": "Mar",
+        "low": 45,
+        "high": 47.5
+      },
+      {
+        "month": "Apr",
+        "low": 42,
+        "high": 47.5
+      },
+      {
+        "month": "May",
+        "low": 42,
+        "high": 45
+      },
+      {
+        "month": "Jun",
+        "low": 39.99,
+        "high": 45
+      },
+      {
+        "month": "Jul",
+        "low": 39.99,
+        "high": 44.95
+      },
+      {
+        "month": "Aug",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Sep",
+        "low": 39.99,
+        "high": 42.99
+      },
+      {
+        "month": "Oct",
+        "low": 39.99,
+        "high": 42.99
+      },
+      {
+        "month": "Nov",
+        "low": 39.99,
+        "high": 39.99
+      },
+      {
+        "month": "Dec",
+        "low": 39.99,
+        "high": 39.99
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Sentinel Dark Overproof",
+    "origin": "Trinidad",
+    "age": 12,
+    "size": 700,
+    "alc": 60,
+    "price": 119.99,
+    "historicalLowest": 119.99,
+    "status": "New",
+    "image": "rum_bottle_dark.png",
+    "inStock": true,
+    "tastingNotes": "Thick molasses, burnt caramel, leather, overripe banana.",
+    "heritage": "Heavy pot still distillate matured in heavily charred oak barrel.",
+    "stores": [
+      {
+        "name": "Nick's Wine Merchant",
+        "price": 119.99
+      },
+      {
+        "name": "Vintage Cellars",
+        "price": 124.95
+      },
+      {
+        "name": "Oak & Barrel Sydney",
+        "price": 122
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 119.99,
+        "high": 129.99
+      },
+      {
+        "month": "Feb",
+        "low": 119.99,
+        "high": 129.99
+      },
+      {
+        "month": "Mar",
+        "low": 119.99,
+        "high": 124.95
+      },
+      {
+        "month": "Apr",
+        "low": 119.99,
+        "high": 124.95
+      },
+      {
+        "month": "May",
+        "low": 119.99,
+        "high": 122
+      },
+      {
+        "month": "Jun",
+        "low": 119.99,
+        "high": 122
+      },
+      {
+        "month": "Jul",
+        "low": 119.99,
+        "high": 119.99
+      },
+      {
+        "month": "Aug",
+        "low": 119.99,
+        "high": 119.99
+      },
+      {
+        "month": "Sep",
+        "low": 119.99,
+        "high": 119.99
+      },
+      {
+        "month": "Oct",
+        "low": 119.99,
+        "high": 119.99
+      },
+      {
+        "month": "Nov",
+        "low": 119.99,
+        "high": 119.99
+      },
+      {
+        "month": "Dec",
+        "low": 119.99,
+        "high": 119.99
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Corteza Single Estate Reserve",
+    "origin": "Barbados",
+    "age": 15,
+    "size": 700,
+    "alc": 43,
+    "price": 145,
+    "historicalLowest": 135,
+    "status": "Standard",
+    "image": "premium_rum_bottle.png",
+    "isAnimated": true,
+    "inStock": false,
+    "lastSeenStock": "02 Jun 2026",
+    "tastingNotes": "Rich toffee, red apple, dark chocolate, baking spices.",
+    "heritage": "Distilled at a historic Barbadian estate from local cane syrup.",
+    "stores": [
+      {
+        "name": "Vintage Cellars",
+        "price": 145
+      },
+      {
+        "name": "Oak & Barrel Sydney",
+        "price": 148
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 135,
+        "high": 155
+      },
+      {
+        "month": "Feb",
+        "low": 135,
+        "high": 155
+      },
+      {
+        "month": "Mar",
+        "low": 139.99,
+        "high": 150
+      },
+      {
+        "month": "Apr",
+        "low": 139.99,
+        "high": 150
+      },
+      {
+        "month": "May",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Jun",
+        "low": 142.5,
+        "high": 148
+      },
+      {
+        "month": "Jul",
+        "low": 142.5,
+        "high": 148
+      },
+      {
+        "month": "Aug",
+        "low": 145,
+        "high": 148
+      },
+      {
+        "month": "Sep",
+        "low": 145,
+        "high": 148
+      },
+      {
+        "month": "Oct",
+        "low": 145,
+        "high": 148
+      },
+      {
+        "month": "Nov",
+        "low": 145,
+        "high": 145
+      },
+      {
+        "month": "Dec",
+        "low": 145,
+        "high": 145
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Navigator Navy Strength",
+    "origin": "Guyana",
+    "age": 8,
+    "size": 700,
+    "alc": 54.5,
+    "price": 89.99,
+    "historicalLowest": 89.99,
+    "status": "Back in Stock",
+    "image": "rum_bottle_dark.png",
+    "inStock": true,
+    "tastingNotes": "Black plum, molasses, dark espresso, salted licorice.",
+    "heritage": "Traditional Demerara wooden pot still blend bottled at navy strength.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 89.99
+      },
+      {
+        "name": "BWS",
+        "price": 94.99
+      },
+      {
+        "name": "Liquorland",
+        "price": 92.5
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 92.5,
+        "high": 99.99
+      },
+      {
+        "month": "Feb",
+        "low": 92.5,
+        "high": 99.99
+      },
+      {
+        "month": "Mar",
+        "low": 89.99,
+        "high": 95
+      },
+      {
+        "month": "Apr",
+        "low": 89.99,
+        "high": 94.99
+      },
+      {
+        "month": "May",
+        "low": 89.99,
+        "high": 94.99
+      },
+      {
+        "month": "Jun",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Jul",
+        "low": 89.99,
+        "high": 92.5
+      },
+      {
+        "month": "Aug",
+        "low": 89.99,
+        "high": 92.5
+      },
+      {
+        "month": "Sep",
+        "low": 89.99,
+        "high": 92.5
+      },
+      {
+        "month": "Oct",
+        "low": 89.99,
+        "high": 92.5
+      },
+      {
+        "month": "Nov",
+        "low": 89.99,
+        "high": 89.99
+      },
+      {
+        "month": "Dec",
+        "low": 89.99,
+        "high": 89.99
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Solstice Agricole Blanc",
+    "origin": "Guadeloupe",
+    "age": null,
+    "size": 700,
+    "alc": 50,
+    "price": 69.99,
+    "historicalLowest": 69.99,
+    "status": "New",
+    "image": "rum_bottle_clear.png",
+    "inStock": true,
+    "tastingNotes": "Grassy cane juice, white pepper, yellow pear, ocean spray.",
+    "heritage": "Guadeloupe Rhum Agricole bottled directly from the steel tanks.",
+    "stores": [
+      {
+        "name": "First Choice Liquor",
+        "price": 69.99
+      },
+      {
+        "name": "Vintage Cellars",
+        "price": 74.99
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 74.99,
+        "high": 82.5
+      },
+      {
+        "month": "Feb",
+        "low": 74.99,
+        "high": 79.99
+      },
+      {
+        "month": "Mar",
+        "low": 69.99,
+        "high": 79.99
+      },
+      {
+        "month": "Apr",
+        "low": 69.99,
+        "high": 74.99
+      },
+      {
+        "month": "May",
+        "low": 69.99,
+        "high": 74.99
+      },
+      {
+        "month": "Jun",
+        "low": 69.99,
+        "high": 74.99
+      },
+      {
+        "month": "Jul",
+        "low": 69.99,
+        "high": 74.99
+      },
+      {
+        "month": "Aug",
+        "low": 69.99,
+        "high": 69.99
+      },
+      {
+        "month": "Sep",
+        "low": 69.99,
+        "high": 69.99
+      },
+      {
+        "month": "Oct",
+        "low": 69.99,
+        "high": 69.99
+      },
+      {
+        "month": "Nov",
+        "low": 69.99,
+        "high": 69.99
+      },
+      {
+        "month": "Dec",
+        "low": 69.99,
+        "high": 69.99
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Aurum Solera Cask",
+    "origin": "Guatemala",
+    "age": 23,
+    "size": 700,
+    "alc": 40,
+    "price": 199.99,
+    "historicalLowest": 219.99,
+    "status": "On Sale",
+    "image": "rum_bottle_gold.png",
+    "inStock": true,
+    "tastingNotes": "Butterscotch, roasted hazelnut, tobacco leaf, dark honey.",
+    "heritage": "Premium Guatemalan solera aged high in the clouds.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 199.99
+      },
+      {
+        "name": "Nick's Wine Merchant",
+        "price": 215
+      },
+      {
+        "name": "First Class Cellars",
+        "price": 219.99
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 219.99,
+        "high": 235
+      },
+      {
+        "month": "Feb",
+        "low": 219.99,
+        "high": 235
+      },
+      {
+        "month": "Mar",
+        "low": 215,
+        "high": 229.99
+      },
+      {
+        "month": "Apr",
+        "low": 215,
+        "high": 225
+      },
+      {
+        "month": "May",
+        "low": 209.99,
+        "high": 225
+      },
+      {
+        "month": "Jun",
+        "low": 209.99,
+        "high": 219.99
+      },
+      {
+        "month": "Jul",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Aug",
+        "low": 205,
+        "high": 219.99
+      },
+      {
+        "month": "Sep",
+        "low": 199.99,
+        "high": 215
+      },
+      {
+        "month": "Oct",
+        "low": 199.99,
+        "high": 215
+      },
+      {
+        "month": "Nov",
+        "low": 199.99,
+        "high": 199.99
+      },
+      {
+        "month": "Dec",
+        "low": 199.99,
+        "high": 199.99
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Brix Distillery Select Craft Rum",
+    "origin": "Australia",
+    "age": null,
+    "size": 700,
+    "alc": 40,
+    "price": 95,
+    "historicalLowest": 95,
+    "status": "Standard",
+    "image": "rum_bottle_gold.png",
+    "isAnimated": true,
+    "inStock": true,
+    "tastingNotes": "Toasted marshmallow, native honey, macadamia, light spice.",
+    "heritage": "Handcrafted in small batches at the Brix Sydney distillery.",
+    "stores": [
+      {
+        "name": "Brix Distillery Store",
+        "price": 95
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Feb",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Mar",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Apr",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "May",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Jun",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Jul",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Aug",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Sep",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Oct",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Nov",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Dec",
+        "low": 95,
+        "high": 95
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Corteza Imperial XO",
+    "origin": "Barbados",
+    "age": 25,
+    "size": 700,
+    "alc": 42,
+    "price": 329.99,
+    "historicalLowest": 329.99,
+    "status": "New",
+    "image": "premium_rum_bottle.png",
+    "inStock": true,
+    "tastingNotes": "Sandalwood, dried apricot, sweet pipe tobacco, rancio.",
+    "heritage": "Extremely rare reserve cask matured in old cognac vats.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 329.99
+      },
+      {
+        "name": "Nick's Wine Merchant",
+        "price": 335
+      },
+      {
+        "name": "Prince Wine Store",
+        "price": 340
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 329.99,
+        "high": 350
+      },
+      {
+        "month": "Feb",
+        "low": 329.99,
+        "high": 350
+      },
+      {
+        "month": "Mar",
+        "low": 329.99,
+        "high": 345
+      },
+      {
+        "month": "Apr",
+        "low": 329.99,
+        "high": 345
+      },
+      {
+        "month": "May",
+        "low": 329.99,
+        "high": 340
+      },
+      {
+        "month": "Jun",
+        "low": 329.99,
+        "high": 340
+      },
+      {
+        "month": "Jul",
+        "low": 329.99,
+        "high": 335
+      },
+      {
+        "month": "Aug",
+        "low": 329.99,
+        "high": 335
+      },
+      {
+        "month": "Sep",
+        "low": 329.99,
+        "high": 329.99
+      },
+      {
+        "month": "Oct",
+        "low": 329.99,
+        "high": 329.99
+      },
+      {
+        "month": "Nov",
+        "low": 329.99,
+        "high": 329.99
+      },
+      {
+        "month": "Dec",
+        "low": 329.99,
+        "high": 329.99
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Monarch Double Wood",
+    "origin": "Mauritius",
+    "age": 10,
+    "size": 700,
+    "alc": 45,
+    "price": 95,
+    "historicalLowest": 95,
+    "status": "Standard",
+    "image": "rum_bottle_gold.png",
+    "inStock": true,
+    "tastingNotes": "Roasted pineapple, coconut husk, toasted oak, mild cinnamon.",
+    "heritage": "Agricole style rum aged first in oak then in sherry casks.",
+    "stores": [
+      {
+        "name": "Vintage Cellars",
+        "price": 95
+      },
+      {
+        "name": "First Choice Liquor",
+        "price": 97.99
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 95,
+        "high": 105
+      },
+      {
+        "month": "Feb",
+        "low": 95,
+        "high": 102.5
+      },
+      {
+        "month": "Mar",
+        "low": 95,
+        "high": 99.99
+      },
+      {
+        "month": "Apr",
+        "low": 95,
+        "high": 99.99
+      },
+      {
+        "month": "May",
+        "low": 95,
+        "high": 97.99
+      },
+      {
+        "month": "Jun",
+        "low": 95,
+        "high": 97.99
+      },
+      {
+        "month": "Jul",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Aug",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Sep",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Oct",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Nov",
+        "low": 95,
+        "high": 95
+      },
+      {
+        "month": "Dec",
+        "low": 95,
+        "high": 95
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Eclipse Black Strap",
+    "origin": "Jamaica",
+    "age": 5,
+    "size": 750,
+    "alc": 40,
+    "price": 59.99,
+    "historicalLowest": 65,
+    "status": "On Sale",
+    "image": "rum_bottle_dark.png",
+    "inStock": true,
+    "tastingNotes": "Bitter cacao, black treacle, maple syrup, smoke.",
+    "heritage": "Rich Jamaican black strap rum style perfect for planters punches.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 59.99
+      },
+      {
+        "name": "BWS",
+        "price": 64.99
+      },
+      {
+        "name": "Liquorland",
+        "price": 65
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 65,
+        "high": 72.5
+      },
+      {
+        "month": "Feb",
+        "low": 65,
+        "high": 72.5
+      },
+      {
+        "month": "Mar",
+        "low": 65,
+        "high": 69.99
+      },
+      {
+        "month": "Apr",
+        "low": 62,
+        "high": 69.99
+      },
+      {
+        "month": "May",
+        "low": 62,
+        "high": 65
+      },
+      {
+        "month": "Jun",
+        "low": 59.99,
+        "high": 65
+      },
+      {
+        "month": "Jul",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Aug",
+        "low": 59.99,
+        "high": 64.99
+      },
+      {
+        "month": "Sep",
+        "low": 59.99,
+        "high": 64.99
+      },
+      {
+        "month": "Oct",
+        "low": 59.99,
+        "high": 64.99
+      },
+      {
+        "month": "Nov",
+        "low": 59.99,
+        "high": 59.99
+      },
+      {
+        "month": "Dec",
+        "low": 59.99,
+        "high": 59.99
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Meridian Agricole Vieux",
+    "origin": "Martinique",
+    "age": 6,
+    "size": 700,
+    "alc": 42,
+    "price": 89.99,
+    "historicalLowest": 89.99,
+    "status": "Back in Stock",
+    "image": "rum_bottle_clear.png",
+    "inStock": true,
+    "tastingNotes": "Stewed apple, cinnamon bark, sugarcane honey, light leather.",
+    "heritage": "AOC Martinique aged rhum agricole matured in French oak casks.",
+    "stores": [
+      {
+        "name": "Vintage Cellars",
+        "price": 89.99
+      },
+      {
+        "name": "Oak & Barrel Sydney",
+        "price": 92.5
+      },
+      {
+        "name": "Nick's Wine Merchant",
+        "price": 94.99
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 92.5,
+        "high": 99.99
+      },
+      {
+        "month": "Feb",
+        "low": 92.5,
+        "high": 99.99
+      },
+      {
+        "month": "Mar",
+        "low": 89.99,
+        "high": 95
+      },
+      {
+        "month": "Apr",
+        "low": 89.99,
+        "high": 94.99
+      },
+      {
+        "month": "May",
+        "low": 89.99,
+        "high": 94.99
+      },
+      {
+        "month": "Jun",
+        "low": 89.99,
+        "high": 94.99
+      },
+      {
+        "month": "Jul",
+        "low": 89.99,
+        "high": 92.5
+      },
+      {
+        "month": "Aug",
+        "low": 89.99,
+        "high": 92.5
+      },
+      {
+        "month": "Sep",
+        "low": 89.99,
+        "high": 92.5
+      },
+      {
+        "month": "Oct",
+        "low": 89.99,
+        "high": 92.5
+      },
+      {
+        "month": "Nov",
+        "low": 89.99,
+        "high": 89.99
+      },
+      {
+        "month": "Dec",
+        "low": 89.99,
+        "high": 89.99
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Valkyrie Spiced Vanilla",
+    "origin": null,
+    "age": null,
+    "size": 700,
+    "alc": 37.5,
+    "price": 52.5,
+    "historicalLowest": 52.5,
+    "status": "Standard",
+    "image": "rum_bottle_gold.png",
+    "isAnimated": true,
+    "inStock": false,
+    "lastSeenStock": "28 May 2026",
+    "tastingNotes": "Madagascar vanilla, cinnamon scroll, caramel swirl.",
+    "heritage": "Triple distilled spirit base blended with premium natural spices.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 52.5
+      },
+      {
+        "name": "BWS",
+        "price": 55
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 52.5,
+        "high": 59.99
+      },
+      {
+        "month": "Feb",
+        "low": 52.5,
+        "high": 59.99
+      },
+      {
+        "month": "Mar",
+        "low": 52.5,
+        "high": 57.5
+      },
+      {
+        "month": "Apr",
+        "low": 52.5,
+        "high": 55
+      },
+      {
+        "month": "May",
+        "low": 52.5,
+        "high": 55
+      },
+      {
+        "month": "Jun",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Jul",
+        "low": 52.5,
+        "high": 55
+      },
+      {
+        "month": "Aug",
+        "low": 52.5,
+        "high": 55
+      },
+      {
+        "month": "Sep",
+        "low": 52.5,
+        "high": 55
+      },
+      {
+        "month": "Oct",
+        "low": 52.5,
+        "high": 55
+      },
+      {
+        "month": "Nov",
+        "low": 52.5,
+        "high": 52.5
+      },
+      {
+        "month": "Dec",
+        "low": 52.5,
+        "high": 52.5
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Corteza Amber Solera",
+    "origin": "Barbados",
+    "age": 12,
+    "size": 700,
+    "alc": 40,
+    "price": 79.99,
+    "historicalLowest": 89.99,
+    "status": "On Sale",
+    "image": "rum_bottle_gold.png",
+    "inStock": true,
+    "tastingNotes": "Salted caramel, orange zest, warm spices, dry finish.",
+    "heritage": "Traditional pot and column still blend aged via solera.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 79.99
+      },
+      {
+        "name": "First Choice Liquor",
+        "price": 84.99
+      },
+      {
+        "name": "Vintage Cellars",
+        "price": 89.99
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 89.99,
+        "high": 99.99
+      },
+      {
+        "month": "Feb",
+        "low": 89.99,
+        "high": 99.99
+      },
+      {
+        "month": "Mar",
+        "low": 85,
+        "high": 95
+      },
+      {
+        "month": "Apr",
+        "low": 85,
+        "high": 95
+      },
+      {
+        "month": "May",
+        "low": 82.5,
+        "high": 89.99
+      },
+      {
+        "month": "Jun",
+        "low": 79.99,
+        "high": 89.99
+      },
+      {
+        "month": "Jul",
+        "low": null,
+        "high": null
+      },
+      {
+        "month": "Aug",
+        "low": 79.99,
+        "high": 84.99
+      },
+      {
+        "month": "Sep",
+        "low": 79.99,
+        "high": 84.99
+      },
+      {
+        "month": "Oct",
+        "low": 79.99,
+        "high": 84.99
+      },
+      {
+        "month": "Nov",
+        "low": 79.99,
+        "high": 79.99
+      },
+      {
+        "month": "Dec",
+        "low": 79.99,
+        "high": 79.99
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Zenith Rare White",
+    "origin": "Fiji",
+    "age": null,
+    "size": 700,
+    "alc": 40,
+    "price": 49.99,
+    "historicalLowest": 49.99,
+    "status": "New",
+    "image": "rum_bottle_clear.png",
+    "isAnimated": true,
+    "inStock": true,
+    "tastingNotes": "Tropical papaya, sweet grass, banana leaf, green pepper.",
+    "heritage": "Fijian white rum distilled from molasses in copper pot stills.",
+    "stores": [
+      {
+        "name": "BWS Retailer",
+        "price": 49.99
+      },
+      {
+        "name": "Liquorland Outlet",
+        "price": 52.5
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 49.99,
+        "high": 57.5
+      },
+      {
+        "month": "Feb",
+        "low": 49.99,
+        "high": 55
+      },
+      {
+        "month": "Mar",
+        "low": 49.99,
+        "high": 55
+      },
+      {
+        "month": "Apr",
+        "low": 49.99,
+        "high": 52.5
+      },
+      {
+        "month": "May",
+        "low": 49.99,
+        "high": 52.5
+      },
+      {
+        "month": "Jun",
+        "low": 49.99,
+        "high": 52.5
+      },
+      {
+        "month": "Jul",
+        "low": 49.99,
+        "high": 52.5
+      },
+      {
+        "month": "Aug",
+        "low": 49.99,
+        "high": 49.99
+      },
+      {
+        "month": "Sep",
+        "low": 49.99,
+        "high": 49.99
+      },
+      {
+        "month": "Oct",
+        "low": 49.99,
+        "high": 49.99
+      },
+      {
+        "month": "Nov",
+        "low": 49.99,
+        "high": 49.99
+      },
+      {
+        "month": "Dec",
+        "low": 49.99,
+        "high": 49.99
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Tempest Dark Reserve",
+    "origin": "Bermuda",
+    "age": 10,
+    "size": 700,
+    "alc": 40,
+    "price": 74.99,
+    "historicalLowest": 74.99,
+    "status": "Standard",
+    "image": "rum_bottle_dark.png",
+    "isAnimated": true,
+    "inStock": true,
+    "tastingNotes": "Black treacle, dark brown sugar, molasses, subtle clove.",
+    "heritage": "A heavy, sweet Bermuda dark rum built for dark and stormy cocktails.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 74.99
+      },
+      {
+        "name": "BWS",
+        "price": 77.5
+      },
+      {
+        "name": "Vintage Cellars",
+        "price": 79.99
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 74.99,
+        "high": 84.99
+      },
+      {
+        "month": "Feb",
+        "low": 74.99,
+        "high": 84.99
+      },
+      {
+        "month": "Mar",
+        "low": 74.99,
+        "high": 79.99
+      },
+      {
+        "month": "Apr",
+        "low": 74.99,
+        "high": 79.99
+      },
+      {
+        "month": "May",
+        "low": 74.99,
+        "high": 77.5
+      },
+      {
+        "month": "Jun",
+        "low": 74.99,
+        "high": 77.5
+      },
+      {
+        "month": "Jul",
+        "low": 74.99,
+        "high": 77.5
+      },
+      {
+        "month": "Aug",
+        "low": 74.99,
+        "high": 74.99
+      },
+      {
+        "month": "Sep",
+        "low": 74.99,
+        "high": 74.99
+      },
+      {
+        "month": "Oct",
+        "low": 74.99,
+        "high": 74.99
+      },
+      {
+        "month": "Nov",
+        "low": 74.99,
+        "high": 74.99
+      },
+      {
+        "month": "Dec",
+        "low": 74.99,
+        "high": 74.99
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Distillery Vault Secret Reserve",
+    "origin": "Jamaica",
+    "age": 18,
+    "size": 700,
+    "alc": 46,
+    "price": 149.99,
+    "historicalLowest": 149.99,
+    "status": "New",
+    "image": "bottle_silhouette.svg",
+    "isAnimated": true,
+    "inStock": true,
+    "tastingNotes": "Deep molasses, vanilla bean, coffee bean, dark chocolate.",
+    "heritage": "A secret recipe distilled and stored in the dark vaults, now released without standard labeling.",
+    "stores": [
+      {
+        "name": "Dan Murphy's",
+        "price": 149.99
+      },
+      {
+        "name": "BWS",
+        "price": 154.99
+      },
+      {
+        "name": "Vintage Cellars",
+        "price": 152
+      }
+    ],
+    "history": [
+      {
+        "month": "Jan",
+        "low": 149.99,
+        "high": 159.99
+      },
+      {
+        "month": "Feb",
+        "low": 149.99,
+        "high": 159.99
+      },
+      {
+        "month": "Mar",
+        "low": 149.99,
+        "high": 154.99
+      },
+      {
+        "month": "Apr",
+        "low": 149.99,
+        "high": 154.99
+      },
+      {
+        "month": "May",
+        "low": 149.99,
+        "high": 154.99
+      },
+      {
+        "month": "Jun",
+        "low": 149.99,
+        "high": 154.99
+      },
+      {
+        "month": "Jul",
+        "low": 149.99,
+        "high": 152
+      },
+      {
+        "month": "Aug",
+        "low": 149.99,
+        "high": 152
+      },
+      {
+        "month": "Sep",
+        "low": 149.99,
+        "high": 152
+      },
+      {
+        "month": "Oct",
+        "low": 149.99,
+        "high": 152
+      },
+      {
+        "month": "Nov",
+        "low": 149.99,
+        "high": 149.99
+      },
+      {
+        "month": "Dec",
+        "low": 149.99,
+        "high": 149.99
+      }
+    ]
+  }
+]

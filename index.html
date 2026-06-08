@@ -15,1656 +15,95 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
 
+  <link rel="preload" href="index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="index.css"></noscript>
   <style>
+    /* CLS-Critical Inline Styles — only layout dimensions needed before index.css loads */
     :root {
-      /* The Cask Base: Deep shadows and foundations */
       --color-cask-shadow: hsl(16, 60%, 5%);
-      /* Near-black mahogany for core backgrounds */
       --color-liquid-mahogany: hsl(18, 70%, 12%);
-      /* Heavy, rich fluid background accents */
-
-      /* The Core Fluid: Warm glowing midtones */
       --color-liquid-chestnut: hsl(24, 80%, 22%);
-      /* Rich structural boundaries and card borders */
       --color-rum-amber: hsl(33, 90%, 45%);
-      /* The standard signature brand accent glow */
-
-      /* The Refractions: High-intensity light flares & highlights */
       --color-refraction-gold: hsl(42, 95%, 62%);
-      /* Studio spotlight flare color-dodge blend */
       --color-ice-facet: hsl(195, 45%, 88%);
-      /* Subtle, crisp cool blue facet refraction */
-
-      /* Interface Neutral Overlays */
       --color-text-primary: hsl(40, 20%, 96%);
-      /* Crisp, warm-tinted off-white for high legibility */
       --color-text-muted: hsl(35, 10%, 65%);
-      /* Relaxed amber-grey for secondary tracking labels */
-
       --font-heading: 'Cormorant Garamond', serif;
       --font-body: 'Outfit', sans-serif;
-      ` --transition-base: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --transition-base: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    /* Reset & Globals */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--color-cask-shadow);
-      color: var(--color-text-primary);
-      font-family: var(--font-body);
-      overflow-x: hidden;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--color-cask-shadow);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--color-liquid-chestnut);
-      border-radius: 4px;
-      border: 2px solid var(--color-cask-shadow);
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--color-rum-amber);
-    }
-
-    /* --- Three-Tier Viewport Background Stack --- */
-    .background-viewport {
-      position: fixed;
-      top: -10vh;
-      left: -10vw;
-      width: 120vw;
-      height: 120vh;
-      z-index: -10;
-      pointer-events: none;
-
-      /* Layer 1 (Base): Gradient canvas */
-      background: linear-gradient(135deg, var(--color-cask-shadow), var(--color-liquid-mahogany));
-
-      /* GPU acceleration triggers & default decay properties */
-      filter: blur(80px);
-      transform: scale(1.0) translate3d(0, 0, 0);
-      transition: transform 1.5s cubic-bezier(0.25, 1, 0.33, 1), filter 1.5s cubic-bezier(0.25, 1, 0.33, 1);
-      will-change: transform, filter;
-    }
-
-    /* Layer 2 (The Stir): 5 SVG blobs overlay (Quicker Drift) */
-    .stir-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .blob {
-      transform-origin: center;
-      mix-blend-mode: color-dodge;
-      will-change: transform;
-    }
-
-    .blob-1 {
-      animation: drift-1 12s ease-in-out infinite alternate;
-    }
-
-    .blob-2 {
-      animation: drift-2 16s ease-in-out infinite alternate;
-    }
-
-    .blob-3 {
-      animation: drift-3 14s ease-in-out infinite alternate;
-    }
-
-    .blob-4 {
-      animation: drift-4 10s ease-in-out infinite alternate;
-    }
-
-    .blob-5 {
-      animation: drift-5 18s ease-in-out infinite alternate;
-    }
-
-    @keyframes drift-1 {
-      0% {
-        transform: translate3d(-8%, -10%, 0) scale(1.0);
-      }
-
-      50% {
-        transform: translate3d(12%, 8%, 0) scale(1.2);
-      }
-
-      100% {
-        transform: translate3d(-4%, 15%, 0) scale(0.9);
-      }
-    }
-
-    @keyframes drift-2 {
-      0% {
-        transform: translate3d(6%, 12%, 0) scale(0.95);
-      }
-
-      50% {
-        transform: translate3d(-12%, -5%, 0) scale(1.25);
-      }
-
-      100% {
-        transform: translate3d(4%, -12%, 0) scale(1.0);
-      }
-    }
-
-    @keyframes drift-3 {
-      0% {
-        transform: translate3d(-12%, 8%, 0) scale(1.15);
-      }
-
-      50% {
-        transform: translate3d(8%, -15%, 0) scale(0.85);
-      }
-
-      100% {
-        transform: translate3d(12%, 4%, 0) scale(1.05);
-      }
-    }
-
-    @keyframes drift-4 {
-      0% {
-        transform: translate3d(4%, -12%, 0) scale(1.05);
-      }
-
-      50% {
-        transform: translate3d(-6%, 12%, 0) scale(0.95);
-      }
-
-      100% {
-        transform: translate3d(-12%, -8%, 0) scale(1.15);
-      }
-    }
-
-    @keyframes drift-5 {
-      0% {
-        transform: translate3d(10%, -8%, 0) scale(0.9);
-      }
-
-      50% {
-        transform: translate3d(-10%, 15%, 0) scale(1.2);
-      }
-
-      100% {
-        transform: translate3d(-2%, -12%, 0) scale(0.95);
-      }
-    }
-
-    /* Layer 3 (The Vignette): Radial gradient overlay */
-    .vignette-layer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, transparent 30%, var(--color-cask-shadow) 100%);
-      pointer-events: none;
-    }
-
-    /* Macro Focus Zoom class override */
-    .background-viewport.focused {
-      transform: scale(1.18) translate3d(0, 0, 0) !important;
-      filter: blur(120px);
-    }
-
-    /* --- Global Layout Wrapper & Typography --- */
-    .app-wrapper {
-      position: relative;
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(16, 6, 2, 0.4);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(59, 29, 10, 0.3);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 18px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: var(--font-heading);
-      font-size: 2rem;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      color: var(--color-text-primary);
-      text-decoration: none;
-    }
-
-    .nav-menu {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-      align-items: center;
-    }
-
-    .nav-link {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--color-text-muted);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      transition: color var(--transition-base);
-      position: relative;
-      padding: 6px 0;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 1.5px;
-      background: var(--color-rum-amber);
-      transition: width var(--transition-base);
-    }
-
-    .nav-link:hover {
-      color: var(--color-text-primary);
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    /* Button styles */
-    .btn {
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all var(--transition-base);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      border: none;
-    }
-
-    .btn-sm {
-      padding: 6px 14px;
-      font-size: 0.75rem;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--color-rum-amber) 0%, var(--color-refraction-gold) 100%);
-      color: var(--color-cask-shadow);
-      box-shadow: 0 4px 18px rgba(230, 126, 34, 0.25);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 22px rgba(230, 126, 34, 0.35);
-      filter: brightness(1.05);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--color-text-primary);
-      border: 1px solid rgba(59, 29, 10, 0.4);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--color-rum-amber);
-      color: var(--color-refraction-gold);
-    }
-
-    .btn-star {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: var(--color-text-muted);
-      transition: color var(--transition-base), transform var(--transition-base);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px;
-    }
-
-    .btn-star.active {
-      color: var(--color-refraction-gold);
-      transform: scale(1.15);
-      filter: drop-shadow(0 0 6px rgba(254, 211, 48, 0.5));
-    }
-
-    .btn-star:hover {
-      color: var(--color-refraction-gold);
-    }
-
-    /* --- Hero Section (Border Bottom Removed) --- */
-    .hero {
-      position: relative;
-      padding: 60px 0 40px;
-    }
-
-    .section-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    .hero-content {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero-content h1 {
-      font-family: var(--font-heading);
-      font-size: clamp(3rem, 7vw, 4.8rem);
-      font-weight: 300;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--color-text-primary) 30%, var(--color-text-muted) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-content p.lead {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      color: var(--color-text-muted);
-      font-weight: 300;
-      margin-bottom: 30px;
-      line-height: 1.6;
-    }
-
-    /* --- Aggregator Toolbar Controls --- */
-    .aggregator-section {
-      padding: 30px 0 80px;
-    }
-
-    .control-dashboard {
-      background: rgba(16, 6, 2, 0.45);
-      border: 1px solid rgba(59, 29, 10, 0.35);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 40px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .control-row-top {
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .search-wrapper {
-      position: relative;
-      width: 100%;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--color-text-muted);
-      pointer-events: none;
-      width: 18px;
-      height: 18px;
-    }
-
-    .search-input {
-      width: 100%;
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(59, 29, 10, 0.5);
-      color: var(--color-text-primary);
-      padding: 12px 18px 12px 46px;
-      border-radius: 6px;
-      outline: none;
-      transition: all var(--transition-base);
-    }
-
-    .search-input:focus {
-      border-color: var(--color-rum-amber);
-      background: rgba(0, 0, 0, 0.7);
-      box-shadow: 0 0 15px rgba(230, 126, 34, 0.15);
-    }
-
-    .sort-wrapper select {
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(59, 29, 10, 0.5);
-      color: var(--color-text-primary);
-      padding: 12px 40px 12px 18px;
-      border-radius: 6px;
-      outline: none;
-      cursor: pointer;
-      transition: all var(--transition-base);
-
-      /* Custom arrow styling to prevent extreme edge positioning */
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23adaba4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      background-size: 16px;
-    }
-
-    .sort-wrapper select:focus {
-      border-color: var(--color-rum-amber);
-      box-shadow: 0 0 15px rgba(230, 126, 34, 0.15);
-    }
-
-    .view-toggles {
-      display: flex;
-      gap: 8px;
-      background: rgba(0, 0, 0, 0.35);
-      padding: 4px;
-      border-radius: 6px;
-      border: 1px solid rgba(59, 29, 10, 0.4);
-    }
-
-    .view-btn {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 8px 14px;
-      color: var(--color-text-muted);
-      border-radius: 4px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: all var(--transition-base);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .view-btn.active {
-      background: var(--color-liquid-chestnut);
-      color: var(--color-refraction-gold);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    .view-btn:hover:not(.active) {
-      color: var(--color-text-primary);
-    }
-
-    .control-row-bottom {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .filter-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-text-muted);
-      font-weight: 600;
-      margin-right: 8px;
-    }
-
-    .filter-pill {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(59, 29, 10, 0.35);
-      color: var(--color-text-muted);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all var(--transition-base);
-    }
-
-    .filter-pill:hover {
-      color: var(--color-text-primary);
-      border-color: rgba(230, 126, 34, 0.4);
-    }
-
-    .filter-pill.active {
-      background: rgba(230, 126, 34, 0.1);
-      border-color: var(--color-rum-amber);
-      color: var(--color-refraction-gold);
-      box-shadow: 0 0 10px rgba(230, 126, 34, 0.1);
-    }
-
-    /* --- Grid View Layout (3D Flip Cards) --- */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
-      transition: opacity var(--transition-base);
-    }
-
-    .card-container {
-      perspective: 1200px;
-      height: 450px;
-      cursor: pointer;
-    }
-
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .card-container.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .card-front,
-    .card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 16px;
-      background: rgba(16, 6, 2, 0.45);
-      border: 1px solid rgba(59, 29, 10, 0.3);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      transition: border-color var(--transition-base), box-shadow var(--transition-base);
-    }
-
-    .card-front:hover,
-    .card-back:hover {
-      border-color: rgba(230, 126, 34, 0.45);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7),
-        0 0 30px rgba(230, 126, 34, 0.12);
-    }
-
-    .card-back {
-      transform: rotateY(180deg);
-      background: rgba(22, 10, 4, 0.9);
-      border-color: rgba(230, 126, 34, 0.4);
-    }
-
-    /* Card Front Styles */
-    .card-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .status-badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 10px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--color-text-muted);
-      align-self: baseline;
-    }
-
-    .status-badge.on-sale {
-      background: rgba(46, 204, 113, 0.1);
-      border-color: rgba(46, 204, 113, 0.3);
-      color: #2ecc71;
-    }
-
-    .status-badge.new {
-      background: rgba(52, 152, 219, 0.1);
-      border-color: rgba(52, 152, 219, 0.3);
-      color: #3498db;
-    }
-
-    .status-badge.back-in-stock {
-      background: rgba(155, 89, 182, 0.1);
-      border-color: rgba(155, 89, 182, 0.3);
-      color: #9b59b6;
-    }
-
-    .card-img-box {
-      height: 190px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      margin: 8px 0;
-    }
-
-    .card-bottle-img {
-      max-height: 100%;
-      max-width: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
-      mix-blend-mode: screen;
-      transition: transform var(--transition-slow);
-    }
-
-    .card-container:hover .card-bottle-img {
-      transform: scale(1.05) translateY(-5px);
-    }
-
-    .three-canvas-wrapper {
-      width: 100%;
-      height: 100%;
-      will-change: transform;
-    }
-
-    .three-canvas-wrapper.card-bottle-img {
-      mix-blend-mode: normal;
-      filter: none;
-    }
-
-    .card-container:hover .svg-silhouette {
-      opacity: 0.38 !important;
-    }
-
-    .card-meta {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-text-muted);
-      margin-bottom: 6px;
-    }
-
-    /* Long Title Card Guard: Clamps long titles to exactly 2 lines and reserves space */
-    .card-title {
-      font-family: var(--font-heading);
-      font-size: 1.35rem;
-      font-weight: 400;
-      letter-spacing: 0.01em;
-      line-height: 1.35;
-      margin-bottom: 12px;
-      color: var(--color-text-primary);
-
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      height: 2.7em;
-      /* 2 lines * 1.35 line-height */
-    }
-
-    /* Aligning Price and Tag on the price text base (baseline alignment) */
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      border-top: 1px solid rgba(59, 29, 10, 0.25);
-      padding-top: 12px;
-      width: 100%;
-    }
-
-    .prices {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-    }
-
-    .price-current {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--color-refraction-gold);
-    }
-
-    .price-old {
-      font-size: 0.9rem;
-      color: var(--color-text-muted);
-      text-decoration: line-through;
-      font-weight: 400;
-    }
-
-    .best-price-badge {
-      font-size: 0.68rem;
-      background: rgba(42, 95, 62, 0.12);
-      border: 1px solid rgba(42, 95, 62, 0.4);
-      color: var(--color-refraction-gold);
-      padding: 3px 6px;
-      border-radius: 3px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      align-self: baseline;
-    }
-
-    /* Card Back Styles */
-    .card-back-title {
-      font-family: var(--font-heading);
-      font-size: 1.38rem;
-      font-weight: 400;
-      color: var(--color-refraction-gold);
-      border-bottom: 1px solid rgba(230, 126, 34, 0.2);
-      padding-bottom: 6px;
-      margin-bottom: 10px;
-      line-height: 1.25;
-
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      height: 2.5em;
-      /* Match long height bounds */
-    }
-
-    /* Scrollable comparative store list */
-    .store-list-container {
-      width: 100%;
-      text-align: left;
-      margin-bottom: 8px;
-    }
-
-    .store-list-title {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--color-text-muted);
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .store-scroll-area {
-      max-height: 90px;
-      overflow-y: auto;
-      border: 1px solid rgba(59, 29, 10, 0.25);
-      border-radius: 6px;
-      background: rgba(0, 0, 0, 0.25);
-      padding: 6px 12px;
-      margin-bottom: 4px;
-    }
-
-    /* Styled scroll handle for 25+ stores scroll area */
-    .store-scroll-area::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .store-scroll-area::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.15);
-      border-radius: 3px;
-    }
-
-    .store-scroll-area::-webkit-scrollbar-thumb {
-      background: var(--color-liquid-chestnut);
-      border-radius: 3px;
-      transition: background var(--transition-base);
-    }
-
-    .store-scroll-area::-webkit-scrollbar-thumb:hover {
-      background: var(--color-rum-amber);
-    }
-
-    .store-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      font-size: 0.8rem;
-    }
-
-    .store-row:last-child {
-      border-bottom: none;
-    }
-
-    .store-name {
-      color: var(--color-text-muted);
-    }
-
-    .store-price {
-      font-weight: 600;
-    }
-
-    .store-row.best-price .store-name {
-      color: var(--color-text-primary);
-    }
-
-    .store-row.best-price .store-price {
-      color: var(--color-refraction-gold);
-    }
-
-    .store-row.best-price .store-price::after {
-      content: ' (Best)';
-      font-size: 0.65rem;
-      color: var(--color-rum-amber);
-      font-weight: 600;
-      margin-left: 2px;
-    }
-
-    .range-info {
-      font-size: 0.78rem;
-      color: var(--color-text-muted);
-      text-align: left;
-    }
-
-    .range-info-label {
-      text-transform: uppercase;
-      font-size: 0.65rem;
-      letter-spacing: 0.03em;
-      margin-right: 4px;
-    }
-
-    .range-min {
-      color: var(--color-refraction-gold);
-      font-weight: 600;
-    }
-
-    .range-max {
-      font-size: 0.72rem;
-      opacity: 0.75;
-    }
-
-    .card-back-actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-top: 10px;
-      border-top: 1px solid rgba(59, 29, 10, 0.2);
-      padding-top: 10px;
-    }
-
-    .flip-back-link {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-text-muted);
-      text-decoration: none;
-      transition: color var(--transition-base);
-      font-weight: 500;
-    }
-
-    .flip-back-link:hover {
-      color: var(--color-text-primary);
-    }
-
-    /* --- List View Layout --- */
-    .products-list {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0 12px;
-      transition: opacity var(--transition-base);
-    }
-
-    .list-header-row th {
-      padding: 12px 20px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-text-muted);
-      font-weight: 600;
-      text-align: left;
-      border-bottom: 1px solid rgba(59, 29, 10, 0.25);
-    }
-
-    .list-item-row {
-      background: rgba(16, 6, 2, 0.4);
-      border: 1px solid rgba(59, 29, 10, 0.25);
-      border-radius: 8px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      transition: transform var(--transition-base), box-shadow var(--transition-base);
-      cursor: pointer;
-    }
-
-    .list-item-row:hover {
-      transform: translateY(-2px);
-      background: rgba(22, 10, 4, 0.5);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4),
-        0 0 15px rgba(230, 126, 34, 0.08);
-    }
-
-    .list-item-row td {
-      padding: 16px 20px;
-      vertical-align: middle;
-      border-top: 1px solid rgba(59, 29, 10, 0.15);
-      border-bottom: 1px solid rgba(59, 29, 10, 0.15);
-    }
-
-    .list-item-row td:first-child {
-      border-left: 1px solid rgba(59, 29, 10, 0.15);
-      border-top-left-radius: 8px;
-      border-bottom-left-radius: 8px;
-    }
-
-    .list-item-row td:last-child {
-      border-right: 1px solid rgba(59, 29, 10, 0.15);
-      border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px;
-    }
-
-    .list-thumb-box {
-      width: 50px;
-      height: 50px;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255, 255, 255, 0.02);
-    }
-
-    .list-thumb {
-      max-height: 90%;
-      max-width: 90%;
-      object-fit: contain;
-      mix-blend-mode: screen;
-    }
-
-    .list-name-col h4 {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      font-weight: 400;
-      color: var(--color-text-primary);
-    }
-
-    .list-name-col span {
-      font-size: 0.75rem;
-      color: var(--color-text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .list-price-cell {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: nowrap;
-      white-space: nowrap;
-    }
-
-    .list-price-cell .status-badge,
-    .list-price-cell .best-price-badge {
-      font-size: 0.65rem;
-      padding: 2px 6px;
-      border-radius: 3px;
-      flex-shrink: 0;
-      white-space: nowrap;
-    }
-
-    /* Out of Stock visual indicators */
-    .card-container.out-of-stock,
-    .list-item-row.out-of-stock {
-      opacity: 0.65;
-    }
-
-    .out-of-stock-tag {
-      font-size: 0.65rem;
-      background: rgba(231, 76, 60, 0.12);
-      border: 1px solid rgba(231, 76, 60, 0.4);
-      color: #e74c3c;
-      padding: 3px 6px;
-      border-radius: 3px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-left: 8px;
-    }
-
-    /* Empty state display */
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 80px 40px;
-      background: rgba(16, 6, 2, 0.3);
-      border: 1px dashed rgba(59, 29, 10, 0.3);
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-    }
-
-    .empty-state h3 {
-      font-family: var(--font-heading);
-      font-size: 1.8rem;
-      font-weight: 400;
-      margin-bottom: 12px;
-    }
-
-    .empty-state p {
-      color: var(--color-text-muted);
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    /* Modal / Dialog Container */
-    dialog {
-      background: rgba(16, 6, 2, 0.85);
-      border: 1px solid rgba(230, 126, 34, 0.35);
-      border-radius: 16px;
-      padding: 0;
-      max-width: 560px;
-      width: 90%;
-      margin: auto;
-      color: var(--color-text-primary);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-      outline: none;
-      opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    dialog[open] {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    dialog::backdrop {
-      background: rgba(10, 5, 2, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      transition: background 0.4s ease;
-    }
-
-    .dialog-content {
-      position: relative;
-      padding: 50px;
-    }
-
-    .dialog-close {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      background: transparent;
-      border: none;
-      color: var(--color-text-muted);
-      font-size: 1.8rem;
-      cursor: pointer;
-      line-height: 1;
-      transition: color var(--transition-base);
-    }
-
-    .dialog-close:hover {
-      color: var(--color-text-primary);
-    }
-
-    .dialog-body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .dialog-title {
-      font-family: var(--font-heading);
-      font-size: 2.2rem;
-      font-weight: 400;
-      margin: 16px 0 8px;
-    }
-
-    .dialog-subtitle {
-      font-size: 0.95rem;
-      color: var(--color-refraction-gold);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 24px;
-    }
-
-    .dialog-desc {
-      color: var(--color-text-muted);
-      font-weight: 300;
-      line-height: 1.6;
-      margin-bottom: 32px;
-    }
-
-    .spec-list {
-      width: 100%;
-      border-top: 1px solid rgba(59, 29, 10, 0.25);
-      margin-bottom: 36px;
-    }
-
-    .spec-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(59, 29, 10, 0.15);
-      font-size: 0.9rem;
-    }
-
-    .spec-label {
-      color: var(--color-text-muted);
-      font-weight: 500;
-    }
-
-    .spec-value {
-      color: var(--color-text-primary);
-      font-weight: 600;
-    }
-
-    .dialog-footer {
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .success-badge {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: rgba(230, 126, 34, 0.1);
-      border: 1.5px solid var(--color-rum-amber);
-      color: var(--color-refraction-gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-
-    /* Footer styling */
-    footer {
-      border-top: 1px solid rgba(59, 29, 10, 0.25);
-      padding: 40px 0;
-      background: rgba(10, 5, 2, 0.25);
-    }
-
-    .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-
-    .footer-links a {
-      color: var(--color-text-muted);
-      text-decoration: none;
-      transition: color var(--transition-base);
-    }
-
-    .footer-links a:hover {
-      color: var(--color-text-primary);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 992px) {
-      .control-row-top {
-        grid-template-columns: 1fr;
-      }
-
-      .view-toggles,
-      .sort-wrapper {
-        justify-self: flex-start;
-        width: 100%;
-      }
-
-      .sort-wrapper select {
-        width: 100%;
-      }
-
-      .view-toggles {
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-container {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 16px;
-      }
-
-      .section-container {
-        padding: 40px 20px;
-      }
-
-      .dialog-content {
-        padding: 32px 20px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .blob {
-        animation: none !important;
-      }
-
-      .background-viewport {
-        transition: none !important;
-      }
-
-      .card-inner {
-        transition: none !important;
-      }
-
-      .card-bottle-img {
-        transition: none !important;
-        transform: none !important;
-      }
-    }
-
-    /* View Transitions Custom Styles */
-    :root {
-      view-transition-name: none;
-    }
-
-    ::view-transition {
-      pointer-events: none;
-    }
-
-    ::view-transition-group(card-*),
-    ::view-transition-group(row-*) {
-      animation-duration: 0.4s;
-      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .list-header-row th.sortable {
-      cursor: pointer;
-      user-select: none;
-      transition: color var(--transition-base);
-    }
-
-    .list-header-row th.sortable:hover {
-      color: var(--color-text-primary);
-    }
-
-    .list-header-row th.sortable .sort-indicator {
-      margin-left: 4px;
-      font-size: 0.7rem;
-      display: inline-block;
-      color: var(--color-refraction-gold);
-    }
-
-    /* Pagination Styles */
-    .pagination-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 40px;
-      padding: 16px 24px;
-      background: rgba(16, 6, 2, 0.45);
-      border: 1px solid rgba(59, 29, 10, 0.35);
-      border-radius: 8px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    }
-
-    .pagination-info {
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-    }
-
-    .pagination-controls-buttons {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .pagination-btn {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(59, 29, 10, 0.5);
-      color: var(--color-text-muted);
-      cursor: pointer;
-      width: 36px;
-      height: 36px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all var(--transition-base);
-    }
-
-    .pagination-btn:hover:not(:disabled) {
-      border-color: var(--color-rum-amber);
-      color: var(--color-refraction-gold);
-      background: rgba(230, 126, 34, 0.1);
-    }
-
-    .pagination-btn.active {
-      background: var(--color-liquid-chestnut);
-      border-color: var(--color-rum-amber);
-      color: var(--color-refraction-gold);
-    }
-
-    .pagination-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-
-    .pagination-limit-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-    }
-
-    .pagination-limit-select {
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(59, 29, 10, 0.5);
-      color: var(--color-text-primary);
-      padding: 6px 30px 6px 10px;
-      border-radius: 4px;
-      outline: none;
-      cursor: pointer;
-      transition: all var(--transition-base);
-
-      /* Custom arrow styling to prevent extreme edge positioning */
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23adaba4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 12px;
-    }
-
-    .pagination-limit-select:focus {
-      border-color: var(--color-rum-amber);
-    }
-
-    /* Mobile Navigation menu toggle button */
-    .mobile-menu-btn {
-      display: none;
-      background: transparent;
-      border: none;
-      color: var(--color-text-primary);
-      cursor: pointer;
-      padding: 6px;
-      z-index: 110;
-      transition: color var(--transition-base);
-    }
-
-    .mobile-menu-btn:hover {
-      color: var(--color-rum-amber);
-    }
-
-    /* Out of Stock Toggle CSS styling */
-    .stock-toggle-wrapper {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
-      color: var(--color-text-muted);
-      cursor: pointer;
-      user-select: none;
-      margin-left: auto;
-      transition: color var(--transition-base);
-    }
-
-    .stock-toggle-wrapper:hover {
-      color: var(--color-text-primary);
-    }
-
-    .stock-toggle-wrapper input[type="checkbox"] {
-      accent-color: var(--color-rum-amber);
-      cursor: pointer;
-      width: 15px;
-      height: 15px;
-    }
-
-    /* Pagination Page Jump selector styles */
-    .pagination-page-jump {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-    }
-
-    .pagination-page-select {
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(59, 29, 10, 0.5);
-      color: var(--color-text-primary);
-      padding: 6px 26px 6px 10px;
-      border-radius: 4px;
-      outline: none;
-      cursor: pointer;
-      transition: all var(--transition-base);
-
-      /* Custom arrow styling */
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23adaba4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      background-size: 10px;
-    }
-
-    .pagination-page-select:focus {
-      border-color: var(--color-rum-amber);
-    }
-
-    /* Mobile media query overrides */
-    @media (max-width: 992px) {
-      .view-toggles {
-        width: 100%;
-        display: flex;
-      }
-
-      .view-toggles .view-btn {
-        flex: 1;
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 768px) {
-
-      /* Mobile Menu hotdog slide-out drawer */
-      .mobile-menu-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      #nav-wrapper {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        max-width: 280px;
-        height: 100vh;
-        background: rgba(16, 6, 2, 0.95);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        border-left: 1px solid rgba(59, 29, 10, 0.4);
-        padding: 80px 24px 24px;
-        z-index: 105;
-        transition: right var(--transition-slow);
-        display: flex;
-        flex-direction: column;
-      }
-
-      #nav-wrapper.open {
-        right: 0;
-      }
-
-      .nav-menu {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-        width: 100%;
-      }
-
-      .nav-link {
-        font-size: 1.1rem;
-        width: 100%;
-        display: block;
-      }
-
-      /* Hero section - reduced padding */
-      .hero {
-        padding: 24px 0 12px;
-      }
-
-      .hero-content h1 {
-        font-size: 2.2rem;
-        margin-bottom: 8px;
-      }
-
-      .hero-content p.lead {
-        font-size: 0.95rem;
-        margin-bottom: 16px;
-      }
-
-      /* Aggregator controls - reduced spacing */
-      .aggregator-section {
-        padding: 16px 0 40px;
-      }
-
-      .control-dashboard {
-        padding: 16px;
-        margin-bottom: 24px;
-        gap: 16px;
-      }
-
-      .control-row-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
-
-      .stock-toggle-wrapper {
-        margin-left: 0;
-        width: 100%;
-        padding-top: 4px;
-      }
-
-      /* List view table - stacked layout to prevent horizontal scroll */
-      .products-list,
-      .products-list thead,
-      .products-list tbody,
-      .products-list th,
-      .products-list td,
-      .products-list tr {
-        display: block;
-        width: 100% !important;
-      }
-
-      .products-list thead {
-        display: none;
-      }
-
-      .products-list tbody {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .list-item-row {
-        margin-bottom: 0;
-        padding: 16px;
-        background: rgba(16, 6, 2, 0.45);
-        border: 1px solid rgba(59, 29, 10, 0.35);
-        border-radius: 12px;
-        box-sizing: border-box;
-        display: grid !important;
-        grid-template-columns: auto 1fr;
-        gap: 12px;
-      }
-
-      .list-item-row td {
-        padding: 0 !important;
-        border: none !important;
-        background: transparent !important;
-        height: auto !important;
-      }
-
-      .list-item-row td:nth-child(1) {
-        grid-column: 1;
-        grid-row: 1 / span 2;
-        align-self: start;
-      }
-
-      .list-item-row td:nth-child(2) {
-        grid-column: 2;
-        grid-row: 1;
-      }
-
-      .list-item-row td:nth-child(3) {
-        grid-column: 2;
-        grid-row: 2;
-        font-size: 0.8rem;
-      }
-
-      .list-item-row td:nth-child(4) {
-        grid-column: 1 / span 2;
-        grid-row: 3;
-        border-top: 1px solid rgba(59, 29, 10, 0.2) !important;
-        padding-top: 10px !important;
-        margin-top: 4px;
-      }
-
-      .list-item-row td:nth-child(5) {
-        grid-column: 1 / span 2;
-        grid-row: 4;
-        padding-top: 8px !important;
-      }
-
-      .list-price-cell {
-        justify-content: flex-start;
-      }
-
-      /* Pagination responsive styling */
-      .pagination-container {
-        flex-direction: column;
-        gap: 16px;
-        padding: 16px;
-        align-items: center;
-        text-align: center;
-      }
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--color-cask-shadow); color: var(--color-text-primary); font-family: var(--font-body); overflow-x: hidden; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* Structural layout — prevents reflow when index.css applies */
+    .app-wrapper { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
+    header { width: 100%; position: sticky; top: 0; z-index: 100; background: rgba(16, 6, 2, 0.4); border-bottom: 1px solid rgba(59, 29, 10, 0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+    .nav-container { max-width: 1200px; margin: 0 auto; padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; }
+    main { flex: 1; display: flex; flex-direction: column; }
+    .section-container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 40px; }
+
+    /* Grid skeleton layout */
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; transition: opacity var(--transition-base); min-height: 930px; }
+    .card-container { perspective: 1200px; height: 450px; cursor: pointer; }
+    .card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .card-front { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 16px; background: rgba(16, 6, 2, 0.45); border: 1px solid rgba(59, 29, 10, 0.3); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05); }
+    .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
+    .card-img-box { height: 190px; display: flex; align-items: center; justify-content: center; position: relative; margin: 8px 0; }
+    .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+
+    /* List skeleton layout */
+    .products-list { width: 100%; border-collapse: separate; border-spacing: 0 12px; margin-top: 20px; }
+    .list-item-row { background: rgba(16, 6, 2, 0.45); border: 1px solid rgba(59, 29, 10, 0.3); border-radius: 12px; }
+    .list-thumb-box { width: 50px; height: 50px; background: rgba(0, 0, 0, 0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.02); }
+
+    /* Pagination skeleton layout */
+    .pagination-container { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; padding: 16px 24px; background: rgba(16, 6, 2, 0.45); border: 1px solid rgba(59, 29, 10, 0.35); border-radius: 8px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
+    .pagination-controls-buttons { display: flex; gap: 8px; align-items: center; }
+    .pagination-btn { background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(59, 29, 10, 0.5); color: var(--color-text-muted); cursor: pointer; width: 36px; height: 36px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 500; transition: all var(--transition-base); }
+
+    /* URL Sync Display overrides before DOMContentLoaded */
+    html.init-view-list #grid-view-container { display: none !important; }
+    html.init-view-list #list-view-container { display: table !important; }
+    html.init-view-grid #grid-view-container { display: grid !important; }
+    html.init-view-grid #list-view-container { display: none !important; }
+    html.init-limit-3 #grid-view-container .skeleton-card:nth-child(n+4) { display: none !important; }
+    html.init-limit-3 #list-view-body .skeleton-row:nth-child(n+4) { display: none !important; }
+
+    /* Skeleton Loading System */
+    .skeleton-card { pointer-events: none; }
+    .skeleton-glow { background: linear-gradient(90deg, rgba(59, 29, 10, 0.15) 25%, rgba(230, 126, 34, 0.25) 37%, rgba(59, 29, 10, 0.15) 63%); background-size: 400% 100%; animation: skeleton-shimmer 1.4s ease infinite; border-radius: 4px; }
+    @keyframes skeleton-shimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .skeleton-badge { width: 75px; height: 20px; }
+    .skeleton-star { width: 24px; height: 24px; border-radius: 50%; }
+    .skeleton-image { width: 80px; height: 170px; border-radius: 8px; }
+    .skeleton-meta { width: 150px; height: 14px; margin-bottom: 8px; }
+    .skeleton-title { width: 85%; height: 22px; margin-bottom: 12px; }
+    .skeleton-price { width: 100px; height: 24px; }
+    .skeleton-list-thumb { width: 36px; height: 36px; border-radius: 4px; }
+    .skeleton-list-title { width: 180px; height: 18px; margin-bottom: 6px; }
+    .skeleton-list-subtitle { width: 80px; height: 12px; }
+    .skeleton-list-meta { width: 140px; height: 14px; }
+    .skeleton-list-price-cell { display: flex; gap: 8px; align-items: center; }
+    .skeleton-list-price { width: 70px; height: 18px; }
+    .skeleton-list-badge { width: 80px; height: 16px; border-radius: 4px; }
+    .skeleton-list-star { width: 20px; height: 20px; border-radius: 50%; }
+    .skeleton-list-btn { width: 60px; height: 28px; border-radius: 4px; }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="app.js" defer></script>
+  <script>
+    // Prevent layout shift (CLS) for URL-based states before initial paint
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const view = params.get('view') || 'grid';
+      const limit = params.get('limit') || '6';
+      const docEl = document.documentElement;
+      docEl.classList.add('init-view-' + view);
+      docEl.classList.add('init-limit-' + limit);
+    })();
+  </script>
 </head>
 
 <body>
@@ -1782,7 +221,127 @@
 
           <!-- Product Grid/List Containers -->
           <div id="grid-view-container" class="products-grid">
-            <!-- JS inserts cards here -->
+            <!-- 6 Premium Skeleton Cards to prevent CLS -->
+            <div class="card-container skeleton-card">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-header-row">
+                    <div class="skeleton-badge skeleton-glow"></div>
+                    <div class="skeleton-star skeleton-glow"></div>
+                  </div>
+                  <div class="card-img-box">
+                    <div class="skeleton-image skeleton-glow"></div>
+                  </div>
+                  <div>
+                    <div class="skeleton-meta skeleton-glow"></div>
+                    <div class="skeleton-title skeleton-glow"></div>
+                    <div class="price-row">
+                      <div class="skeleton-price skeleton-glow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-container skeleton-card">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-header-row">
+                    <div class="skeleton-badge skeleton-glow"></div>
+                    <div class="skeleton-star skeleton-glow"></div>
+                  </div>
+                  <div class="card-img-box">
+                    <div class="skeleton-image skeleton-glow"></div>
+                  </div>
+                  <div>
+                    <div class="skeleton-meta skeleton-glow"></div>
+                    <div class="skeleton-title skeleton-glow"></div>
+                    <div class="price-row">
+                      <div class="skeleton-price skeleton-glow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-container skeleton-card">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-header-row">
+                    <div class="skeleton-badge skeleton-glow"></div>
+                    <div class="skeleton-star skeleton-glow"></div>
+                  </div>
+                  <div class="card-img-box">
+                    <div class="skeleton-image skeleton-glow"></div>
+                  </div>
+                  <div>
+                    <div class="skeleton-meta skeleton-glow"></div>
+                    <div class="skeleton-title skeleton-glow"></div>
+                    <div class="price-row">
+                      <div class="skeleton-price skeleton-glow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-container skeleton-card">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-header-row">
+                    <div class="skeleton-badge skeleton-glow"></div>
+                    <div class="skeleton-star skeleton-glow"></div>
+                  </div>
+                  <div class="card-img-box">
+                    <div class="skeleton-image skeleton-glow"></div>
+                  </div>
+                  <div>
+                    <div class="skeleton-meta skeleton-glow"></div>
+                    <div class="skeleton-title skeleton-glow"></div>
+                    <div class="price-row">
+                      <div class="skeleton-price skeleton-glow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-container skeleton-card">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-header-row">
+                    <div class="skeleton-badge skeleton-glow"></div>
+                    <div class="skeleton-star skeleton-glow"></div>
+                  </div>
+                  <div class="card-img-box">
+                    <div class="skeleton-image skeleton-glow"></div>
+                  </div>
+                  <div>
+                    <div class="skeleton-meta skeleton-glow"></div>
+                    <div class="skeleton-title skeleton-glow"></div>
+                    <div class="price-row">
+                      <div class="skeleton-price skeleton-glow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-container skeleton-card">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-header-row">
+                    <div class="skeleton-badge skeleton-glow"></div>
+                    <div class="skeleton-star skeleton-glow"></div>
+                  </div>
+                  <div class="card-img-box">
+                    <div class="skeleton-image skeleton-glow"></div>
+                  </div>
+                  <div>
+                    <div class="skeleton-meta skeleton-glow"></div>
+                    <div class="skeleton-title skeleton-glow"></div>
+                    <div class="price-row">
+                      <div class="skeleton-price skeleton-glow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <table id="list-view-container" class="products-list" style="display: none;">
@@ -1795,19 +354,200 @@
                 <th class="sortable" onclick="handleHeaderSort('price')">Pricing <span id="sort-indicator-price"
                     class="sort-indicator"></span></th>
                 <th class="sortable" style="text-align: right; width: 140px;" onclick="handleHeaderSort('favorite')"
-                  title="Sort by Favorites"><span
+                   title="Sort by Favorites"><span
                     style="display: inline-flex; align-items: center; gap: 4px; justify-content: flex-end; width: 100%;">★
                     <span id="sort-indicator-favorite" class="sort-indicator"></span></span></th>
               </tr>
             </thead>
             <tbody id="list-view-body">
-              <!-- JS inserts rows here -->
+              <!-- 6 Premium Skeleton Rows to prevent CLS -->
+              <tr class="list-item-row skeleton-row">
+                <td>
+                  <div class="list-thumb-box">
+                    <div class="skeleton-list-thumb skeleton-glow"></div>
+                  </div>
+                </td>
+                <td class="list-name-col">
+                  <div class="skeleton-list-title skeleton-glow"></div>
+                  <div class="skeleton-list-subtitle skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-meta skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-price-cell">
+                    <div class="skeleton-list-price skeleton-glow"></div>
+                    <div class="skeleton-list-badge skeleton-glow"></div>
+                  </div>
+                </td>
+                <td style="text-align: right;">
+                  <div style="display:flex; justify-content: flex-end; align-items: center; gap:12px;">
+                    <div class="skeleton-list-star skeleton-glow"></div>
+                    <div class="skeleton-list-btn skeleton-glow"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="list-item-row skeleton-row">
+                <td>
+                  <div class="list-thumb-box">
+                    <div class="skeleton-list-thumb skeleton-glow"></div>
+                  </div>
+                </td>
+                <td class="list-name-col">
+                  <div class="skeleton-list-title skeleton-glow"></div>
+                  <div class="skeleton-list-subtitle skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-meta skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-price-cell">
+                    <div class="skeleton-list-price skeleton-glow"></div>
+                    <div class="skeleton-list-badge skeleton-glow"></div>
+                  </div>
+                </td>
+                <td style="text-align: right;">
+                  <div style="display:flex; justify-content: flex-end; align-items: center; gap:12px;">
+                    <div class="skeleton-list-star skeleton-glow"></div>
+                    <div class="skeleton-list-btn skeleton-glow"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="list-item-row skeleton-row">
+                <td>
+                  <div class="list-thumb-box">
+                    <div class="skeleton-list-thumb skeleton-glow"></div>
+                  </div>
+                </td>
+                <td class="list-name-col">
+                  <div class="skeleton-list-title skeleton-glow"></div>
+                  <div class="skeleton-list-subtitle skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-meta skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-price-cell">
+                    <div class="skeleton-list-price skeleton-glow"></div>
+                    <div class="skeleton-list-badge skeleton-glow"></div>
+                  </div>
+                </td>
+                <td style="text-align: right;">
+                  <div style="display:flex; justify-content: flex-end; align-items: center; gap:12px;">
+                    <div class="skeleton-list-star skeleton-glow"></div>
+                    <div class="skeleton-list-btn skeleton-glow"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="list-item-row skeleton-row">
+                <td>
+                  <div class="list-thumb-box">
+                    <div class="skeleton-list-thumb skeleton-glow"></div>
+                  </div>
+                </td>
+                <td class="list-name-col">
+                  <div class="skeleton-list-title skeleton-glow"></div>
+                  <div class="skeleton-list-subtitle skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-meta skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-price-cell">
+                    <div class="skeleton-list-price skeleton-glow"></div>
+                    <div class="skeleton-list-badge skeleton-glow"></div>
+                  </div>
+                </td>
+                <td style="text-align: right;">
+                  <div style="display:flex; justify-content: flex-end; align-items: center; gap:12px;">
+                    <div class="skeleton-list-star skeleton-glow"></div>
+                    <div class="skeleton-list-btn skeleton-glow"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="list-item-row skeleton-row">
+                <td>
+                  <div class="list-thumb-box">
+                    <div class="skeleton-list-thumb skeleton-glow"></div>
+                  </div>
+                </td>
+                <td class="list-name-col">
+                  <div class="skeleton-list-title skeleton-glow"></div>
+                  <div class="skeleton-list-subtitle skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-meta skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-price-cell">
+                    <div class="skeleton-list-price skeleton-glow"></div>
+                    <div class="skeleton-list-badge skeleton-glow"></div>
+                  </div>
+                </td>
+                <td style="text-align: right;">
+                  <div style="display:flex; justify-content: flex-end; align-items: center; gap:12px;">
+                    <div class="skeleton-list-star skeleton-glow"></div>
+                    <div class="skeleton-list-btn skeleton-glow"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="list-item-row skeleton-row">
+                <td>
+                  <div class="list-thumb-box">
+                    <div class="skeleton-list-thumb skeleton-glow"></div>
+                  </div>
+                </td>
+                <td class="list-name-col">
+                  <div class="skeleton-list-title skeleton-glow"></div>
+                  <div class="skeleton-list-subtitle skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-meta skeleton-glow"></div>
+                </td>
+                <td>
+                  <div class="skeleton-list-price-cell">
+                    <div class="skeleton-list-price skeleton-glow"></div>
+                    <div class="skeleton-list-badge skeleton-glow"></div>
+                  </div>
+                </td>
+                <td style="text-align: right;">
+                  <div style="display:flex; justify-content: flex-end; align-items: center; gap:12px;">
+                    <div class="skeleton-list-star skeleton-glow"></div>
+                    <div class="skeleton-list-btn skeleton-glow"></div>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
 
           <!-- Pagination Panel -->
           <div class="pagination-container" id="pagination-controls">
-            <!-- JS inserts pagination here -->
+            <!-- Pre-rendered default Page 1 controls to prevent CLS -->
+            <div class="pagination-info">Showing 1–6 of 25 items</div>
+            <div class="pagination-controls-buttons">
+              <button class="pagination-btn" disabled aria-label="Previous Page">&lt;</button>
+              <div class="pagination-page-jump">
+                <span>Page</span>
+                <select class="pagination-page-select" aria-label="Select Page">
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                <span>of 5</span>
+              </div>
+              <button class="pagination-btn" aria-label="Next Page">&gt;</button>
+            </div>
+            <div class="pagination-limit-wrapper">
+              <label for="limit-select">Items per page</label>
+              <select id="limit-select" class="pagination-limit-select">
+                <option value="3">3</option>
+                <option value="6" selected>6</option>
+                <option value="12">12</option>
+                <option value="all">All</option>
+              </select>
+            </div>
           </div>
 
         </div>
@@ -1837,2153 +577,7 @@
   </dialog>
 
   <!-- Interaction & Logic -->
-  <script>
-    // Scraped Dataset aligned with Australian store prices
-    // Handles missing age/origin data, includes cents and 12-month histories (with nulls)
-    // Rum 1 includes 26 store listings to test scroll handle scrolling
-    // Rum 1 and Rum 5 have extremely long names to test layout multi-line safety guards
-    const rumData = [
-      {
-        id: 1,
-        name: "Corteza Mahogany Cask Strength Single Barrel Charred Oak Reserve", // Long Name Example!
-        origin: "Barbados",
-        age: 21,
-        size: 700,
-        alc: 43,
-        price: 179.99,
-        historicalLowest: 179.99,
-        status: "New",
-        image: "premium_rum_bottle.png",
-        inStock: true,
-        tastingNotes: "Charred oak, caramelized fig, dark molasses, toasted cacao.",
-        heritage: "Aged for 21 years in French white oak. Bottled at source at 43% ABV.",
-        // 26 Local stores comparison testing scrolling limits
-        stores: [
-          { name: "Dan Murphy's", price: 179.99 },
-          { name: "Costco Liquors", price: 178.50 }, // Current Best
-          { name: "BWS Retailer", price: 182.00 },
-          { name: "Vintage Cellars", price: 189.95 },
-          { name: "Nick's Wine Merchant", price: 184.99 },
-          { name: "Liquorland Outlet", price: 185.00 },
-          { name: "First Choice Liquor", price: 183.50 },
-          { name: "Boozebud Online", price: 181.99 },
-          { name: "Kogan Plaza Cellars", price: 188.00 },
-          { name: "Myer Wine Club", price: 189.00 },
-          { name: "Oak & Barrel Sydney", price: 182.50 },
-          { name: "Cellarbrations HQ", price: 184.00 },
-          { name: "The Bottle-O Local", price: 186.00 },
-          { name: "SipnSave Cellars", price: 185.50 },
-          { name: "Thirsty Camel Pubs", price: 187.00 },
-          { name: "Local Liquor Store", price: 184.50 },
-          { name: "Porters Mitchelton", price: 189.99 },
-          { name: "Bayside Wine & Spirit", price: 192.00 },
-          { name: "Shorty's Commercial", price: 184.00 },
-          { name: "Jimmy Brings Delivery", price: 189.99 },
-          { name: "Weno Cellar Shop", price: 185.00 },
-          { name: "Kent Street Cellars", price: 187.50 },
-          { name: "Amato's Liquors Leichhardt", price: 183.00 },
-          { name: "Prince Wine Store", price: 189.00 },
-          { name: "Different Drop Store", price: 191.00 },
-          { name: "Seca Vault Online", price: 184.00 }
-        ],
-        // 12-month historical data points holding high/low for each month (simulating missing periods)
-        history: [
-          { month: "Jan", low: 178.50, high: 195.00 },
-          { month: "Feb", low: 180.00, high: 195.00 },
-          { month: "Mar", low: 182.00, high: 192.00 },
-          { month: "Apr", low: null, high: null }, // Unavailable data
-          { month: "May", low: 179.99, high: 189.95 },
-          { month: "Jun", low: 178.50, high: 189.95 },
-          { month: "Jul", low: 178.50, high: 184.99 },
-          { month: "Aug", low: 178.50, high: 182.50 },
-          { month: "Sep", low: 178.50, high: 182.00 },
-          { month: "Oct", low: 178.50, high: 184.00 },
-          { month: "Nov", low: 178.50, high: 179.99 },
-          { month: "Dec", low: 178.50, high: 179.99 }
-        ]
-      },
-      {
-        id: 2,
-        name: "Aurum Aged Reserve",
-        origin: "Barbados",
-        age: 12,
-        size: 700,
-        alc: 40,
-        price: 84.99,
-        historicalLowest: 95.00, // On Sale (Current price is lower than historical low)
-        status: "On Sale",
-        image: "rum_bottle_gold.png",
-        inStock: true,
-        tastingNotes: "Vanilla custard, honey glow, toasted almond, spice finish.",
-        heritage: "Distilled in traditional copper pot stills and aged in former bourbon casks.",
-        stores: [
-          { name: "Dan Murphy's", price: 84.99 },
-          { name: "BWS", price: 89.99 },
-          { name: "First Class Cellars", price: 95.00 }
-        ],
-        history: [
-          { month: "Jan", low: 95.00, high: 105.00 },
-          { month: "Feb", low: 95.00, high: 105.00 },
-          { month: "Mar", low: 92.50, high: 99.99 },
-          { month: "Apr", low: 92.50, high: 98.00 },
-          { month: "May", low: 89.99, high: 98.00 },
-          { month: "Jun", low: 89.99, high: 95.00 },
-          { month: "Jul", low: null, high: null }, // Missing
-          { month: "Aug", low: 89.99, high: 95.00 },
-          { month: "Sep", low: 84.99, high: 95.00 },
-          { month: "Oct", low: 84.99, high: 89.99 },
-          { month: "Nov", low: 84.99, high: 89.99 },
-          { month: "Dec", low: 84.99, high: 89.99 }
-        ]
-      },
-      {
-        id: 3,
-        name: "Blackbeard's Spiced Cask",
-        origin: null, // Missing Origin!
-        age: 15,
-        size: 700,
-        alc: 37.5,
-        price: 64.95,
-        historicalLowest: 64.95,
-        status: "New",
-        image: "rum_bottle_dark.png",
-        inStock: true,
-        tastingNotes: "Rich cinnamon, clove, ginger root, heavy charred wood smoke.",
-        heritage: "A high-ester Jamaican rum infused with organic mountain spices.",
-        stores: [
-          { name: "First Choice Liquor", price: 64.95 },
-          { name: "Liquorland", price: 69.99 },
-          { name: "Vintage Cellars", price: 72.50 }
-        ],
-        history: [
-          { month: "Jan", low: 69.99, high: 79.99 },
-          { month: "Feb", low: 69.99, high: 79.99 },
-          { month: "Mar", low: 67.50, high: 75.00 },
-          { month: "Apr", low: 67.50, high: 72.50 },
-          { month: "May", low: 64.95, high: 72.50 },
-          { month: "Jun", low: 64.95, high: 69.99 },
-          { month: "Jul", low: 64.95, high: 69.99 },
-          { month: "Aug", low: 64.95, high: 69.99 },
-          { month: "Sep", low: 64.95, high: 69.99 },
-          { month: "Oct", low: 64.95, high: 64.95 },
-          { month: "Nov", low: 64.95, high: 64.95 },
-          { month: "Dec", low: 64.95, high: 64.95 }
-        ]
-      },
-      {
-        id: 4,
-        name: "Aurora Ultra White",
-        origin: "Martinique",
-        age: null, // Missing Age!
-        size: 700,
-        alc: 40,
-        price: 44.99,
-        historicalLowest: 44.99,
-        status: "Back in Stock",
-        image: "rum_bottle_clear.png",
-        inStock: true,
-        tastingNotes: "Fresh cane juice, citrus zest, floral jasmine, crisp sea salt.",
-        heritage: "Rhum Agricole distilled from fresh sugar cane juice at sea level.",
-        stores: [
-          { name: "Dan Murphy's", price: 44.99 },
-          { name: "BWS", price: 47.99 },
-          { name: "Liquorland", price: 49.95 }
-        ],
-        history: [
-          { month: "Jan", low: 46.50, high: 52.00 },
-          { month: "Feb", low: 46.50, high: 52.00 },
-          { month: "Mar", low: 44.99, high: 49.99 },
-          { month: "Apr", low: 44.99, high: 49.95 },
-          { month: "May", low: 44.99, high: 49.95 },
-          { month: "Jun", low: null, high: null }, // Missing
-          { month: "Jul", low: null, high: null }, // Missing
-          { month: "Aug", low: 44.99, high: 47.99 },
-          { month: "Sep", low: 44.99, high: 47.99 },
-          { month: "Oct", low: 44.99, high: 47.99 },
-          { month: "Nov", low: 44.99, high: 44.99 },
-          { month: "Dec", low: 44.99, high: 44.99 }
-        ]
-      },
-      {
-        id: 5,
-        name: "Corteza Cask Strength Double Matured Charred Cask Reserve", // Long Name Example 2!
-        origin: null, // Missing Origin!
-        age: null, // Missing Age!
-        size: 700,
-        alc: 58,
-        price: 259.99,
-        historicalLowest: 239.99,
-        status: "Standard",
-        image: "premium_rum_bottle.png",
-        isAnimated: true,
-        inStock: false,
-        lastSeenStock: "14 May 2026",
-        tastingNotes: "Toasted oak, tobacco leaf, espresso bean, burnt orange.",
-        heritage: "Extremely limited batch from the oldest vaults. Bottled at 58% ABV.",
-        stores: [
-          { name: "Nick's Wine Merchant", price: 259.99 },
-          { name: "Vintage Cellars", price: 275.00 }
-        ],
-        history: [
-          { month: "Jan", low: 239.99, high: 260.00 },
-          { month: "Feb", low: 239.99, high: 260.00 },
-          { month: "Mar", low: 245.00, high: 265.00 },
-          { month: "Apr", low: 245.00, high: 270.00 },
-          { month: "May", low: null, high: null }, // Missing
-          { month: "Jun", low: 250.00, high: 275.00 },
-          { month: "Jul", low: 250.00, high: 275.00 },
-          { month: "Aug", low: 255.00, high: 275.00 },
-          { month: "Sep", low: 259.99, high: 275.00 },
-          { month: "Oct", low: 259.99, high: 275.00 },
-          { month: "Nov", low: 259.99, high: 275.00 },
-          { month: "Dec", low: 259.99, high: 275.00 }
-        ]
-      },
-      {
-        id: 6,
-        name: "Aurum Gold Solera",
-        origin: "Guatemala",
-        age: 18,
-        size: 700,
-        alc: 40,
-        price: 109.99,
-        historicalLowest: 125.00, // On Sale
-        status: "On Sale",
-        image: "rum_bottle_gold.png",
-        inStock: true,
-        tastingNotes: "Toffee, caramelized walnuts, brown sugar, vanilla orchid.",
-        heritage: "Aged using the solera method in high-altitude mountain warehouses.",
-        stores: [
-          { name: "Dan Murphy's", price: 109.99 },
-          { name: "Vintage Cellars", price: 125.00 },
-          { name: "First Choice Liquor", price: 115.00 }
-        ],
-        history: [
-          { month: "Jan", low: 125.00, high: 135.00 },
-          { month: "Feb", low: 125.00, high: 135.00 },
-          { month: "Mar", low: 125.00, high: 130.00 },
-          { month: "Apr", low: 120.00, high: 130.00 },
-          { month: "May", low: 120.00, high: 125.00 },
-          { month: "Jun", low: 115.00, high: 125.00 },
-          { month: "Jul", low: 115.00, high: 125.00 },
-          { month: "Aug", low: null, high: null }, // Missing
-          { month: "Sep", low: null, high: null }, // Missing
-          { month: "Oct", low: 115.00, high: 125.00 },
-          { month: "Nov", low: 109.99, high: 115.00 },
-          { month: "Dec", low: 109.99, high: 115.00 }
-        ]
-      },
-      {
-        id: 7,
-        name: "Blackbeard's Dark Overproof",
-        origin: "Jamaica",
-        age: 8,
-        size: 700,
-        alc: 57,
-        price: 54.99,
-        historicalLowest: 54.99,
-        status: "Back in Stock",
-        image: "rum_bottle_dark.png",
-        inStock: true,
-        tastingNotes: "Black molasses, dark chocolate, smoke, black pepper.",
-        heritage: "A full-bodied, overproof dark rum bottled at 57% ABV.",
-        stores: [
-          { name: "Liquorland", price: 54.99 },
-          { name: "BWS", price: 57.50 },
-          { name: "Dan Murphy's", price: 54.99 }
-        ],
-        history: [
-          { month: "Jan", low: 57.50, high: 62.99 },
-          { month: "Feb", low: 57.50, high: 62.99 },
-          { month: "Mar", low: 56.00, high: 59.99 },
-          { month: "Apr", low: 56.00, high: 59.99 },
-          { month: "May", low: 54.99, high: 58.00 },
-          { month: "Jun", low: 54.99, high: 58.00 },
-          { month: "Jul", low: null, high: null }, // Missing
-          { month: "Aug", low: 54.99, high: 57.50 },
-          { month: "Sep", low: 54.99, high: 57.50 },
-          { month: "Oct", low: 54.99, high: 57.50 },
-          { month: "Nov", low: 54.99, high: 54.99 },
-          { month: "Dec", low: 54.99, high: 54.99 }
-        ]
-      },
-      {
-        id: 8,
-        name: "Aurora Botanica",
-        origin: "Martinique",
-        age: 5,
-        size: 700,
-        alc: 40,
-        price: 58.99,
-        historicalLowest: 58.99,
-        status: "New",
-        image: "rum_bottle_clear.png",
-        isAnimated: true,
-        inStock: true,
-        tastingNotes: "Lemongrass, green apple, vanilla essence, herbal tea.",
-        heritage: "A unique botanical rum infusion capturing the volcanic soils of Martinique.",
-        stores: [
-          { name: "Vintage Cellars", price: 58.99 },
-          { name: "First Choice Liquor", price: 62.99 }
-        ],
-        history: [
-          { month: "Jan", low: 62.99, high: 69.99 },
-          { month: "Feb", low: 62.00, high: 65.00 },
-          { month: "Mar", low: 60.00, high: 65.00 },
-          { month: "Apr", low: 59.99, high: 62.99 },
-          { month: "May", low: 58.99, high: 62.99 },
-          { month: "Jun", low: 58.99, high: 62.99 },
-          { month: "Jul", low: 58.99, high: 60.00 },
-          { month: "Aug", low: 58.99, high: 58.99 },
-          { month: "Sep", low: 58.99, high: 58.99 },
-          { month: "Oct", low: 58.99, high: 58.99 },
-          { month: "Nov", low: 58.99, high: 58.99 },
-          { month: "Dec", low: 58.99, high: 58.99 }
-        ]
-      },
-      {
-        id: 9,
-        name: "Vanguard Spiced Reserve",
-        origin: "Fiji",
-        age: 10,
-        size: 700,
-        alc: 40,
-        price: 79.99,
-        historicalLowest: 79.99,
-        status: "Standard",
-        image: "rum_bottle_gold.png",
-        inStock: true,
-        tastingNotes: "Sweet nutmeg, cream soda, vanilla bean, subtle oak.",
-        heritage: "Column distilled molasses aged in ex-bourbon casks in Fiji.",
-        stores: [
-          { name: "Dan Murphy's", price: 79.99 },
-          { name: "BWS", price: 82.50 },
-          { name: "Vintage Cellars", price: 84.99 }
-        ],
-        history: [
-          { month: "Jan", low: 79.99, high: 89.99 },
-          { month: "Feb", low: 79.99, high: 89.99 },
-          { month: "Mar", low: 79.99, high: 87.50 },
-          { month: "Apr", low: 79.99, high: 85.00 },
-          { month: "May", low: 79.99, high: 84.99 },
-          { month: "Jun", low: 79.99, high: 84.99 },
-          { month: "Jul", low: 79.99, high: 79.99 },
-          { month: "Aug", low: 79.99, high: 79.99 },
-          { month: "Sep", low: 79.99, high: 79.99 },
-          { month: "Oct", low: 79.99, high: 79.99 },
-          { month: "Nov", low: 79.99, high: 79.99 },
-          { month: "Dec", low: 79.99, high: 79.99 }
-        ]
-      },
-      {
-        id: 10,
-        name: "Elixir Rare White",
-        origin: "Cuba",
-        age: 3,
-        size: 750,
-        alc: 37.5,
-        price: 39.99,
-        historicalLowest: 45.00,
-        status: "On Sale",
-        image: "rum_bottle_clear.png",
-        inStock: true,
-        tastingNotes: "Freshly cut sugar cane, light lime zest, coconut water.",
-        heritage: "Classic Cuban white rum, charcoal filtered for ultimate mixability.",
-        stores: [
-          { name: "Dan Murphy's", price: 39.99 },
-          { name: "First Choice Liquor", price: 42.99 },
-          { name: "Liquorland", price: 44.95 }
-        ],
-        history: [
-          { month: "Jan", low: 45.00, high: 49.99 },
-          { month: "Feb", low: 45.00, high: 49.99 },
-          { month: "Mar", low: 45.00, high: 47.50 },
-          { month: "Apr", low: 42.00, high: 47.50 },
-          { month: "May", low: 42.00, high: 45.00 },
-          { month: "Jun", low: 39.99, high: 45.00 },
-          { month: "Jul", low: 39.99, high: 44.95 },
-          { month: "Aug", low: null, high: null },
-          { month: "Sep", low: 39.99, high: 42.99 },
-          { month: "Oct", low: 39.99, high: 42.99 },
-          { month: "Nov", low: 39.99, high: 39.99 },
-          { month: "Dec", low: 39.99, high: 39.99 }
-        ]
-      },
-      {
-        id: 11,
-        name: "Sentinel Dark Overproof",
-        origin: "Trinidad",
-        age: 12,
-        size: 700,
-        alc: 60,
-        price: 119.99,
-        historicalLowest: 119.99,
-        status: "New",
-        image: "rum_bottle_dark.png",
-        inStock: true,
-        tastingNotes: "Thick molasses, burnt caramel, leather, overripe banana.",
-        heritage: "Heavy pot still distillate matured in heavily charred oak barrel.",
-        stores: [
-          { name: "Nick's Wine Merchant", price: 119.99 },
-          { name: "Vintage Cellars", price: 124.95 },
-          { name: "Oak & Barrel Sydney", price: 122.00 }
-        ],
-        history: [
-          { month: "Jan", low: 119.99, high: 129.99 },
-          { month: "Feb", low: 119.99, high: 129.99 },
-          { month: "Mar", low: 119.99, high: 124.95 },
-          { month: "Apr", low: 119.99, high: 124.95 },
-          { month: "May", low: 119.99, high: 122.00 },
-          { month: "Jun", low: 119.99, high: 122.00 },
-          { month: "Jul", low: 119.99, high: 119.99 },
-          { month: "Aug", low: 119.99, high: 119.99 },
-          { month: "Sep", low: 119.99, high: 119.99 },
-          { month: "Oct", low: 119.99, high: 119.99 },
-          { month: "Nov", low: 119.99, high: 119.99 },
-          { month: "Dec", low: 119.99, high: 119.99 }
-        ]
-      },
-      {
-        id: 12,
-        name: "Corteza Single Estate Reserve",
-        origin: "Barbados",
-        age: 15,
-        size: 700,
-        alc: 43,
-        price: 145.00,
-        historicalLowest: 135.00,
-        status: "Standard",
-        image: "premium_rum_bottle.png",
-        isAnimated: true,
-        inStock: false,
-        lastSeenStock: "02 Jun 2026",
-        tastingNotes: "Rich toffee, red apple, dark chocolate, baking spices.",
-        heritage: "Distilled at a historic Barbadian estate from local cane syrup.",
-        stores: [
-          { name: "Vintage Cellars", price: 145.00 },
-          { name: "Oak & Barrel Sydney", price: 148.00 }
-        ],
-        history: [
-          { month: "Jan", low: 135.00, high: 155.00 },
-          { month: "Feb", low: 135.00, high: 155.00 },
-          { month: "Mar", low: 139.99, high: 150.00 },
-          { month: "Apr", low: 139.99, high: 150.00 },
-          { month: "May", low: null, high: null },
-          { month: "Jun", low: 142.50, high: 148.00 },
-          { month: "Jul", low: 142.50, high: 148.00 },
-          { month: "Aug", low: 145.00, high: 148.00 },
-          { month: "Sep", low: 145.00, high: 148.00 },
-          { month: "Oct", low: 145.00, high: 148.00 },
-          { month: "Nov", low: 145.00, high: 145.00 },
-          { month: "Dec", low: 145.00, high: 145.00 }
-        ]
-      },
-      {
-        id: 13,
-        name: "Navigator Navy Strength",
-        origin: "Guyana",
-        age: 8,
-        size: 700,
-        alc: 54.5,
-        price: 89.99,
-        historicalLowest: 89.99,
-        status: "Back in Stock",
-        image: "rum_bottle_dark.png",
-        inStock: true,
-        tastingNotes: "Black plum, molasses, dark espresso, salted licorice.",
-        heritage: "Traditional Demerara wooden pot still blend bottled at navy strength.",
-        stores: [
-          { name: "Dan Murphy's", price: 89.99 },
-          { name: "BWS", price: 94.99 },
-          { name: "Liquorland", price: 92.50 }
-        ],
-        history: [
-          { month: "Jan", low: 92.50, high: 99.99 },
-          { month: "Feb", low: 92.50, high: 99.99 },
-          { month: "Mar", low: 89.99, high: 95.00 },
-          { month: "Apr", low: 89.99, high: 94.99 },
-          { month: "May", low: 89.99, high: 94.99 },
-          { month: "Jun", low: null, high: null },
-          { month: "Jul", low: 89.99, high: 92.50 },
-          { month: "Aug", low: 89.99, high: 92.50 },
-          { month: "Sep", low: 89.99, high: 92.50 },
-          { month: "Oct", low: 89.99, high: 92.50 },
-          { month: "Nov", low: 89.99, high: 89.99 },
-          { month: "Dec", low: 89.99, high: 89.99 }
-        ]
-      },
-      {
-        id: 14,
-        name: "Solstice Agricole Blanc",
-        origin: "Guadeloupe",
-        age: null,
-        size: 700,
-        alc: 50,
-        price: 69.99,
-        historicalLowest: 69.99,
-        status: "New",
-        image: "rum_bottle_clear.png",
-        inStock: true,
-        tastingNotes: "Grassy cane juice, white pepper, yellow pear, ocean spray.",
-        heritage: "Guadeloupe Rhum Agricole bottled directly from the steel tanks.",
-        stores: [
-          { name: "First Choice Liquor", price: 69.99 },
-          { name: "Vintage Cellars", price: 74.99 }
-        ],
-        history: [
-          { month: "Jan", low: 74.99, high: 82.50 },
-          { month: "Feb", low: 74.99, high: 79.99 },
-          { month: "Mar", low: 69.99, high: 79.99 },
-          { month: "Apr", low: 69.99, high: 74.99 },
-          { month: "May", low: 69.99, high: 74.99 },
-          { month: "Jun", low: 69.99, high: 74.99 },
-          { month: "Jul", low: 69.99, high: 74.99 },
-          { month: "Aug", low: 69.99, high: 69.99 },
-          { month: "Sep", low: 69.99, high: 69.99 },
-          { month: "Oct", low: 69.99, high: 69.99 },
-          { month: "Nov", low: 69.99, high: 69.99 },
-          { month: "Dec", low: 69.99, high: 69.99 }
-        ]
-      },
-      {
-        id: 15,
-        name: "Aurum Solera Cask",
-        origin: "Guatemala",
-        age: 23,
-        size: 700,
-        alc: 40,
-        price: 199.99,
-        historicalLowest: 219.99,
-        status: "On Sale",
-        image: "rum_bottle_gold.png",
-        inStock: true,
-        tastingNotes: "Butterscotch, roasted hazelnut, tobacco leaf, dark honey.",
-        heritage: "Premium Guatemalan solera aged high in the clouds.",
-        stores: [
-          { name: "Dan Murphy's", price: 199.99 },
-          { name: "Nick's Wine Merchant", price: 215.00 },
-          { name: "First Class Cellars", price: 219.99 }
-        ],
-        history: [
-          { month: "Jan", low: 219.99, high: 235.00 },
-          { month: "Feb", low: 219.99, high: 235.00 },
-          { month: "Mar", low: 215.00, high: 229.99 },
-          { month: "Apr", low: 215.00, high: 225.00 },
-          { month: "May", low: 209.99, high: 225.00 },
-          { month: "Jun", low: 209.99, high: 219.99 },
-          { month: "Jul", low: null, high: null },
-          { month: "Aug", low: 205.00, high: 219.99 },
-          { month: "Sep", low: 199.99, high: 215.00 },
-          { month: "Oct", low: 199.99, high: 215.00 },
-          { month: "Nov", low: 199.99, high: 199.99 },
-          { month: "Dec", low: 199.99, high: 199.99 }
-        ]
-      },
-      {
-        id: 16,
-        name: "Brix Distillery Select Craft Rum",
-        origin: "Australia",
-        age: null,
-        size: 700,
-        alc: 40,
-        price: 95.00,
-        historicalLowest: 95.00,
-        status: "Standard",
-        image: "rum_bottle_gold.png",
-        isAnimated: true,
-        inStock: true,
-        tastingNotes: "Toasted marshmallow, native honey, macadamia, light spice.",
-        heritage: "Handcrafted in small batches at the Brix Sydney distillery.",
-        stores: [
-          { name: "Brix Distillery Store", price: 95.00 }
-        ],
-        history: [
-          { month: "Jan", low: 95.00, high: 95.00 },
-          { month: "Feb", low: 95.00, high: 95.00 },
-          { month: "Mar", low: 95.00, high: 95.00 },
-          { month: "Apr", low: 95.00, high: 95.00 },
-          { month: "May", low: 95.00, high: 95.00 },
-          { month: "Jun", low: 95.00, high: 95.00 },
-          { month: "Jul", low: 95.00, high: 95.00 },
-          { month: "Aug", low: 95.00, high: 95.00 },
-          { month: "Sep", low: 95.00, high: 95.00 },
-          { month: "Oct", low: 95.00, high: 95.00 },
-          { month: "Nov", low: 95.00, high: 95.00 },
-          { month: "Dec", low: 95.00, high: 95.00 }
-        ]
-      },
-      {
-        id: 17,
-        name: "Corteza Imperial XO",
-        origin: "Barbados",
-        age: 25,
-        size: 700,
-        alc: 42,
-        price: 329.99,
-        historicalLowest: 329.99,
-        status: "New",
-        image: "premium_rum_bottle.png",
-        inStock: true,
-        tastingNotes: "Sandalwood, dried apricot, sweet pipe tobacco, rancio.",
-        heritage: "Extremely rare reserve cask matured in old cognac vats.",
-        stores: [
-          { name: "Dan Murphy's", price: 329.99 },
-          { name: "Nick's Wine Merchant", price: 335.00 },
-          { name: "Prince Wine Store", price: 340.00 }
-        ],
-        history: [
-          { month: "Jan", low: 329.99, high: 350.00 },
-          { month: "Feb", low: 329.99, high: 350.00 },
-          { month: "Mar", low: 329.99, high: 345.00 },
-          { month: "Apr", low: 329.99, high: 345.00 },
-          { month: "May", low: 329.99, high: 340.00 },
-          { month: "Jun", low: 329.99, high: 340.00 },
-          { month: "Jul", low: 329.99, high: 335.00 },
-          { month: "Aug", low: 329.99, high: 335.00 },
-          { month: "Sep", low: 329.99, high: 329.99 },
-          { month: "Oct", low: 329.99, high: 329.99 },
-          { month: "Nov", low: 329.99, high: 329.99 },
-          { month: "Dec", low: 329.99, high: 329.99 }
-        ]
-      },
-      {
-        id: 18,
-        name: "Monarch Double Wood",
-        origin: "Mauritius",
-        age: 10,
-        size: 700,
-        alc: 45,
-        price: 95.00,
-        historicalLowest: 95.00,
-        status: "Standard",
-        image: "rum_bottle_gold.png",
-        inStock: true,
-        tastingNotes: "Roasted pineapple, coconut husk, toasted oak, mild cinnamon.",
-        heritage: "Agricole style rum aged first in oak then in sherry casks.",
-        stores: [
-          { name: "Vintage Cellars", price: 95.00 },
-          { name: "First Choice Liquor", price: 97.99 }
-        ],
-        history: [
-          { month: "Jan", low: 95.00, high: 105.00 },
-          { month: "Feb", low: 95.00, high: 102.50 },
-          { month: "Mar", low: 95.00, high: 99.99 },
-          { month: "Apr", low: 95.00, high: 99.99 },
-          { month: "May", low: 95.00, high: 97.99 },
-          { month: "Jun", low: 95.00, high: 97.99 },
-          { month: "Jul", low: 95.00, high: 95.00 },
-          { month: "Aug", low: 95.00, high: 95.00 },
-          { month: "Sep", low: 95.00, high: 95.00 },
-          { month: "Oct", low: 95.00, high: 95.00 },
-          { month: "Nov", low: 95.00, high: 95.00 },
-          { month: "Dec", low: 95.00, high: 95.00 }
-        ]
-      },
-      {
-        id: 19,
-        name: "Eclipse Black Strap",
-        origin: "Jamaica",
-        age: 5,
-        size: 750,
-        alc: 40,
-        price: 59.99,
-        historicalLowest: 65.00,
-        status: "On Sale",
-        image: "rum_bottle_dark.png",
-        inStock: true,
-        tastingNotes: "Bitter cacao, black treacle, maple syrup, smoke.",
-        heritage: "Rich Jamaican black strap rum style perfect for planters punches.",
-        stores: [
-          { name: "Dan Murphy's", price: 59.99 },
-          { name: "BWS", price: 64.99 },
-          { name: "Liquorland", price: 65.00 }
-        ],
-        history: [
-          { month: "Jan", low: 65.00, high: 72.50 },
-          { month: "Feb", low: 65.00, high: 72.50 },
-          { month: "Mar", low: 65.00, high: 69.99 },
-          { month: "Apr", low: 62.00, high: 69.99 },
-          { month: "May", low: 62.00, high: 65.00 },
-          { month: "Jun", low: 59.99, high: 65.00 },
-          { month: "Jul", low: null, high: null },
-          { month: "Aug", low: 59.99, high: 64.99 },
-          { month: "Sep", low: 59.99, high: 64.99 },
-          { month: "Oct", low: 59.99, high: 64.99 },
-          { month: "Nov", low: 59.99, high: 59.99 },
-          { month: "Dec", low: 59.99, high: 59.99 }
-        ]
-      },
-      {
-        id: 20,
-        name: "Meridian Agricole Vieux",
-        origin: "Martinique",
-        age: 6,
-        size: 700,
-        alc: 42,
-        price: 89.99,
-        historicalLowest: 89.99,
-        status: "Back in Stock",
-        image: "rum_bottle_clear.png",
-        inStock: true,
-        tastingNotes: "Stewed apple, cinnamon bark, sugarcane honey, light leather.",
-        heritage: "AOC Martinique aged rhum agricole matured in French oak casks.",
-        stores: [
-          { name: "Vintage Cellars", price: 89.99 },
-          { name: "Oak & Barrel Sydney", price: 92.50 },
-          { name: "Nick's Wine Merchant", price: 94.99 }
-        ],
-        history: [
-          { month: "Jan", low: 92.50, high: 99.99 },
-          { month: "Feb", low: 92.50, high: 99.99 },
-          { month: "Mar", low: 89.99, high: 95.00 },
-          { month: "Apr", low: 89.99, high: 94.99 },
-          { month: "May", low: 89.99, high: 94.99 },
-          { month: "Jun", low: 89.99, high: 94.99 },
-          { month: "Jul", low: 89.99, high: 92.50 },
-          { month: "Aug", low: 89.99, high: 92.50 },
-          { month: "Sep", low: 89.99, high: 92.50 },
-          { month: "Oct", low: 89.99, high: 92.50 },
-          { month: "Nov", low: 89.99, high: 89.99 },
-          { month: "Dec", low: 89.99, high: 89.99 }
-        ]
-      },
-      {
-        id: 21,
-        name: "Valkyrie Spiced Vanilla",
-        origin: null,
-        age: null,
-        size: 700,
-        alc: 37.5,
-        price: 52.50,
-        historicalLowest: 52.50,
-        status: "Standard",
-        image: "rum_bottle_gold.png",
-        isAnimated: true,
-        inStock: false,
-        lastSeenStock: "28 May 2026",
-        tastingNotes: "Madagascar vanilla, cinnamon scroll, caramel swirl.",
-        heritage: "Triple distilled spirit base blended with premium natural spices.",
-        stores: [
-          { name: "Dan Murphy's", price: 52.50 },
-          { name: "BWS", price: 55.00 }
-        ],
-        history: [
-          { month: "Jan", low: 52.50, high: 59.99 },
-          { month: "Feb", low: 52.50, high: 59.99 },
-          { month: "Mar", low: 52.50, high: 57.50 },
-          { month: "Apr", low: 52.50, high: 55.00 },
-          { month: "May", low: 52.50, high: 55.00 },
-          { month: "Jun", low: null, high: null },
-          { month: "Jul", low: 52.50, high: 55.00 },
-          { month: "Aug", low: 52.50, high: 55.00 },
-          { month: "Sep", low: 52.50, high: 55.00 },
-          { month: "Oct", low: 52.50, high: 55.00 },
-          { month: "Nov", low: 52.50, high: 52.50 },
-          { month: "Dec", low: 52.50, high: 52.50 }
-        ]
-      },
-      {
-        id: 22,
-        name: "Corteza Amber Solera",
-        origin: "Barbados",
-        age: 12,
-        size: 700,
-        alc: 40,
-        price: 79.99,
-        historicalLowest: 89.99,
-        status: "On Sale",
-        image: "rum_bottle_gold.png",
-        inStock: true,
-        tastingNotes: "Salted caramel, orange zest, warm spices, dry finish.",
-        heritage: "Traditional pot and column still blend aged via solera.",
-        stores: [
-          { name: "Dan Murphy's", price: 79.99 },
-          { name: "First Choice Liquor", price: 84.99 },
-          { name: "Vintage Cellars", price: 89.99 }
-        ],
-        history: [
-          { month: "Jan", low: 89.99, high: 99.99 },
-          { month: "Feb", low: 89.99, high: 99.99 },
-          { month: "Mar", low: 85.00, high: 95.00 },
-          { month: "Apr", low: 85.00, high: 95.00 },
-          { month: "May", low: 82.50, high: 89.99 },
-          { month: "Jun", low: 79.99, high: 89.99 },
-          { month: "Jul", low: null, high: null },
-          { month: "Aug", low: 79.99, high: 84.99 },
-          { month: "Sep", low: 79.99, high: 84.99 },
-          { month: "Oct", low: 79.99, high: 84.99 },
-          { month: "Nov", low: 79.99, high: 79.99 },
-          { month: "Dec", low: 79.99, high: 79.99 }
-        ]
-      },
-      {
-        id: 23,
-        name: "Zenith Rare White",
-        origin: "Fiji",
-        age: null,
-        size: 700,
-        alc: 40,
-        price: 49.99,
-        historicalLowest: 49.99,
-        status: "New",
-        image: "rum_bottle_clear.png",
-        isAnimated: true,
-        inStock: true,
-        tastingNotes: "Tropical papaya, sweet grass, banana leaf, green pepper.",
-        heritage: "Fijian white rum distilled from molasses in copper pot stills.",
-        stores: [
-          { name: "BWS Retailer", price: 49.99 },
-          { name: "Liquorland Outlet", price: 52.50 }
-        ],
-        history: [
-          { month: "Jan", low: 49.99, high: 57.50 },
-          { month: "Feb", low: 49.99, high: 55.00 },
-          { month: "Mar", low: 49.99, high: 55.00 },
-          { month: "Apr", low: 49.99, high: 52.50 },
-          { month: "May", low: 49.99, high: 52.50 },
-          { month: "Jun", low: 49.99, high: 52.50 },
-          { month: "Jul", low: 49.99, high: 52.50 },
-          { month: "Aug", low: 49.99, high: 49.99 },
-          { month: "Sep", low: 49.99, high: 49.99 },
-          { month: "Oct", low: 49.99, high: 49.99 },
-          { month: "Nov", low: 49.99, high: 49.99 },
-          { month: "Dec", low: 49.99, high: 49.99 }
-        ]
-      },
-      {
-        id: 24,
-        name: "Tempest Dark Reserve",
-        origin: "Bermuda",
-        age: 10,
-        size: 700,
-        alc: 40,
-        price: 74.99,
-        historicalLowest: 74.99,
-        status: "Standard",
-        image: "rum_bottle_dark.png",
-        isAnimated: true,
-        inStock: true,
-        tastingNotes: "Black treacle, dark brown sugar, molasses, subtle clove.",
-        heritage: "A heavy, sweet Bermuda dark rum built for dark and stormy cocktails.",
-        stores: [
-          { name: "Dan Murphy's", price: 74.99 },
-          { name: "BWS", price: 77.50 },
-          { name: "Vintage Cellars", price: 79.99 }
-        ],
-        history: [
-          { month: "Jan", low: 74.99, high: 84.99 },
-          { month: "Feb", low: 74.99, high: 84.99 },
-          { month: "Mar", low: 74.99, high: 79.99 },
-          { month: "Apr", low: 74.99, high: 79.99 },
-          { month: "May", low: 74.99, high: 77.50 },
-          { month: "Jun", low: 74.99, high: 77.50 },
-          { month: "Jul", low: 74.99, high: 77.50 },
-          { month: "Aug", low: 74.99, high: 74.99 },
-          { month: "Sep", low: 74.99, high: 74.99 },
-          { month: "Oct", low: 74.99, high: 74.99 },
-          { month: "Nov", low: 74.99, high: 74.99 },
-          { month: "Dec", low: 74.99, high: 74.99 }
-        ]
-      },
-      {
-        id: 25,
-        name: "Distillery Vault Secret Reserve",
-        origin: "Jamaica",
-        age: 18,
-        size: 700,
-        alc: 46,
-        price: 149.99,
-        historicalLowest: 149.99,
-        status: "New",
-        image: "bottle_silhouette.svg",
-        isAnimated: true,
-        inStock: true,
-        tastingNotes: "Deep molasses, vanilla bean, coffee bean, dark chocolate.",
-        heritage: "A secret recipe distilled and stored in the dark vaults, now released without standard labeling.",
-        stores: [
-          { name: "Dan Murphy's", price: 149.99 },
-          { name: "BWS", price: 154.99 },
-          { name: "Vintage Cellars", price: 152.00 }
-        ],
-        history: [
-          { month: "Jan", low: 149.99, high: 159.99 },
-          { month: "Feb", low: 149.99, high: 159.99 },
-          { month: "Mar", low: 149.99, high: 154.99 },
-          { month: "Apr", low: 149.99, high: 154.99 },
-          { month: "May", low: 149.99, high: 154.99 },
-          { month: "Jun", low: 149.99, high: 154.99 },
-          { month: "Jul", low: 149.99, high: 152.00 },
-          { month: "Aug", low: 149.99, high: 152.00 },
-          { month: "Sep", low: 149.99, high: 152.00 },
-          { month: "Oct", low: 149.99, high: 152.00 },
-          { month: "Nov", low: 149.99, high: 149.99 },
-          { month: "Dec", low: 149.99, high: 149.99 }
-        ]
-      }
-    ];
-
-    // State Variables
-    let favorites = JSON.parse(localStorage.getItem('rum_hunter_favorites')) || [];
-    let currentFilter = 'all';
-    let currentSort = 'price-asc';
-    let currentSearch = '';
-    let currentViewMode = 'grid';
-    let isFocused = false;
-    let currentPage = 1;
-    let itemsPerPage = 6;
-    let hideOutOfStock = false;
-
-    // Viewport and Interaction Elements
-    const bgContainer = document.getElementById('bg-container');
-    const searchBar = document.getElementById('search-bar');
-    const sortSelector = document.getElementById('sort-selector');
-    const dialog = document.getElementById('details-dialog');
-    const dialogContent = document.getElementById('dialog-body-content');
-
-    let targetX = 0;
-    let targetY = 0;
-    let currentX = 0;
-    let currentY = 0;
-    const lerpFactor = 0.06;
-
-    // Initialize Page
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.location.search) {
-        parseURLParams();
-      } else {
-        updateURLParams(true);
-      }
-      renderProducts();
-      updateFavCount();
-      updateSortIndicators();
-      setupEventListeners();
-      requestAnimationFrame(updateLayout);
-    });
-
-    // Event Listeners Setup
-    function setupEventListeners() {
-      searchBar.addEventListener('input', (e) => {
-        currentSearch = e.target.value.toLowerCase();
-        currentPage = 1;
-        updateURLParams(true);
-        renderProductsWithTransition();
-      });
-
-      sortSelector.addEventListener('change', (e) => {
-        currentSort = e.target.value;
-        currentPage = 1;
-        updateURLParams();
-        renderProductsWithTransition();
-      });
-
-      window.addEventListener('popstate', () => {
-        parseURLParams();
-        renderProductsWithTransition();
-      });
-
-      // Macro Focus Zoom state triggers on form/control focus
-      document.addEventListener('focusin', (e) => {
-        const isInput = e.target.matches('input, select, textarea, button');
-        const inControls = e.target.closest('.interactive-form-container');
-        const inDialog = e.target.closest('dialog');
-        if (isInput && (inControls || inDialog)) {
-          setFocused(true);
-        }
-      });
-
-      document.addEventListener('focusout', (e) => {
-        setTimeout(() => {
-          const active = document.activeElement;
-          const isInput = active && active.matches('input, select, textarea, button');
-          const inControls = active && active.closest('.interactive-form-container');
-          const inDialog = active && active.closest('dialog');
-          if (!isInput || (!inControls && !inDialog)) {
-            setFocused(false);
-          }
-        }, 50);
-      });
-
-      // Cursor Parallax Logic
-      window.addEventListener('mousemove', (e) => {
-        if (isFocused) {
-          targetX = 0;
-          targetY = 0;
-          return;
-        }
-        const normX = (e.clientX / window.innerWidth) * 2 - 1;
-        const normY = (e.clientY / window.innerHeight) * 2 - 1;
-        targetX = normX * -5;
-        targetY = normY * -5;
-      });
-
-      dialog.addEventListener('close', () => {
-        setFocused(false);
-      });
-    }
-
-    // Macro Focus Zoom apply class
-    function setFocused(focused) {
-      isFocused = focused;
-      if (isFocused) {
-        bgContainer.classList.add('focused');
-      } else {
-        bgContainer.classList.remove('focused');
-      }
-    }
-
-    // Parallax update layout loop
-    function updateLayout() {
-      if (isFocused) {
-        targetX = 0;
-        targetY = 0;
-      }
-      currentX += (targetX - currentX) * lerpFactor;
-      currentY += (targetY - currentY) * lerpFactor;
-
-      if (!isFocused) {
-        bgContainer.style.transform = `scale(1.0) translate3d(${currentX}px, ${currentY}px, 0)`;
-      }
-
-      requestAnimationFrame(updateLayout);
-    }
-
-    // Fallback logic for missing age/location statements
-    function getMetadataText(rum) {
-      const parts = [];
-      if (rum.age) parts.push(`${rum.age} Years`);
-      if (rum.origin) parts.push(rum.origin);
-      if (rum.size) parts.push(`${rum.size}ml`);
-      if (rum.alc) parts.push(`${rum.alc}%`);
-      if (parts.length === 0) {
-        return "Scraped Entry"; // Display in their stead
-      }
-      return parts.join(" | ");
-    }
-
-    // Dynamic 12-Month SVG spectrum graph generation (shows price band between nightly High & Low)
-    function generateHistoryGraphSVG(history) {
-      const width = 230;
-      const height = 55;
-      const paddingLeft = 30;
-      const paddingRight = 10;
-      const paddingTop = 8;
-      const paddingBottom = 16;
-
-      const chartWidth = width - paddingLeft - paddingRight;
-      const chartHeight = height - paddingTop - paddingBottom;
-
-      // Filter out invalid points
-      const validPoints = [];
-      history.forEach((pt, idx) => {
-        if (pt.low !== null && pt.high !== null) {
-          validPoints.push({ ...pt, idx });
-        }
-      });
-
-      if (validPoints.length === 0) {
-        return `<div style="font-size:0.75rem; color:var(--color-text-muted); text-align:center; padding:12px 0;">No historical data logged</div>`;
-      }
-
-      const highs = validPoints.map(p => p.high);
-      const lows = validPoints.map(p => p.low);
-      const minPrice = Math.min(...lows) * 0.96;
-      const maxPrice = Math.max(...highs) * 1.04;
-      const priceRange = maxPrice - minPrice || 1;
-
-      const getX = (idx) => paddingLeft + (idx / 11) * chartWidth;
-      const getY = (val) => paddingTop + chartHeight - ((val - minPrice) / priceRange) * chartHeight;
-
-      // Build top and bottom paths for the lines and the polygon band
-      let topPath = "";
-      let bottomPath = "";
-      let polygonPath = "";
-
-      validPoints.forEach((pt, i) => {
-        const x = getX(pt.idx);
-        const yHigh = getY(pt.high);
-        const yLow = getY(pt.low);
-
-        if (i === 0) {
-          topPath += `M ${x} ${yHigh}`;
-          bottomPath += `M ${x} ${yLow}`;
-          polygonPath += `M ${x} ${yHigh}`;
-        } else {
-          topPath += ` L ${x} ${yHigh}`;
-          bottomPath += ` L ${x} ${yLow}`;
-          polygonPath += ` L ${x} ${yHigh}`;
-        }
-      });
-
-      // Reverse trace for the bottom line to close the polygon
-      for (let i = validPoints.length - 1; i >= 0; i--) {
-        const pt = validPoints[i];
-        const x = getX(pt.idx);
-        const yLow = getY(pt.low);
-        polygonPath += ` L ${x} ${yLow}`;
-      }
-      polygonPath += " Z";
-
-      // Y-axis labels
-      const yLabelHigh = maxPrice.toFixed(0);
-      const yLabelLow = minPrice.toFixed(0);
-
-      // Month X-axis labels (J, F, M, A, M, J, J, A, S, O, N, D)
-      const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
-      const xLabelsHTML = months.map((m, idx) => {
-        const x = getX(idx);
-        return `<text x="${x}" y="${height - 3}" font-size="7" fill="var(--color-text-muted)" text-anchor="middle" font-family="var(--font-body)">${m}</text>`;
-      }).join('');
-
-      const gradId = `graph-band-grad-${Math.floor(Math.random() * 1000000)}`;
-
-      return `
-        <div class="history-graph-wrapper" style="margin-bottom: 4px; width: 100%;">
-          <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--color-text-muted); margin-bottom:4px; font-weight:600;">
-            <span>12M PRICE SPECTRUM</span>
-            <span style="color:var(--color-refraction-gold)">
-              ${Math.min(...lows) === Math.max(...highs)
-          ? `Price $${Math.min(...lows).toFixed(2)}`
-          : `Range $${Math.min(...lows).toFixed(2)} - $${Math.max(...highs).toFixed(2)}`
-        }
-            </span>
-          </div>
-          <svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" style="background:rgba(0,0,0,0.25); border-radius:6px; overflow:visible; border: 1px solid rgba(59,29,10,0.2);">
-            <defs>
-              <linearGradient id="${gradId}" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="var(--color-rum-amber)" stop-opacity="0.3"/>
-                <stop offset="100%" stop-color="var(--color-rum-amber)" stop-opacity="0.05"/>
-              </linearGradient>
-            </defs>
-            
-            <!-- Guide lines -->
-            <line x1="${paddingLeft}" y1="${paddingTop}" x2="${width - paddingRight}" y2="${paddingTop}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 2" />
-            <line x1="${paddingLeft}" y1="${paddingTop + chartHeight}" x2="${width - paddingRight}" y2="${paddingTop + chartHeight}" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 2" />
-            
-            <!-- Y Labels -->
-            <text x="${paddingLeft - 6}" y="${paddingTop + 2.5}" font-size="7" fill="var(--color-text-muted)" text-anchor="end" font-family="var(--font-body)">$${yLabelHigh}</text>
-            <text x="${paddingLeft - 6}" y="${paddingTop + chartHeight + 2.5}" font-size="7" fill="var(--color-text-muted)" text-anchor="end" font-family="var(--font-body)">$${yLabelLow}</text>
-            
-            <!-- Shaded Spectrum Band -->
-            <path d="${polygonPath}" fill="url(#${gradId})" />
-            
-            <!-- Boundary Lines -->
-            <path d="${topPath}" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.2" stroke-linecap="round" />
-            <path d="${bottomPath}" fill="none" stroke="var(--color-rum-amber)" stroke-width="1.5" stroke-linecap="round" />
-            
-            <!-- X Labels -->
-            ${xLabelsHTML}
-          </svg>
-        </div>
-      `;
-    }
-
-    // Toggle Favorites
-    function toggleFavorite(e, id) {
-      e.stopPropagation();
-      const index = favorites.indexOf(id);
-      if (index > -1) {
-        favorites.splice(index, 1);
-      } else {
-        favorites.push(id);
-      }
-      localStorage.setItem('rum_hunter_favorites', JSON.stringify(favorites));
-      updateFavCount();
-      renderProductsWithTransition();
-    }
-
-    function updateFavCount() {
-      document.getElementById('fav-count').textContent = favorites.length;
-    }
-
-    // View Mode Toggle (Grid vs List)
-    function setViewMode(mode) {
-      currentViewMode = mode;
-      const gridContainer = document.getElementById('grid-view-container');
-      const listContainer = document.getElementById('list-view-container');
-      const gridBtn = document.getElementById('grid-toggle-btn');
-      const listBtn = document.getElementById('list-toggle-btn');
-
-      if (mode === 'grid') {
-        gridContainer.style.display = 'grid';
-        listContainer.style.display = 'none';
-        gridBtn.classList.add('active');
-        listBtn.classList.remove('active');
-      } else {
-        gridContainer.style.display = 'none';
-        listContainer.style.display = 'table';
-        gridBtn.classList.remove('active');
-        listBtn.classList.add('active');
-      }
-      currentPage = 1;
-      updateURLParams();
-      renderProductsWithTransition();
-    }
-
-    // Filter pill setup
-    function setFilter(filter, element) {
-      currentFilter = filter;
-      currentPage = 1;
-      document.querySelectorAll('.filter-pill').forEach(pill => pill.classList.remove('active'));
-      element.classList.add('active');
-      updateURLParams();
-      renderProductsWithTransition();
-    }
-
-    // Toggle Card Flip
-    function toggleFlip(element) {
-      element.classList.toggle('flipped');
-    }
-
-    // Retrieve Filtered and Sorted list
-    function getProcessedProducts() {
-      return rumData
-        .filter(rum => {
-          if (hideOutOfStock && !rum.inStock) return false;
-
-          const matchesSearch = rum.name.toLowerCase().includes(currentSearch) ||
-            (rum.origin && rum.origin.toLowerCase().includes(currentSearch)) ||
-            rum.tastingNotes.toLowerCase().includes(currentSearch);
-
-          if (!matchesSearch) return false;
-
-          switch (currentFilter) {
-            case 'sale':
-              return rum.price < rum.historicalLowest || rum.status === 'On Sale';
-            case 'match':
-              return rum.price === rum.historicalLowest;
-            case 'new':
-              return rum.status === 'New';
-            case 'stock':
-              return rum.inStock;
-            case 'favorites':
-              return favorites.includes(rum.id);
-            default:
-              return true;
-          }
-        })
-        .sort((a, b) => {
-          switch (currentSort) {
-            case 'price-asc':
-              return a.price - b.price;
-            case 'price-desc':
-              return b.price - a.price;
-            case 'name-asc':
-            case 'alphabetic':
-              return a.name.localeCompare(b.name);
-            case 'name-desc':
-              return b.name.localeCompare(a.name);
-            case 'age-desc':
-              return (b.age || 0) - (a.age || 0);
-            case 'fav-desc': {
-              const aFav = favorites.includes(a.id) ? 1 : 0;
-              const bFav = favorites.includes(b.id) ? 1 : 0;
-              if (bFav !== aFav) return bFav - aFav;
-              return a.price - b.price;
-            }
-            case 'fav-asc': {
-              const aFav = favorites.includes(a.id) ? 1 : 0;
-              const bFav = favorites.includes(b.id) ? 1 : 0;
-              if (bFav !== aFav) return aFav - bFav;
-              return a.price - b.price;
-            }
-            default:
-              return a.price - b.price;
-          }
-        });
-    }
-
-    // Render Grid and List Products
-    function renderProducts() {
-      // Clean up previous 3D WebGL renderers first
-      cleanupActive3D();
-
-      const filteredRums = getProcessedProducts();
-      const totalItems = filteredRums.length;
-
-      const gridContainer = document.getElementById('grid-view-container');
-      const listBody = document.getElementById('list-view-body');
-
-      gridContainer.innerHTML = '';
-      listBody.innerHTML = '';
-
-      if (totalItems === 0) {
-        const emptyHTML = `
-          <div class="empty-state">
-            <h3>No Scraped Items Found</h3>
-            <p>We couldn't find any products matching your search criteria. Try adjusting your filter tags.</p>
-          </div>
-        `;
-        gridContainer.innerHTML = emptyHTML;
-        listBody.innerHTML = `<tr><td colspan="5">${emptyHTML}</td></tr>`;
-        renderPaginationControls(0);
-        return;
-      }
-
-      // Handle pagination limits
-      let startIdx = 0;
-      let endIdx = totalItems;
-      let paginatedRums = filteredRums;
-
-      if (itemsPerPage !== Infinity) {
-        const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
-        if (currentPage > totalPages) currentPage = totalPages;
-
-        startIdx = (currentPage - 1) * itemsPerPage;
-        endIdx = Math.min(startIdx + itemsPerPage, totalItems);
-        paginatedRums = filteredRums.slice(startIdx, endIdx);
-      }
-
-      paginatedRums.forEach(rum => {
-        const isFav = favorites.includes(rum.id);
-        const isSale = rum.price < rum.historicalLowest || rum.status === 'On Sale';
-        const isBestMatch = rum.price === rum.historicalLowest;
-        const starClass = isFav ? 'active' : '';
-
-        // Status Tag Logic (Rare Allocation Removed)
-        let statusTag = '';
-        if (!rum.inStock) {
-          statusTag = '<span class="status-badge">Out of Stock</span>';
-        } else if (isSale) {
-          statusTag = '<span class="status-badge on-sale">On Sale</span>';
-        } else if (rum.status === 'New') {
-          statusTag = '<span class="status-badge new">New product</span>';
-        } else if (rum.status === 'Back in Stock') {
-          statusTag = '<span class="status-badge back-in-stock">Restocked</span>';
-        }
-
-        // Price comparison UI with Cents shown
-        let priceUI = `<span class="price-current">$${rum.price.toFixed(2)}</span>`;
-        if (isSale) {
-          priceUI = `
-            <span class="price-old">$${rum.historicalLowest.toFixed(2)}</span>
-            <span class="price-current">$${rum.price.toFixed(2)}</span>
-          `;
-        }
-
-        let bestPriceBadge = isBestMatch ? '<span class="best-price-badge">Best Price Match</span>' : '';
-        if (isSale) bestPriceBadge = '<span class="best-price-badge" style="background:rgba(46,204,113,0.1); border-color:#2ecc71; color:#2ecc71;">Best ever</span>';
-
-        // Store prices calculation for range
-        const storePrices = rum.stores.map(s => s.price);
-        const minStorePrice = Math.min(...storePrices, rum.price);
-        const maxStorePrice = Math.max(...storePrices, rum.price);
-
-        // Sort store listings to highlight current best
-        const sortedStores = [...rum.stores].sort((a, b) => a.price - b.price);
-
-        // Store scrollable rows
-        const storeRowsHTML = sortedStores.map(store => {
-          const isBest = store.price === minStorePrice;
-          return `
-            <div class="store-row ${isBest ? 'best-price' : ''}">
-              <span class="store-name">${store.name}</span>
-              <span class="store-price">$${store.price.toFixed(2)}</span>
-            </div>
-          `;
-        }).join('');
-
-        // Inline SVG History Graph
-        const historyGraphHTML = generateHistoryGraphSVG(rum.history);
-
-        // Metadata line
-        const metadataText = getMetadataText(rum);
-
-        // SVG Bottle Silhouette layout helper
-        let imageHTML = `<img src="${rum.image}" alt="${rum.name}" class="card-bottle-img">`;
-        let thumbHTML = `<img src="${rum.image}" alt="${rum.name}" class="list-thumb">`;
-        if (rum.isAnimated) {
-          imageHTML = `
-            <div class="three-canvas-wrapper card-bottle-img" id="rum-3d-canvas-${rum.id}" style="width: 100%; height: 100%;"></div>
-          `;
-          const svgPath = 'M 20,290 C 20,295 25,300 30,300 L 70,300 C 75,300 80,295 80,290 L 80,120 C 80,95 72,80 58,70 L 58,25 C 60,25 61,24 61,22 L 61,15 C 61,13 60,12 58,12 L 58,0 L 42,0 L 42,12 C 40,12 39,13 39,15 L 39,22 C 39,24 40,25 42,25 L 42,70 C 28,80 20,95 20,120 Z';
-          thumbHTML = `
-            <svg class="list-thumb svg-silhouette" viewBox="0 0 100 300" style="height:100%; width:auto; color:var(--color-rum-amber); opacity:0.3;">
-              <path fill="currentColor" stroke="var(--color-refraction-gold)" stroke-width="4" d="${svgPath}" />
-            </svg>
-          `;
-        } else if (rum.image === 'bottle_silhouette.svg') {
-          const svgPath = 'M 20,290 C 20,295 25,300 30,300 L 70,300 C 75,300 80,295 80,290 L 80,120 C 80,95 72,80 58,70 L 58,25 C 60,25 61,24 61,22 L 61,15 C 61,13 60,12 58,12 L 58,0 L 42,0 L 42,12 C 40,12 39,13 39,15 L 39,22 C 39,24 40,25 42,25 L 42,70 C 28,80 20,95 20,120 Z';
-          imageHTML = `
-            <svg class="card-bottle-img svg-silhouette" viewBox="0 0 100 300" style="height:100%; max-height:100%; color:var(--color-rum-amber); opacity:0.18; transition: opacity var(--transition-base), transform var(--transition-base);">
-              <path fill="currentColor" stroke="var(--color-refraction-gold)" stroke-width="2" stroke-linejoin="round" d="${svgPath}" />
-            </svg>
-          `;
-          thumbHTML = `
-            <svg class="list-thumb svg-silhouette" viewBox="0 0 100 300" style="height:100%; width:auto; color:var(--color-rum-amber); opacity:0.3;">
-              <path fill="currentColor" stroke="var(--color-refraction-gold)" stroke-width="4" d="${svgPath}" />
-            </svg>
-          `;
-        }
-
-        // --- GRID VIEW CARD (3D FLIP) ---
-        const cardHTML = `
-          <div class="card-container ${rum.inStock ? '' : 'out-of-stock'}" data-id="${rum.id}" style="view-transition-name: card-${rum.id}" onclick="toggleFlip(this)">
-            <div class="card-inner">
-              <!-- Front Face -->
-              <div class="card-front">
-                <div class="card-header-row">
-                  ${statusTag ? statusTag : '<span></span>'}
-                  <button class="btn-star ${starClass}" onclick="toggleFavorite(event, ${rum.id})" aria-label="Toggle Favorite">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  </button>
-                </div>
-                <div class="card-img-box">
-                  ${imageHTML}
-                </div>
-                <div>
-                  <div class="card-meta">${metadataText}</div>
-                  <h3 class="card-title">${rum.name}</h3>
-                  ${!rum.inStock && rum.lastSeenStock ? `<div class="last-seen-date" style="font-size:0.7rem; color:#e74c3c; margin-top:2px; font-weight:500; text-transform: uppercase; letter-spacing: 0.02em;">Last seen in stock - ${rum.lastSeenStock}</div>` : ''}
-                  <div class="price-row">
-                    <div class="prices">
-                      ${priceUI}
-                    </div>
-                    ${bestPriceBadge}
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Back Face -->
-              <div class="card-back" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box;">
-                <!-- Top Section -->
-                <div style="display: flex; flex-direction: column; flex-grow: 1; overflow: hidden;">
-                  <h3 class="card-back-title" style="margin-bottom: 4px;">${rum.name}</h3>
-                  <p style="font-size: 0.82rem; color: var(--color-text-muted); line-height: 1.45; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" title="${rum.tastingNotes}">
-                    ${rum.tastingNotes}
-                  </p>
-                  ${!rum.inStock && rum.lastSeenStock ? `<div style="font-size:0.72rem; color:#e74c3c; margin-bottom:8px; font-weight:500;">Last seen in stock - ${rum.lastSeenStock}</div>` : ''}
-                  
-                  <!-- Scrollable comparative store list -->
-                  <div class="store-list-container" style="display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; min-height: 90px; margin-bottom: 8px;">
-                    <div class="store-list-title">Compare Stores</div>
-                    <div class="store-scroll-area" style="flex-grow: 1; overflow-y: auto; margin-bottom: 4px;">
-                      ${storeRowsHTML}
-                    </div>
-                    <div class="range-info" style="margin-top: auto; padding-top: 4px;">
-                      <span class="range-info-label">Store Range</span>
-                      ${minStorePrice === maxStorePrice
-            ? `<span class="range-min">$${minStorePrice.toFixed(2)}</span>`
-            : `<span class="range-min">$${minStorePrice.toFixed(2)}</span> - <span class="range-max" style="font-size:0.72rem; opacity:0.75;">$${maxStorePrice.toFixed(2)}</span>`
-          }
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Bottom Section (Graph and Action) -->
-                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px;">
-                  <!-- 12-Month Price Graph -->
-                  ${historyGraphHTML}
-                  
-                  <div class="card-back-actions">
-                    <button class="btn btn-secondary btn-sm" style="width: 100%; font-size: 0.75rem;" onclick="openPlaceholderDetails(event, '${rum.name.replace(/'/g, "\\'")}')">View Details</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-
-        // --- LIST VIEW ROW ---
-        let listStatusTag = '';
-        if (!rum.inStock) {
-          listStatusTag = `
-            <div style="display:flex; flex-direction:column; align-items:flex-start; gap:4px;">
-              <span class="status-badge" style="color:#e74c3c; border-color:rgba(231,76,60,0.3);">Out of Stock</span>
-              ${rum.lastSeenStock ? `<span style="font-size:0.65rem; color:#e74c3c; white-space:nowrap; font-weight: 500;">Last seen in stock - ${rum.lastSeenStock}</span>` : ''}
-            </div>
-          `;
-        } else if (isSale) {
-          listStatusTag = '<span class="status-badge on-sale">On Sale</span>';
-        } else if (isBestMatch) {
-          listStatusTag = '<span class="status-badge new">Best Price</span>';
-        } else {
-          listStatusTag = '<span class="status-badge">Logged</span>';
-        }
-
-        const listRowHTML = `
-          <tr class="list-item-row ${rum.inStock ? '' : 'out-of-stock'}" data-id="${rum.id}" style="view-transition-name: row-${rum.id}" onclick="openDetailsModal(${rum.id})">
-            <td>
-              <div class="list-thumb-box">
-                ${thumbHTML}
-              </div>
-            </td>
-            <td class="list-name-col">
-              <h4 style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">${rum.name}</h4>
-              <span>At ${rum.stores.length} ${rum.stores.length === 1 ? 'store' : 'stores'}</span>
-            </td>
-            <td>${metadataText}</td>
-            <td>
-              <div class="list-price-cell">
-                ${priceUI}
-                ${bestPriceBadge}
-                ${listStatusTag}
-              </div>
-            </td>
-            <td style="text-align: right;">
-              <div style="display:flex; justify-content: flex-end; align-items: center; gap:12px;">
-                <button class="btn-star ${starClass}" onclick="toggleFavorite(event, ${rum.id})" aria-label="Toggle Favorite">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                </button>
-                <button class="btn btn-secondary btn-sm" onclick="openPlaceholderDetails(event, '${rum.name.replace(/'/g, "\\'")}')">
-                  Details
-                </button>
-              </div>
-            </td>
-          </tr>
-        `;
-
-        gridContainer.insertAdjacentHTML('beforeend', cardHTML);
-        listBody.insertAdjacentHTML('beforeend', listRowHTML);
-      });
-
-      // Initialize Three.js for any visible animated cards
-      paginatedRums.forEach(rum => {
-        if (rum.isAnimated) {
-          initCard3D(rum);
-        }
-      });
-
-      renderPaginationControls(totalItems);
-    }
-
-    // --- 3D WebGL Bottle Integration Manager ---
-    let activeRenderers = {};
-    let shared3DResources = null;
-
-    function cleanupActive3D() {
-      for (const id in activeRenderers) {
-        const item = activeRenderers[id];
-        if (item) {
-          if (item.animationFrameId) {
-            cancelAnimationFrame(item.animationFrameId);
-          }
-          if (item.resizeObserver) {
-            item.resizeObserver.disconnect();
-          }
-          if (item.renderer) {
-            item.renderer.dispose();
-            if (item.renderer.domElement && item.renderer.domElement.parentNode) {
-              item.renderer.domElement.parentNode.removeChild(item.renderer.domElement);
-            }
-          }
-        }
-      }
-      activeRenderers = {};
-    }
-
-    function initShared3DResources() {
-      if (shared3DResources) return shared3DResources;
-
-      try {
-        // --- 1. Shared High-Fidelity Studio Environment Mapping ---
-        const envCanvas = document.createElement('canvas');
-        envCanvas.width = 512;
-        envCanvas.height = 256;
-        const envCtx = envCanvas.getContext('2d');
-        envCtx.fillStyle = '#0f0804';
-        envCtx.fillRect(0, 0, 512, 256);
-
-        let leftBox = envCtx.createLinearGradient(40, 0, 140, 0);
-        leftBox.addColorStop(0, 'rgba(255,255,255,0)');
-        leftBox.addColorStop(0.5, 'rgba(255,255,255,0.75)');
-        leftBox.addColorStop(1, 'rgba(255,255,255,0)');
-        envCtx.fillStyle = leftBox;
-        envCtx.fillRect(40, 0, 100, 256);
-
-        let rightBox = envCtx.createLinearGradient(360, 0, 440, 0);
-        rightBox.addColorStop(0, 'rgba(255,255,255,0)');
-        rightBox.addColorStop(0.5, 'rgba(255,255,255,0.85)');
-        rightBox.addColorStop(1, 'rgba(255,255,255,0)');
-        envCtx.fillStyle = rightBox;
-        envCtx.fillRect(360, 0, 80, 256);
-
-        const envTexture = new THREE.CanvasTexture(envCanvas);
-        envTexture.mapping = THREE.EquirectangularReflectionMapping;
-
-        // --- 2. Shared Bottle & Liquid Geometries ---
-        const glassPoints = [];
-        // Outer profile
-        glassPoints.push(new THREE.Vector2(0, -1.6));
-        glassPoints.push(new THREE.Vector2(0.78, -1.6));
-        glassPoints.push(new THREE.Vector2(0.81, -1.45));
-        glassPoints.push(new THREE.Vector2(0.81, 0.50));
-        glassPoints.push(new THREE.Vector2(0.78, 0.70));
-        glassPoints.push(new THREE.Vector2(0.68, 0.90));
-        glassPoints.push(new THREE.Vector2(0.50, 1.05));
-        glassPoints.push(new THREE.Vector2(0.28, 1.15));
-        glassPoints.push(new THREE.Vector2(0.26, 1.55));
-        glassPoints.push(new THREE.Vector2(0.28, 1.58));
-        glassPoints.push(new THREE.Vector2(0.28, 1.63));
-        glassPoints.push(new THREE.Vector2(0.26, 1.65));
-        glassPoints.push(new THREE.Vector2(0.29, 1.68));
-        glassPoints.push(new THREE.Vector2(0.29, 1.76));
-        glassPoints.push(new THREE.Vector2(0.25, 1.78));
-        glassPoints.push(new THREE.Vector2(0.20, 1.78));
-        // Inner profile
-        glassPoints.push(new THREE.Vector2(0.20, 1.15));
-        glassPoints.push(new THREE.Vector2(0.42, 1.00));
-        glassPoints.push(new THREE.Vector2(0.60, 0.85));
-        glassPoints.push(new THREE.Vector2(0.72, 0.65));
-        glassPoints.push(new THREE.Vector2(0.75, 0.45));
-        glassPoints.push(new THREE.Vector2(0.75, -1.35));
-        glassPoints.push(new THREE.Vector2(0.70, -1.42));
-        glassPoints.push(new THREE.Vector2(0, -1.42));
-        const glassGeometry = new THREE.LatheGeometry(glassPoints, 64);
-
-        const liquidPoints = [];
-        liquidPoints.push(new THREE.Vector2(0, -1.41));
-        liquidPoints.push(new THREE.Vector2(0.74, -1.41));
-        liquidPoints.push(new THREE.Vector2(0.74, 0.45));
-        liquidPoints.push(new THREE.Vector2(0.71, 0.65));
-        liquidPoints.push(new THREE.Vector2(0, 0.65));
-        const liquidGeometry = new THREE.LatheGeometry(liquidPoints, 64);
-
-        const stopperPoints = [];
-        stopperPoints.push(new THREE.Vector2(0, 1.75));
-        stopperPoints.push(new THREE.Vector2(0.23, 1.75));
-        stopperPoints.push(new THREE.Vector2(0.24, 1.80));
-        stopperPoints.push(new THREE.Vector2(0.24, 1.92));
-        stopperPoints.push(new THREE.Vector2(0.20, 1.97));
-        stopperPoints.push(new THREE.Vector2(0, 1.97));
-        const stopperGeometry = new THREE.LatheGeometry(stopperPoints, 64);
-
-        // --- 3. Shared Label Construction ---
-        const canvasWidth = 1024;
-        const canvasHeight = 512;
-        const textCanvas = document.createElement('canvas');
-        textCanvas.width = canvasWidth;
-        textCanvas.height = canvasHeight;
-        const ctx = textCanvas.getContext('2d');
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-        ctx.translate(canvasWidth / 2, canvasHeight / 2);
-        ctx.scale(0.39, 1.0);
-
-        const labelW = 800;
-        const labelH = 460;
-        ctx.fillStyle = '#151311';
-        ctx.fillRect(-labelW / 2, -labelH / 2, labelW, labelH);
-
-        const borderGrad = ctx.createLinearGradient(0, -labelH / 2, 0, labelH / 2);
-        borderGrad.addColorStop(0, '#d4af37');
-        borderGrad.addColorStop(0.5, '#f3e5ab');
-        borderGrad.addColorStop(1, '#aa7c11');
-
-        ctx.strokeStyle = borderGrad;
-        ctx.lineWidth = 4;
-        ctx.strokeRect(-labelW / 2 + 8, -labelH / 2 + 8, labelW - 16, labelH - 16);
-
-        ctx.lineWidth = 1.5;
-        ctx.strokeRect(-labelW / 2 + 14, -labelH / 2 + 14, labelW - 28, labelH - 28);
-
-        ctx.fillStyle = '#e8c49e';
-        ctx.font = '600 72px "Cormorant Garamond", "Georgia", serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.letterSpacing = '5px';
-
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
-        ctx.shadowBlur = 5;
-        ctx.shadowOffsetX = 2;
-        ctx.shadowOffsetY = 2;
-
-        ctx.fillText("Image coming soon", 0, -60);
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-        const textTexture = new THREE.CanvasTexture(textCanvas);
-        textTexture.wrapS = THREE.RepeatWrapping;
-        textTexture.repeat.x = 1;
-
-        const labelGeometry = new THREE.CylinderGeometry(0.818, 0.818, 1.4, 64, 1, true);
-
-        // --- 4. Shared Materials ---
-        const glassMaterial = new THREE.MeshPhysicalMaterial({
-          color: 0xffffff,
-          roughness: 0.02,
-          metalness: 0.0,
-          transmission: 0.98,
-          ior: 1.52,
-          thickness: 0.0,
-          clearcoat: 1.0,
-          clearcoatRoughness: 0.02,
-          transparent: true,
-          depthWrite: false
-        });
-
-        const liquidMaterial = new THREE.MeshPhysicalMaterial({
-          color: 0xc25900,
-          roughness: 0.05,
-          metalness: 0.0,
-          transmission: 0.45,
-          ior: 1.35,
-          thickness: 1.5,
-          clearcoat: 1.0,
-          clearcoatRoughness: 0.05,
-          transparent: true
-        });
-
-        const labelMaterial = new THREE.MeshStandardMaterial({
-          map: textTexture,
-          side: THREE.DoubleSide,
-          roughness: 0.40,
-          metalness: 0.10,
-          transparent: true,
-          depthWrite: false
-        });
-
-        shared3DResources = {
-          envTexture,
-          glassGeometry,
-          liquidGeometry,
-          stopperGeometry,
-          labelGeometry,
-          glassMaterial,
-          liquidMaterial,
-          labelMaterial
-        };
-      } catch (err) {
-        console.error("Failed to initialize WebGL Shared Resources:", err);
-      }
-      return shared3DResources;
-    }
-
-    function initCard3D(rum) {
-      const containerId = `rum-3d-canvas-${rum.id}`;
-      const container = document.getElementById(containerId);
-      if (!container) return;
-
-      const resources = initShared3DResources();
-      if (!resources) return;
-
-      const width = container.clientWidth || 150;
-      const height = container.clientHeight || 190;
-
-      const scene = new THREE.Scene();
-      scene.environment = resources.envTexture;
-
-      const camera = new THREE.PerspectiveCamera(28, width / height, 0.1, 1000);
-      camera.position.set(0, 0.0, 8.0);
-
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setClearColor(0x000000, 0); // Transparent background
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.4;
-      container.appendChild(renderer.domElement);
-
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
-      scene.add(ambientLight);
-
-      const frontKeyLight = new THREE.DirectionalLight(0xfff3e3, 1.8);
-      frontKeyLight.position.set(2, 2, 5);
-      scene.add(frontKeyLight);
-
-      const dramaticRimBacklight = new THREE.DirectionalLight(0xffaa44, 2.0);
-      dramaticRimBacklight.position.set(0, 0, -5);
-      scene.add(dramaticRimBacklight);
-
-      const topLight = new THREE.DirectionalLight(0xffffff, 1.2);
-      topLight.position.set(0, 4, 2);
-      scene.add(topLight);
-
-      const masterBottleGroup = new THREE.Group();
-      masterBottleGroup.position.y = -0.15;
-      
-      const startRotation = (rum.id * 1.7) % (Math.PI * 2);
-      const speed = 0.003 + (rum.id * 0.0007) % 0.0035;
-      masterBottleGroup.rotation.y = startRotation;
-      
-      scene.add(masterBottleGroup);
-
-      const glassMesh = new THREE.Mesh(resources.glassGeometry, resources.glassMaterial);
-      const liquidMesh = new THREE.Mesh(resources.liquidGeometry, resources.liquidMaterial);
-      const stopperMesh = new THREE.Mesh(resources.stopperGeometry, resources.glassMaterial);
-      const labelMesh = new THREE.Mesh(resources.labelGeometry, resources.labelMaterial);
-
-      labelMesh.position.set(0, -0.55, 0);
-
-      liquidMesh.renderOrder = 2;
-      glassMesh.renderOrder = 3;
-      stopperMesh.renderOrder = 4;
-      labelMesh.renderOrder = 1;
-
-      masterBottleGroup.add(liquidMesh);
-      masterBottleGroup.add(glassMesh);
-      masterBottleGroup.add(stopperMesh);
-      masterBottleGroup.add(labelMesh);
-
-      let animationFrameId;
-      function animate() {
-        animationFrameId = requestAnimationFrame(animate);
-        masterBottleGroup.rotation.y += speed;
-        renderer.render(scene, camera);
-      }
-      animate();
-
-      const resizeObserver = new ResizeObserver(entries => {
-        for (let entry of entries) {
-          const { width, height } = entry.contentRect;
-          if (width === 0 || height === 0) continue;
-          camera.aspect = width / height;
-          camera.updateProjectionMatrix();
-          renderer.setSize(width, height);
-        }
-      });
-      resizeObserver.observe(container);
-
-      activeRenderers[rum.id] = {
-        renderer,
-        resizeObserver,
-        animationFrameId
-      };
-    }
-
-    // Handle sorting by clicking column headers in list view
-    function handleHeaderSort(field) {
-      let nextSort = 'price-asc';
-      if (field === 'name') {
-        nextSort = (currentSort === 'name-asc' || currentSort === 'alphabetic') ? 'name-desc' : 'name-asc';
-      } else if (field === 'price') {
-        nextSort = currentSort === 'price-asc' ? 'price-desc' : 'price-asc';
-      } else if (field === 'favorite') {
-        nextSort = currentSort === 'fav-desc' ? 'fav-asc' : 'fav-desc';
-      }
-      currentSort = nextSort;
-      sortSelector.value = currentSort;
-      currentPage = 1;
-      updateURLParams();
-      renderProductsWithTransition();
-    }
-
-    // Update sort chevron indicators in table headers
-    function updateSortIndicators() {
-      const indName = document.getElementById('sort-indicator-name');
-      const indPrice = document.getElementById('sort-indicator-price');
-      const indFav = document.getElementById('sort-indicator-favorite');
-
-      if (indName) indName.textContent = '';
-      if (indPrice) indPrice.textContent = '';
-      if (indFav) indFav.textContent = '';
-
-      if (currentSort === 'name-asc' || currentSort === 'alphabetic') {
-        if (indName) indName.textContent = ' ▲';
-      } else if (currentSort === 'name-desc') {
-        if (indName) indName.textContent = ' ▼';
-      } else if (currentSort === 'price-asc') {
-        if (indPrice) indPrice.textContent = ' ▲';
-      } else if (currentSort === 'price-desc') {
-        if (indPrice) indPrice.textContent = ' ▼';
-      } else if (currentSort === 'fav-desc') {
-        if (indFav) indFav.textContent = ' ▲';
-      } else if (currentSort === 'fav-asc') {
-        if (indFav) indFav.textContent = ' ▼';
-      }
-    }
-
-    // Change current page in pagination
-    function changePage(page) {
-      currentPage = page;
-      updateURLParams();
-      renderProductsWithTransition();
-    }
-
-    // Change page item limit in pagination
-    function handleLimitChange(value) {
-      if (value === 'all') {
-        itemsPerPage = Infinity;
-      } else {
-        itemsPerPage = parseInt(value, 10);
-      }
-      currentPage = 1;
-      updateURLParams();
-      renderProductsWithTransition();
-    }
-
-    // Render pagination controls dynamically
-    function renderPaginationControls(totalItems) {
-      const controlsContainer = document.getElementById('pagination-controls');
-      if (!controlsContainer) return;
-
-      if (totalItems === 0) {
-        controlsContainer.style.display = 'none';
-        return;
-      }
-      controlsContainer.style.display = 'flex';
-
-      const limitVal = itemsPerPage === Infinity ? 'all' : itemsPerPage;
-      const totalPages = itemsPerPage === Infinity ? 1 : Math.ceil(totalItems / itemsPerPage);
-
-      const startIdx = itemsPerPage === Infinity ? 0 : (currentPage - 1) * itemsPerPage;
-      const endIdx = itemsPerPage === Infinity ? totalItems : Math.min(startIdx + itemsPerPage, totalItems);
-
-      const showingText = totalItems > 0
-        ? `Showing ${startIdx + 1}–${endIdx} of ${totalItems} items`
-        : `Showing 0–0 of 0 items`;
-
-      let buttonsHTML = '';
-      if (totalPages > 1) {
-        // Generate page select options
-        let pageSelectHTML = '';
-        for (let i = 1; i <= totalPages; i++) {
-          pageSelectHTML += `<option value="${i}" ${currentPage === i ? 'selected' : ''}>${i}</option>`;
-        }
-
-        buttonsHTML += `
-          <button class="pagination-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} aria-label="Previous Page">
-            &lt;
-          </button>
-          <div class="pagination-page-jump">
-            <span>Page</span>
-            <select class="pagination-page-select" onchange="changePage(parseInt(this.value, 10))" aria-label="Select Page">
-              ${pageSelectHTML}
-            </select>
-            <span>of ${totalPages}</span>
-          </div>
-          <button class="pagination-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Next Page">
-            &gt;
-          </button>
-        `;
-      }
-
-      controlsContainer.innerHTML = `
-        <div class="pagination-info">${showingText}</div>
-        
-        <div class="pagination-controls-buttons">
-          ${buttonsHTML}
-        </div>
-        
-        <div class="pagination-limit-wrapper">
-          <label for="limit-select">Items per page</label>
-          <select id="limit-select" class="pagination-limit-select" onchange="handleLimitChange(this.value)">
-            <option value="3" ${limitVal === 3 ? 'selected' : ''}>3</option>
-            <option value="6" ${limitVal === 6 ? 'selected' : ''}>6</option>
-            <option value="12" ${limitVal === 12 ? 'selected' : ''}>12</option>
-            <option value="all" ${limitVal === 'all' ? 'selected' : ''}>All</option>
-          </select>
-        </div>
-      `;
-    }
-
-    // Start rendering with View Transitions where supported
-    function renderProductsWithTransition() {
-      // Set transition names for morphing visual connections
-      const cards = document.querySelectorAll('.card-container');
-      cards.forEach(card => {
-        const id = card.getAttribute('data-id');
-        if (id) card.style.viewTransitionName = `card-${id}`;
-      });
-
-      const rows = document.querySelectorAll('.list-item-row');
-      rows.forEach(row => {
-        const id = row.getAttribute('data-id');
-        if (id) row.style.viewTransitionName = `row-${id}`;
-      });
-
-      if (document.startViewTransition) {
-        document.startViewTransition(() => {
-          renderProducts();
-          updateSortIndicators();
-        });
-      } else {
-        renderProducts();
-        updateSortIndicators();
-      }
-    }
-
-    // Update URL query parameters
-    function updateURLParams(isTyping = false) {
-      const params = new URLSearchParams();
-      params.set('view', currentViewMode);
-      params.set('filter', currentFilter);
-      params.set('sort', currentSort);
-      params.set('page', currentPage);
-      params.set('limit', itemsPerPage === Infinity ? 'all' : itemsPerPage);
-      params.set('hideStock', hideOutOfStock ? 'true' : 'false');
-      if (currentSearch) {
-        params.set('search', currentSearch);
-      }
-
-      const newURL = `${window.location.pathname}?${params.toString()}`;
-      if (isTyping) {
-        window.history.replaceState(null, '', newURL);
-      } else {
-        window.history.pushState(null, '', newURL);
-      }
-    }
-
-    // Parse UI state parameters from URL
-    function parseURLParams() {
-      const params = new URLSearchParams(window.location.search);
-
-      currentViewMode = params.get('view') || 'grid';
-      currentFilter = params.get('filter') || 'all';
-      currentSort = params.get('sort') || 'price-asc';
-      currentPage = parseInt(params.get('page') || '1', 10);
-
-      const limitVal = params.get('limit') || '6';
-      if (limitVal === 'all') {
-        itemsPerPage = Infinity;
-      } else {
-        itemsPerPage = parseInt(limitVal, 10);
-      }
-
-      currentSearch = params.get('search') || '';
-
-      hideOutOfStock = params.get('hideStock') === 'true';
-      const hideStockCheck = document.getElementById('hide-stock-toggle');
-      if (hideStockCheck) {
-        hideStockCheck.checked = hideOutOfStock;
-      }
-
-      // Sync DOM controls values
-      searchBar.value = currentSearch;
-      sortSelector.value = currentSort;
-
-      // Sync quick filter pills active class
-      document.querySelectorAll('.filter-pill').forEach(pill => {
-        const onclickAttr = pill.getAttribute('onclick');
-        if (onclickAttr && onclickAttr.includes(`'${currentFilter}'`)) {
-          pill.classList.add('active');
-        } else {
-          pill.classList.remove('active');
-        }
-      });
-
-      // Sync active view buttons
-      const gridContainer = document.getElementById('grid-view-container');
-      const listContainer = document.getElementById('list-view-container');
-      const gridBtn = document.getElementById('grid-toggle-btn');
-      const listBtn = document.getElementById('list-toggle-btn');
-
-      if (currentViewMode === 'grid') {
-        gridContainer.style.display = 'grid';
-        listContainer.style.display = 'none';
-        gridBtn.classList.add('active');
-        listBtn.classList.remove('active');
-      } else {
-        gridContainer.style.display = 'none';
-        listContainer.style.display = 'table';
-        gridBtn.classList.remove('active');
-        listBtn.classList.add('active');
-      }
-    }
-
-    // Stock Toggle event handler
-    function handleStockToggle(checked) {
-      hideOutOfStock = checked;
-      currentPage = 1;
-      updateURLParams();
-      renderProductsWithTransition();
-    }
-
-    // Mobile Menu Nav Handlers
-    function toggleMobileMenu() {
-      const navWrapper = document.getElementById('nav-wrapper');
-      const toggleBtn = document.getElementById('mobile-menu-toggle');
-      if (navWrapper.classList.contains('open')) {
-        navWrapper.classList.remove('open');
-        toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
-      } else {
-        navWrapper.classList.add('open');
-        toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
-      }
-    }
-
-    function closeMobileMenu() {
-      const navWrapper = document.getElementById('nav-wrapper');
-      const toggleBtn = document.getElementById('mobile-menu-toggle');
-      if (navWrapper) {
-        navWrapper.classList.remove('open');
-      }
-      if (toggleBtn) {
-        toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
-      }
-    }
-
-    // Modal Details for List View Rows (Rating Removed, Prices formatted)
-    function openDetailsModal(id) {
-      const rum = rumData.find(r => r.id === id);
-      if (!rum) return;
-
-      const storePrices = rum.stores.map(s => s.price);
-      const minStorePrice = Math.min(...storePrices, rum.price);
-      const maxStorePrice = Math.max(...storePrices, rum.price);
-      const sortedStores = [...rum.stores].sort((a, b) => a.price - b.price);
-
-      const storeListHTML = sortedStores.map(st => `
-        <div class="spec-item" style="padding:10px 0;">
-          <span class="spec-label">${st.name}</span>
-          <span class="spec-value" style="color:${st.price === minStorePrice ? 'var(--color-refraction-gold)' : 'var(--color-text-primary)'}">
-            $${st.price.toFixed(2)} ${st.price === minStorePrice ? '(Best)' : ''}
-          </span>
-        </div>
-      `).join('');
-
-      dialogContent.innerHTML = `
-        <div class="success-badge">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        </div>
-        <h2 class="dialog-title">${rum.name}</h2>
-        <p class="dialog-subtitle">${getMetadataText(rum)}</p>
-        <p class="dialog-desc">${rum.tastingNotes}</p>
-        ${!rum.inStock && rum.lastSeenStock ? `<div style="font-size:0.75rem; color:#e74c3c; margin:-8px 0 16px; font-weight:600; text-align:center;">Last seen in stock - ${rum.lastSeenStock}</div>` : ''}
-        
-        <div class="spec-list" style="margin-bottom: 24px;">
-          <div class="spec-item">
-            <span class="spec-label">Nightly Scraped Range</span>
-            <span class="spec-value">
-              ${minStorePrice === maxStorePrice
-          ? `$${minStorePrice.toFixed(2)}`
-          : `$${minStorePrice.toFixed(2)} - $${maxStorePrice.toFixed(2)}`
-        }
-            </span>
-          </div>
-          <div class="spec-item" style="border-bottom:1.5px solid rgba(230,126,34,0.3); padding-bottom:12px;">
-            <span class="spec-label" style="font-weight:600; color:var(--color-text-primary)">Store Offerings</span>
-            <span class="spec-value" style="font-weight:600; color:var(--color-refraction-gold)">Price</span>
-          </div>
-          <div style="max-height: 150px; overflow-y: auto; padding-right: 8px;">
-            ${storeListHTML}
-          </div>
-        </div>
-        
-        <div class="dialog-footer" style="gap: 12px;">
-          <button class="btn btn-secondary" onclick="closeDialog()" style="flex: 1;">Close</button>
-          <button class="btn btn-primary" style="flex: 2;" onclick="openPlaceholderDetails(event, '${rum.name.replace(/'/g, "\\'")}')">
-            View Full Details Page
-          </button>
-        </div>
-      `;
-
-      dialog.showModal();
-      setFocused(true);
-    }
-
-    // Details page placeholder alerts
-    function openPlaceholderDetails(e, name) {
-      e.stopPropagation();
-      dialogContent.innerHTML = `
-        <div class="success-badge" style="border-color:var(--color-rum-amber); color:var(--color-refraction-gold); background:rgba(230,126,34,0.1)">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        </div>
-        <h2 class="dialog-title">Product Details Page</h2>
-        <p class="dialog-subtitle">${name}</p>
-        <p class="dialog-desc">This is a placeholder for the dedicated details view for <strong>${name}</strong>. The full page (featuring nightly scraping history graphs, custom price alert threshold setups, and comprehensive store indexes) is scheduled for the next design sprint.</p>
-        <div class="dialog-footer" style="justify-content: center;">
-          <button class="btn btn-primary" onclick="closeDialog()">Acknowledge</button>
-        </div>
-      `;
-      dialog.showModal();
-      setFocused(true);
-    }
-
-    // Close Modal
-    function closeDialog() {
-      dialog.close();
-      setFocused(false);
-    }
-  </script>
+  
 </body>
 
 </html>

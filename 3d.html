@@ -123,7 +123,7 @@
             const scene = new THREE.Scene();
 
             const camera = new THREE.PerspectiveCamera(28, width / height, 0.1, 1000);
-            camera.position.set(0, 0.15, 7.5);
+            camera.position.set(0, 0.0, 8.0);
 
             const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(width, height);
@@ -161,6 +161,21 @@
             const envTexture = new THREE.CanvasTexture(envCanvas);
             envTexture.mapping = THREE.EquirectangularReflectionMapping;
             scene.environment = envTexture;
+
+            // --- 1b. Scene Background Gradient ---
+            // Render the radial gradient spotlight inside WebGL so transmissive materials refract it
+            const bgCanvas = document.createElement('canvas');
+            bgCanvas.width = 512;
+            bgCanvas.height = 512;
+            const bgCtx = bgCanvas.getContext('2d');
+            const bgGrad = bgCtx.createRadialGradient(256, 256, 0, 256, 256, 256);
+            bgGrad.addColorStop(0, '#4d230d');
+            bgGrad.addColorStop(0.85, '#110904');
+            bgCtx.fillStyle = bgGrad;
+            bgCtx.fillRect(0, 0, 512, 512);
+
+            const bgTexture = new THREE.CanvasTexture(bgCanvas);
+            scene.background = bgTexture;
 
             // --- 2. Anchor Spotlighting Layout ---
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
@@ -225,8 +240,9 @@
             liquidPoints.push(new THREE.Vector2(0.71, 0.65));   // Shoulder start
             liquidPoints.push(new THREE.Vector2(0.59, 0.85));   // Shoulder mid
             liquidPoints.push(new THREE.Vector2(0.41, 1.00));   // Shoulder top
-            liquidPoints.push(new THREE.Vector2(0.19, 1.12));   // Liquid fill level inside neck
-            liquidPoints.push(new THREE.Vector2(0, 1.12));      // Liquid top center
+            liquidPoints.push(new THREE.Vector2(0.19, 1.15));   // Lower neck
+            liquidPoints.push(new THREE.Vector2(0.19, 1.35));   // Liquid fill level inside neck
+            liquidPoints.push(new THREE.Vector2(0, 1.35));      // Liquid top center
             
             const liquidGeometry = new THREE.LatheGeometry(liquidPoints, 64);
 
@@ -276,62 +292,78 @@
             masterBottleGroup.add(glassMesh);
             masterBottleGroup.add(stopperMesh);
 
-            // --- 6. Custom Satin Ribbon Sash Element Construction ---
+            // --- 6. Custom Elegant Paper Label Construction ---
             const canvasWidth = 1024;
-            const canvasHeight = 128;
+            const canvasHeight = 512;
             const textCanvas = document.createElement('canvas');
             textCanvas.width = canvasWidth;
             textCanvas.height = canvasHeight;
             const ctx = textCanvas.getContext('2d');
 
-            // Silk deep-mahogany fabric pattern fill gradient linear map
-            const sashSatinGradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
-            sashSatinGradient.addColorStop(0, '#2e1408');
-            sashSatinGradient.addColorStop(0.35, '#592913'); // Mid-tier lustrous silk sheen light reflect line
-            sashSatinGradient.addColorStop(0.65, '#3b1a0b');
-            sashSatinGradient.addColorStop(1, '#1a0903');
-            ctx.fillStyle = sashSatinGradient;
-            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+            // Clear the canvas to keep the background transparent
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-            // Fine-line luxury outer gold ribbon label boundary borders
-            ctx.strokeStyle = 'rgba(212, 175, 55, 0.45)';
+            // Label sticker dimensions (centered in the texture wrapping the cylinder)
+            const labelW = 560;
+            const labelH = 340;
+            const labelX = (canvasWidth - labelW) / 2;
+            const labelY = (canvasHeight - labelH) / 2;
+
+            // Draw sticker background with elegant dark charcoal color
+            ctx.fillStyle = '#151311';
+            ctx.fillRect(labelX, labelY, labelW, labelH);
+
+            // Draw a subtle gold gradient border
+            const borderGrad = ctx.createLinearGradient(labelX, labelY, labelX, labelY + labelH);
+            borderGrad.addColorStop(0, '#d4af37');
+            borderGrad.addColorStop(0.5, '#f3e5ab');
+            borderGrad.addColorStop(1, '#aa7c11');
+
+            // Outer gold border
+            ctx.strokeStyle = borderGrad;
             ctx.lineWidth = 4;
-            ctx.strokeRect(0, 8, canvasWidth, canvasHeight - 16);
+            ctx.strokeRect(labelX + 8, labelY + 8, labelW - 16, labelH - 16);
+            
+            // Inner gold border (thin)
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(labelX + 14, labelY + 14, labelW - 28, labelH - 28);
 
-            // High-end Typography setup using loaded brand serif font asset rules
-            ctx.fillStyle = '#e8c49e'; // Soft textured matte gold color profile
-            ctx.font = 'italic 600 46px "Cormorant Garamond", "Georgia", serif';
+            // High-end Typography setup
+            ctx.fillStyle = '#e8c49e'; // Soft textured matte gold color
+            ctx.font = 'italic 600 56px "Cormorant Garamond", "Georgia", serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.letterSpacing = "6px";
+            ctx.letterSpacing = '5px';
 
             // Configure drop shadow for 3D embossed gold finish
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.65)';
-            ctx.shadowBlur = 4;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+            ctx.shadowBlur = 5;
             ctx.shadowOffsetX = 2;
             ctx.shadowOffsetY = 2;
 
-            // Infinite repeating text phrase string layout loop sequence
-            const continuousString = "COMING SOON  •  COMING SOON";
-            ctx.fillText(continuousString, canvasWidth / 2, canvasHeight / 2);
+            // Draw "Coming Soon" in two lines, centered in the sticker area
+            const centerX = canvasWidth / 2;
+            const centerY = canvasHeight / 2;
+            ctx.fillText("Coming", centerX, centerY - 45);
+            ctx.fillText("Soon", centerX, centerY + 45);
 
             const textTexture = new THREE.CanvasTexture(textCanvas);
             textTexture.wrapS = THREE.RepeatWrapping;
             textTexture.repeat.x = 1;
 
-            // Custom wrapped cylindrical shroud shell snapping tightly flush onto body perimeter bounds
-            const sashGeometry = new THREE.CylinderGeometry(0.83, 0.83, 0.54, 64, 1, true);
-            const sashMaterial = new THREE.MeshStandardMaterial({
+            // Concentric cylindrical wrap sitting flush onto the body barrel (no Z tilt to prevent intersections)
+            const labelGeometry = new THREE.CylinderGeometry(0.818, 0.818, 1.0, 64, 1, true);
+            const labelMaterial = new THREE.MeshStandardMaterial({
                 map: textTexture,
-                side: THREE.FrontSide, // Strict parameter hides back-face pixel reflection anomalies completely
-                roughness: 0.35,
-                metalness: 0.15
+                side: THREE.FrontSide,
+                roughness: 0.40,
+                metalness: 0.10,
+                transparent: true
             });
 
-            const sashMesh = new THREE.Mesh(sashGeometry, sashMaterial);
-            sashMesh.position.set(0, -0.32, 0); // Positioned elegantly onto the lower barrel container body section
-            sashMesh.rotation.z = -0.18;       // Classic custom diagonal typography slope angle
-            masterBottleGroup.add(sashMesh);
+            const labelMesh = new THREE.Mesh(labelGeometry, labelMaterial);
+            labelMesh.position.set(0, -0.35, 0); // Positioned centered onto the lower barrel body section
+            masterBottleGroup.add(labelMesh);
 
             // Vertically balance the focal anchor point center layer
             masterBottleGroup.position.y = -0.15;

@@ -693,6 +693,17 @@
       transform: scale(1.05) translateY(-5px);
     }
 
+    .three-canvas-wrapper {
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+    }
+
+    .three-canvas-wrapper.card-bottle-img {
+      mix-blend-mode: normal;
+      filter: none;
+    }
+
     .card-container:hover .svg-silhouette {
       opacity: 0.38 !important;
     }
@@ -1653,6 +1664,7 @@
       }
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 
 <body>
@@ -2003,6 +2015,7 @@
         historicalLowest: 239.99,
         status: "Standard",
         image: "premium_rum_bottle.png",
+        isAnimated: true,
         inStock: false,
         lastSeenStock: "14 May 2026",
         tastingNotes: "Toasted oak, tobacco leaf, espresso bean, burnt orange.",
@@ -2105,6 +2118,7 @@
         historicalLowest: 58.99,
         status: "New",
         image: "rum_bottle_clear.png",
+        isAnimated: true,
         inStock: true,
         tastingNotes: "Lemongrass, green apple, vanilla essence, herbal tea.",
         heritage: "A unique botanical rum infusion capturing the volcanic soils of Martinique.",
@@ -2240,6 +2254,7 @@
         historicalLowest: 135.00,
         status: "Standard",
         image: "premium_rum_bottle.png",
+        isAnimated: true,
         inStock: false,
         lastSeenStock: "02 Jun 2026",
         tastingNotes: "Rich toffee, red apple, dark chocolate, baking spices.",
@@ -2375,6 +2390,7 @@
         historicalLowest: 95.00,
         status: "Standard",
         image: "rum_bottle_gold.png",
+        isAnimated: true,
         inStock: true,
         tastingNotes: "Toasted marshmallow, native honey, macadamia, light spice.",
         heritage: "Handcrafted in small batches at the Brix Sydney distillery.",
@@ -2542,6 +2558,7 @@
         historicalLowest: 52.50,
         status: "Standard",
         image: "rum_bottle_gold.png",
+        isAnimated: true,
         inStock: false,
         lastSeenStock: "28 May 2026",
         tastingNotes: "Madagascar vanilla, cinnamon scroll, caramel swirl.",
@@ -2610,6 +2627,7 @@
         historicalLowest: 49.99,
         status: "New",
         image: "rum_bottle_clear.png",
+        isAnimated: true,
         inStock: true,
         tastingNotes: "Tropical papaya, sweet grass, banana leaf, green pepper.",
         heritage: "Fijian white rum distilled from molasses in copper pot stills.",
@@ -2643,6 +2661,7 @@
         historicalLowest: 74.99,
         status: "Standard",
         image: "rum_bottle_dark.png",
+        isAnimated: true,
         inStock: true,
         tastingNotes: "Black treacle, dark brown sugar, molasses, subtle clove.",
         heritage: "A heavy, sweet Bermuda dark rum built for dark and stormy cocktails.",
@@ -2677,6 +2696,7 @@
         historicalLowest: 149.99,
         status: "New",
         image: "bottle_silhouette.svg",
+        isAnimated: true,
         inStock: true,
         tastingNotes: "Deep molasses, vanilla bean, coffee bean, dark chocolate.",
         heritage: "A secret recipe distilled and stored in the dark vaults, now released without standard labeling.",
@@ -3074,6 +3094,9 @@
 
     // Render Grid and List Products
     function renderProducts() {
+      // Clean up previous 3D WebGL renderers first
+      cleanupActive3D();
+
       const filteredRums = getProcessedProducts();
       const totalItems = filteredRums.length;
 
@@ -3168,7 +3191,17 @@
         // SVG Bottle Silhouette layout helper
         let imageHTML = `<img src="${rum.image}" alt="${rum.name}" class="card-bottle-img">`;
         let thumbHTML = `<img src="${rum.image}" alt="${rum.name}" class="list-thumb">`;
-        if (rum.image === 'bottle_silhouette.svg') {
+        if (rum.isAnimated) {
+          imageHTML = `
+            <div class="three-canvas-wrapper card-bottle-img" id="rum-3d-canvas-${rum.id}" style="width: 100%; height: 100%;"></div>
+          `;
+          const svgPath = 'M 20,290 C 20,295 25,300 30,300 L 70,300 C 75,300 80,295 80,290 L 80,120 C 80,95 72,80 58,70 L 58,25 C 60,25 61,24 61,22 L 61,15 C 61,13 60,12 58,12 L 58,0 L 42,0 L 42,12 C 40,12 39,13 39,15 L 39,22 C 39,24 40,25 42,25 L 42,70 C 28,80 20,95 20,120 Z';
+          thumbHTML = `
+            <svg class="list-thumb svg-silhouette" viewBox="0 0 100 300" style="height:100%; width:auto; color:var(--color-rum-amber); opacity:0.3;">
+              <path fill="currentColor" stroke="var(--color-refraction-gold)" stroke-width="4" d="${svgPath}" />
+            </svg>
+          `;
+        } else if (rum.image === 'bottle_silhouette.svg') {
           const svgPath = 'M 20,290 C 20,295 25,300 30,300 L 70,300 C 75,300 80,295 80,290 L 80,120 C 80,95 72,80 58,70 L 58,25 C 60,25 61,24 61,22 L 61,15 C 61,13 60,12 58,12 L 58,0 L 42,0 L 42,12 C 40,12 39,13 39,15 L 39,22 C 39,24 40,25 42,25 L 42,70 C 28,80 20,95 20,120 Z';
           imageHTML = `
             <svg class="card-bottle-img svg-silhouette" viewBox="0 0 100 300" style="height:100%; max-height:100%; color:var(--color-rum-amber); opacity:0.18; transition: opacity var(--transition-base), transform var(--transition-base);">
@@ -3303,7 +3336,307 @@
         listBody.insertAdjacentHTML('beforeend', listRowHTML);
       });
 
+      // Initialize Three.js for any visible animated cards
+      paginatedRums.forEach(rum => {
+        if (rum.isAnimated) {
+          initCard3D(rum);
+        }
+      });
+
       renderPaginationControls(totalItems);
+    }
+
+    // --- 3D WebGL Bottle Integration Manager ---
+    let activeRenderers = {};
+    let shared3DResources = null;
+
+    function cleanupActive3D() {
+      for (const id in activeRenderers) {
+        const item = activeRenderers[id];
+        if (item) {
+          if (item.animationFrameId) {
+            cancelAnimationFrame(item.animationFrameId);
+          }
+          if (item.resizeObserver) {
+            item.resizeObserver.disconnect();
+          }
+          if (item.renderer) {
+            item.renderer.dispose();
+            if (item.renderer.domElement && item.renderer.domElement.parentNode) {
+              item.renderer.domElement.parentNode.removeChild(item.renderer.domElement);
+            }
+          }
+        }
+      }
+      activeRenderers = {};
+    }
+
+    function initShared3DResources() {
+      if (shared3DResources) return shared3DResources;
+
+      try {
+        // --- 1. Shared High-Fidelity Studio Environment Mapping ---
+        const envCanvas = document.createElement('canvas');
+        envCanvas.width = 512;
+        envCanvas.height = 256;
+        const envCtx = envCanvas.getContext('2d');
+        envCtx.fillStyle = '#0f0804';
+        envCtx.fillRect(0, 0, 512, 256);
+
+        let leftBox = envCtx.createLinearGradient(40, 0, 140, 0);
+        leftBox.addColorStop(0, 'rgba(255,255,255,0)');
+        leftBox.addColorStop(0.5, 'rgba(255,255,255,0.75)');
+        leftBox.addColorStop(1, 'rgba(255,255,255,0)');
+        envCtx.fillStyle = leftBox;
+        envCtx.fillRect(40, 0, 100, 256);
+
+        let rightBox = envCtx.createLinearGradient(360, 0, 440, 0);
+        rightBox.addColorStop(0, 'rgba(255,255,255,0)');
+        rightBox.addColorStop(0.5, 'rgba(255,255,255,0.85)');
+        rightBox.addColorStop(1, 'rgba(255,255,255,0)');
+        envCtx.fillStyle = rightBox;
+        envCtx.fillRect(360, 0, 80, 256);
+
+        const envTexture = new THREE.CanvasTexture(envCanvas);
+        envTexture.mapping = THREE.EquirectangularReflectionMapping;
+
+        // --- 2. Shared Bottle & Liquid Geometries ---
+        const glassPoints = [];
+        // Outer profile
+        glassPoints.push(new THREE.Vector2(0, -1.6));
+        glassPoints.push(new THREE.Vector2(0.78, -1.6));
+        glassPoints.push(new THREE.Vector2(0.81, -1.45));
+        glassPoints.push(new THREE.Vector2(0.81, 0.50));
+        glassPoints.push(new THREE.Vector2(0.78, 0.70));
+        glassPoints.push(new THREE.Vector2(0.68, 0.90));
+        glassPoints.push(new THREE.Vector2(0.50, 1.05));
+        glassPoints.push(new THREE.Vector2(0.28, 1.15));
+        glassPoints.push(new THREE.Vector2(0.26, 1.55));
+        glassPoints.push(new THREE.Vector2(0.28, 1.58));
+        glassPoints.push(new THREE.Vector2(0.28, 1.63));
+        glassPoints.push(new THREE.Vector2(0.26, 1.65));
+        glassPoints.push(new THREE.Vector2(0.29, 1.68));
+        glassPoints.push(new THREE.Vector2(0.29, 1.76));
+        glassPoints.push(new THREE.Vector2(0.25, 1.78));
+        glassPoints.push(new THREE.Vector2(0.20, 1.78));
+        // Inner profile
+        glassPoints.push(new THREE.Vector2(0.20, 1.15));
+        glassPoints.push(new THREE.Vector2(0.42, 1.00));
+        glassPoints.push(new THREE.Vector2(0.60, 0.85));
+        glassPoints.push(new THREE.Vector2(0.72, 0.65));
+        glassPoints.push(new THREE.Vector2(0.75, 0.45));
+        glassPoints.push(new THREE.Vector2(0.75, -1.35));
+        glassPoints.push(new THREE.Vector2(0.70, -1.42));
+        glassPoints.push(new THREE.Vector2(0, -1.42));
+        const glassGeometry = new THREE.LatheGeometry(glassPoints, 64);
+
+        const liquidPoints = [];
+        liquidPoints.push(new THREE.Vector2(0, -1.41));
+        liquidPoints.push(new THREE.Vector2(0.74, -1.41));
+        liquidPoints.push(new THREE.Vector2(0.74, 0.45));
+        liquidPoints.push(new THREE.Vector2(0.71, 0.65));
+        liquidPoints.push(new THREE.Vector2(0, 0.65));
+        const liquidGeometry = new THREE.LatheGeometry(liquidPoints, 64);
+
+        const stopperPoints = [];
+        stopperPoints.push(new THREE.Vector2(0, 1.75));
+        stopperPoints.push(new THREE.Vector2(0.23, 1.75));
+        stopperPoints.push(new THREE.Vector2(0.24, 1.80));
+        stopperPoints.push(new THREE.Vector2(0.24, 1.92));
+        stopperPoints.push(new THREE.Vector2(0.20, 1.97));
+        stopperPoints.push(new THREE.Vector2(0, 1.97));
+        const stopperGeometry = new THREE.LatheGeometry(stopperPoints, 64);
+
+        // --- 3. Shared Label Construction ---
+        const canvasWidth = 1024;
+        const canvasHeight = 512;
+        const textCanvas = document.createElement('canvas');
+        textCanvas.width = canvasWidth;
+        textCanvas.height = canvasHeight;
+        const ctx = textCanvas.getContext('2d');
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+        ctx.translate(canvasWidth / 2, canvasHeight / 2);
+        ctx.scale(0.39, 1.0);
+
+        const labelW = 800;
+        const labelH = 460;
+        ctx.fillStyle = '#151311';
+        ctx.fillRect(-labelW / 2, -labelH / 2, labelW, labelH);
+
+        const borderGrad = ctx.createLinearGradient(0, -labelH / 2, 0, labelH / 2);
+        borderGrad.addColorStop(0, '#d4af37');
+        borderGrad.addColorStop(0.5, '#f3e5ab');
+        borderGrad.addColorStop(1, '#aa7c11');
+
+        ctx.strokeStyle = borderGrad;
+        ctx.lineWidth = 4;
+        ctx.strokeRect(-labelW / 2 + 8, -labelH / 2 + 8, labelW - 16, labelH - 16);
+
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-labelW / 2 + 14, -labelH / 2 + 14, labelW - 28, labelH - 28);
+
+        ctx.fillStyle = '#e8c49e';
+        ctx.font = '600 72px "Cormorant Garamond", "Georgia", serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.letterSpacing = '5px';
+
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+        ctx.shadowBlur = 5;
+        ctx.shadowOffsetX = 2;
+        ctx.shadowOffsetY = 2;
+
+        ctx.fillText("Image coming soon", 0, -60);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+        const textTexture = new THREE.CanvasTexture(textCanvas);
+        textTexture.wrapS = THREE.RepeatWrapping;
+        textTexture.repeat.x = 1;
+
+        const labelGeometry = new THREE.CylinderGeometry(0.818, 0.818, 1.4, 64, 1, true);
+
+        // --- 4. Shared Materials ---
+        const glassMaterial = new THREE.MeshPhysicalMaterial({
+          color: 0xffffff,
+          roughness: 0.02,
+          metalness: 0.0,
+          transmission: 0.98,
+          ior: 1.52,
+          thickness: 0.0,
+          clearcoat: 1.0,
+          clearcoatRoughness: 0.02,
+          transparent: true,
+          depthWrite: false
+        });
+
+        const liquidMaterial = new THREE.MeshPhysicalMaterial({
+          color: 0xc25900,
+          roughness: 0.05,
+          metalness: 0.0,
+          transmission: 0.45,
+          ior: 1.35,
+          thickness: 1.5,
+          clearcoat: 1.0,
+          clearcoatRoughness: 0.05,
+          transparent: true
+        });
+
+        const labelMaterial = new THREE.MeshStandardMaterial({
+          map: textTexture,
+          side: THREE.DoubleSide,
+          roughness: 0.40,
+          metalness: 0.10,
+          transparent: true,
+          depthWrite: false
+        });
+
+        shared3DResources = {
+          envTexture,
+          glassGeometry,
+          liquidGeometry,
+          stopperGeometry,
+          labelGeometry,
+          glassMaterial,
+          liquidMaterial,
+          labelMaterial
+        };
+      } catch (err) {
+        console.error("Failed to initialize WebGL Shared Resources:", err);
+      }
+      return shared3DResources;
+    }
+
+    function initCard3D(rum) {
+      const containerId = `rum-3d-canvas-${rum.id}`;
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const resources = initShared3DResources();
+      if (!resources) return;
+
+      const width = container.clientWidth || 150;
+      const height = container.clientHeight || 190;
+
+      const scene = new THREE.Scene();
+      scene.environment = resources.envTexture;
+
+      const camera = new THREE.PerspectiveCamera(28, width / height, 0.1, 1000);
+      camera.position.set(0, 0.0, 8.0);
+
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0); // Transparent background
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.4;
+      container.appendChild(renderer.domElement);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+      scene.add(ambientLight);
+
+      const frontKeyLight = new THREE.DirectionalLight(0xfff3e3, 1.8);
+      frontKeyLight.position.set(2, 2, 5);
+      scene.add(frontKeyLight);
+
+      const dramaticRimBacklight = new THREE.DirectionalLight(0xffaa44, 2.0);
+      dramaticRimBacklight.position.set(0, 0, -5);
+      scene.add(dramaticRimBacklight);
+
+      const topLight = new THREE.DirectionalLight(0xffffff, 1.2);
+      topLight.position.set(0, 4, 2);
+      scene.add(topLight);
+
+      const masterBottleGroup = new THREE.Group();
+      masterBottleGroup.position.y = -0.15;
+      
+      const startRotation = (rum.id * 1.7) % (Math.PI * 2);
+      const speed = 0.003 + (rum.id * 0.0007) % 0.0035;
+      masterBottleGroup.rotation.y = startRotation;
+      
+      scene.add(masterBottleGroup);
+
+      const glassMesh = new THREE.Mesh(resources.glassGeometry, resources.glassMaterial);
+      const liquidMesh = new THREE.Mesh(resources.liquidGeometry, resources.liquidMaterial);
+      const stopperMesh = new THREE.Mesh(resources.stopperGeometry, resources.glassMaterial);
+      const labelMesh = new THREE.Mesh(resources.labelGeometry, resources.labelMaterial);
+
+      labelMesh.position.set(0, -0.55, 0);
+
+      liquidMesh.renderOrder = 2;
+      glassMesh.renderOrder = 3;
+      stopperMesh.renderOrder = 4;
+      labelMesh.renderOrder = 1;
+
+      masterBottleGroup.add(liquidMesh);
+      masterBottleGroup.add(glassMesh);
+      masterBottleGroup.add(stopperMesh);
+      masterBottleGroup.add(labelMesh);
+
+      let animationFrameId;
+      function animate() {
+        animationFrameId = requestAnimationFrame(animate);
+        masterBottleGroup.rotation.y += speed;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      const resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+          const { width, height } = entry.contentRect;
+          if (width === 0 || height === 0) continue;
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+          renderer.setSize(width, height);
+        }
+      });
+      resizeObserver.observe(container);
+
+      activeRenderers[rum.id] = {
+        renderer,
+        resizeObserver,
+        animationFrameId
+      };
     }
 
     // Handle sorting by clicking column headers in list view

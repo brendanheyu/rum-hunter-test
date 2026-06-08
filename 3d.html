@@ -5,51 +5,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium 3D Rum Placeholder - Fixed Studio Render</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&display=swap"
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
         body {
-            background-color: #120904;
+            background: radial-gradient(circle at top, #361709 0%, #0d0603 100%);
+            margin: 0;
+            padding: 40px 20px;
+            font-family: 'Outfit', 'Segoe UI', sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
-        /* Product Card Layout Mirror */
-        .product-card {
-            width: 340px;
-            height: 540px;
-            background: linear-gradient(145deg, #24130a, #110904);
-            border-radius: 16px;
+        /* Responsive Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1160px;
+            width: 100%;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 760px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                max-width: 360px;
+            }
+        }
+
+        /* 3D Flip Card Container */
+        .card-container {
+            perspective: 1200px;
+            width: 100%;
+            height: 530px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card-container.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Card Faces */
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #23130a, #100804);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             padding: 24px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: space-between;
-            box-sizing: border-box;
-            cursor: pointer;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .card-container:hover .card-front,
+        .card-container:hover .card-back {
+            border-color: rgba(255, 159, 67, 0.35);
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 159, 67, 0.1);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(145deg, #1b0c05, #0a0402);
+            border-color: rgba(255, 159, 67, 0.15);
+            color: #d1c0b4;
+        }
+
+        /* Front Specific Layout */
+        .card-front {
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .status-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a3958c;
+            align-self: baseline;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .status-badge.on-sale {
+            background: rgba(46, 204, 113, 0.05);
+            border-color: rgba(46, 204, 113, 0.3);
+            color: #2ecc71;
+        }
+
+        .status-badge.new {
+            background: rgba(52, 152, 219, 0.05);
+            border-color: rgba(52, 152, 219, 0.35);
+            color: #3498db;
+        }
+
+        .status-badge.out-of-stock {
+            background: rgba(140, 130, 122, 0.05);
+            border-color: rgba(140, 130, 122, 0.3);
+            color: #a3958c;
+        }
+
+        .btn-star {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: #a3958c;
+            padding: 4px;
+            transition: color 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-star:hover {
+            color: #ff9f43;
+            transform: scale(1.15);
+        }
+
+        .btn-star.active {
+            color: #ff9f43;
         }
 
         .image-container {
             width: 100%;
-            height: 340px;
+            aspect-ratio: 1 / 1;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
-            background: radial-gradient(circle at center, #4d230d 0%, #110904 85%);
+            background: radial-gradient(circle at center, #3d1b0b 0%, #0c0502 90%);
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+            margin: 12px 0 16px 0;
+            overflow: hidden;
         }
 
-        /* Fluid hardware-accelerated wrapper for your UI scale interaction */
+        /* Fluid hardware-accelerated wrapper for UI scale interaction */
         .three-canvas-wrapper {
             width: 100%;
             height: 100%;
@@ -57,37 +187,226 @@
             will-change: transform;
         }
 
-        .product-card:hover .three-canvas-wrapper {
-            transform: scale(1.07);
+        .card-container:hover .three-canvas-wrapper {
+            transform: scale(1.06);
         }
 
         /* Static Card UI Details */
         .product-info {
             width: 100%;
-            color: #e0cfc3;
+            color: #d1c0b4;
             text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .meta {
-            font-size: 0.75rem;
-            color: #8c7669;
+            font-size: 0.72rem;
+            color: #a38c80;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-bottom: 6px;
+            margin-bottom: 2px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
         }
 
         .title {
-            font-size: 1.35rem;
-            margin: 0 0 12px 0;
+            font-size: 1.45rem;
+            margin: 0;
             color: #fff;
             font-weight: 300;
             font-family: 'Cormorant Garamond', serif;
+            line-height: 1.2;
+            min-height: 2.4em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 12px;
+            margin-top: 8px;
+        }
+
+        .price-box {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .original-price {
+            font-size: 0.95rem;
+            color: #8c7669;
+            text-decoration: line-through;
+            font-weight: 400;
         }
 
         .price {
             color: #ff9f43;
             font-weight: 600;
-            font-size: 1.25rem;
+            font-size: 1.35rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .badge-tag {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #a3958c;
+            align-self: baseline;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .badge-tag.best-ever {
+            background: rgba(46, 204, 113, 0.08);
+            border-color: rgba(46, 204, 113, 0.25);
+            color: #2ecc71;
+        }
+
+        .badge-tag.best-price-match {
+            background: rgba(255, 159, 67, 0.08);
+            border-color: rgba(255, 159, 67, 0.25);
+            color: #ff9f43;
+        }
+
+        .out-of-stock-alert {
+            font-size: 0.72rem;
+            color: #ff6b6b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+            margin-bottom: 4px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Card Back Styles */
+        .card-back-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.45rem;
+            color: #fff;
+            margin: 0;
+            font-weight: 300;
+            line-height: 1.25;
+            min-height: 2.5em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 8px;
+        }
+
+        .card-back-section {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex-grow: 1;
+            margin-top: 14px;
+        }
+
+        .section-title {
+            font-size: 0.7rem;
+            color: #a38c80;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .tasting-notes {
+            font-size: 0.84rem;
+            color: #d1c0b4;
+            line-height: 1.45;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .store-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 110px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Custom Scrollbar for store comparison */
+        .store-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .store-list::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.15);
+        }
+        .store-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 159, 67, 0.2);
+            border-radius: 2px;
+        }
+
+        .store-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .store-row:last-child {
+            border-bottom: none;
+        }
+
+        .store-row.best-price {
+            color: #ff9f43;
+        }
+
+        .store-row.best-price .store-name {
+            color: #ff9f43;
+            font-weight: 500;
+        }
+
+        .store-name {
+            color: #bfaea2;
+        }
+
+        .store-price {
+            font-weight: 500;
+        }
+
+        .btn-detail {
+            align-self: stretch;
+            background: rgba(255, 159, 67, 0.08);
+            border: 1px solid rgba(255, 159, 67, 0.2);
+            color: #ff9f43;
+            border-radius: 6px;
+            padding: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin-top: 12px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-detail:hover {
+            background: rgba(255, 159, 67, 0.15);
+            border-color: #ff9f43;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -95,54 +414,634 @@
 
 <body>
 
-    <div class="product-card">
-        <div
-            style="align-self: flex-start; color: #ff9f43; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold;">
-            Preview</div>
-
-        <div class="image-container">
-            <div class="three-canvas-wrapper" id="rum-3d-canvas"></div>
+    <div class="grid-container">
+        <!-- Card 1 -->
+        <div class="card-container" onclick="toggleFlip(this)">
+            <div class="card-inner">
+                <!-- Front Face -->
+                <div class="card-front">
+                    <div class="card-header-row">
+                        <span class="status-badge on-sale">On Sale</span>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <div class="three-canvas-wrapper" id="rum-3d-canvas-1"></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="meta">18 Years | Jamaica | 700ml | 46%</div>
+                        <div class="title">Distillery Vault Secret Reserve</div>
+                        <div class="price-row">
+                            <div class="price-box">
+                                <span class="original-price">$175.00</span>
+                                <span class="price">$149.99</span>
+                            </div>
+                            <span class="badge-tag best-ever">Best Ever</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Back Face -->
+                <div class="card-back">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 class="card-back-title">Distillery Vault</h3>
+                            <div class="meta" style="margin-bottom: 0;">Secret Reserve</div>
+                        </div>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="card-back-section">
+                        <div>
+                            <div class="section-title">Tasting Notes</div>
+                            <div class="tasting-notes">Deep molasses, toasted vanilla bean, warm spice, dark chocolate, and heavy oak char.</div>
+                        </div>
+                        <div>
+                            <div class="section-title">Store Comparison</div>
+                            <div class="store-list">
+                                <div class="store-row best-price">
+                                    <span class="store-name">Dan Murphy's</span>
+                                    <span class="store-price">$149.99</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">BWS</span>
+                                    <span class="store-price">$154.99</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">Vintage Cellars</span>
+                                    <span class="store-price">$152.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-detail" onclick="event.stopPropagation()">Details</a>
+                </div>
+            </div>
         </div>
 
-        <div class="product-info">
-            <div class="meta">18 Years | Jamaica | 700ml | 46%</div>
-            <div class="title">Distillery Vault Secret Reserve</div>
-            <div class="price">$149.99</div>
+        <!-- Card 2 -->
+        <div class="card-container" onclick="toggleFlip(this)">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header-row">
+                        <span class="status-badge new">New Product</span>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <div class="three-canvas-wrapper" id="rum-3d-canvas-2"></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="meta">15 Years | Barbados | 700ml | 43%</div>
+                        <div class="title">Black Cask Triple Oak</div>
+                        <div class="price-row">
+                            <div class="price-box">
+                                <span class="price">$124.99</span>
+                            </div>
+                            <span class="badge-tag best-price-match">Best Price Match</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 class="card-back-title">Black Cask</h3>
+                            <div class="meta" style="margin-bottom: 0;">Triple Oak</div>
+                        </div>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="card-back-section">
+                        <div>
+                            <div class="section-title">Tasting Notes</div>
+                            <div class="tasting-notes">Rich caramel, dried fig, dark brown sugar, cinnamon, and toasted coconut flakes.</div>
+                        </div>
+                        <div>
+                            <div class="section-title">Store Comparison</div>
+                            <div class="store-list">
+                                <div class="store-row best-price">
+                                    <span class="store-name">Dan Murphy's</span>
+                                    <span class="store-price">$124.99</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">BWS</span>
+                                    <span class="store-price">$129.99</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">Vintage Cellars</span>
+                                    <span class="store-price">$127.50</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-detail" onclick="event.stopPropagation()">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card-container" onclick="toggleFlip(this)">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header-row">
+                        <span class="status-badge out-of-stock">Out of Stock</span>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <div class="three-canvas-wrapper" id="rum-3d-canvas-3"></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="meta">15 Years | Barbados | 700ml | 43%</div>
+                        <div class="title">Corteza Single Estate Reserve</div>
+                        <div class="out-of-stock-alert">Last seen in stock - 02 Jun 2026</div>
+                        <div class="price-row">
+                            <div class="price-box">
+                                <span class="price">$145.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 class="card-back-title">Corteza Single Estate</h3>
+                            <div class="meta" style="margin-bottom: 0;">Reserve</div>
+                        </div>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="card-back-section">
+                        <div>
+                            <div class="section-title">Tasting Notes</div>
+                            <div class="tasting-notes">Butterscotch, black cherry, dark cocoa, orange zest, and sweet oak barrel smoke.</div>
+                        </div>
+                        <div>
+                            <div class="section-title">Store Comparison</div>
+                            <div class="store-list">
+                                <div class="store-row best-price">
+                                    <span class="store-name">Dan Murphy's (Last known)</span>
+                                    <span class="store-price">$145.00</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">Vintage Cellars</span>
+                                    <span class="store-price">$148.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-detail" onclick="event.stopPropagation()">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card-container" onclick="toggleFlip(this)">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header-row">
+                        <span class="status-badge on-sale">On Sale</span>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <div class="three-canvas-wrapper" id="rum-3d-canvas-4"></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="meta">21 Years | Cuba | 700ml | 42%</div>
+                        <div class="title">Isla de Caña Solera 21</div>
+                        <div class="price-row">
+                            <div class="price-box">
+                                <span class="original-price">$199.00</span>
+                                <span class="price">$179.99</span>
+                            </div>
+                            <span class="badge-tag best-ever">Best Ever</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 class="card-back-title">Isla de Caña</h3>
+                            <div class="meta" style="margin-bottom: 0;">Solera 21</div>
+                        </div>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="card-back-section">
+                        <div>
+                            <div class="section-title">Tasting Notes</div>
+                            <div class="tasting-notes">Warm cigar tobacco, leather, sugarcane honey, roasted almond, and smooth oak.</div>
+                        </div>
+                        <div>
+                            <div class="section-title">Store Comparison</div>
+                            <div class="store-list">
+                                <div class="store-row best-price">
+                                    <span class="store-name">Dan Murphy's</span>
+                                    <span class="store-price">$179.99</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">BWS</span>
+                                    <span class="store-price">$185.00</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">Vintage Cellars</span>
+                                    <span class="store-price">$182.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-detail" onclick="event.stopPropagation()">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card-container" onclick="toggleFlip(this)">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header-row">
+                        <span class="status-badge new">New Product</span>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <div class="three-canvas-wrapper" id="rum-3d-canvas-5"></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="meta">12 Years | Guyana | 750ml | 45%</div>
+                        <div class="title">Maritime Navy Strength</div>
+                        <div class="price-row">
+                            <div class="price-box">
+                                <span class="price">$110.00</span>
+                            </div>
+                            <span class="badge-tag best-price-match">Best Price Match</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 class="card-back-title">Maritime Navy</h3>
+                            <div class="meta" style="margin-bottom: 0;">Strength</div>
+                        </div>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="card-back-section">
+                        <div>
+                            <div class="section-title">Tasting Notes</div>
+                            <div class="tasting-notes">Rich dark molasses, licorice, dates, clove, ginger, and old heavy copper still heat.</div>
+                        </div>
+                        <div>
+                            <div class="section-title">Store Comparison</div>
+                            <div class="store-list">
+                                <div class="store-row best-price">
+                                    <span class="store-name">Dan Murphy's</span>
+                                    <span class="store-price">$110.00</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">BWS</span>
+                                    <span class="store-price">$115.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-detail" onclick="event.stopPropagation()">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card-container" onclick="toggleFlip(this)">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header-row">
+                        <span class="status-badge out-of-stock">Out of Stock</span>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <div class="three-canvas-wrapper" id="rum-3d-canvas-6"></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="meta">10 Years | Martinique | 700ml | 44%</div>
+                        <div class="title">Port Cask Special Release</div>
+                        <div class="out-of-stock-alert">Last seen in stock - 18 May 2026</div>
+                        <div class="price-row">
+                            <div class="price-box">
+                                <span class="price">$195.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 class="card-back-title">Port Cask Special</h3>
+                            <div class="meta" style="margin-bottom: 0;">Release</div>
+                        </div>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="card-back-section">
+                        <div>
+                            <div class="section-title">Tasting Notes</div>
+                            <div class="tasting-notes">Red wine grapes, fresh cane juice, plum, toasted oak, and smooth tanins.</div>
+                        </div>
+                        <div>
+                            <div class="section-title">Store Comparison</div>
+                            <div class="store-list">
+                                <div class="store-row best-price">
+                                    <span class="store-name">Vintage Cellars</span>
+                                    <span class="store-price">$195.00</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">BWS</span>
+                                    <span class="store-price">$199.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-detail" onclick="event.stopPropagation()">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="card-container" onclick="toggleFlip(this)">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header-row">
+                        <span class="status-badge new">New Product</span>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <div class="three-canvas-wrapper" id="rum-3d-canvas-7"></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="meta">12 Years | Trinidad | 700ml | 60%</div>
+                        <div class="title">Sentinel Dark Overproof</div>
+                        <div class="price-row">
+                            <div class="price-box">
+                                <span class="price">$119.99</span>
+                            </div>
+                            <span class="badge-tag best-price-match">Best Price Match</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 class="card-back-title">Sentinel Dark</h3>
+                            <div class="meta" style="margin-bottom: 0;">Overproof</div>
+                        </div>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="card-back-section">
+                        <div>
+                            <div class="section-title">Tasting Notes</div>
+                            <div class="tasting-notes">Heavy molasses, charred barrel wood, bold spices, black pepper, and dark plum.</div>
+                        </div>
+                        <div>
+                            <div class="section-title">Store Comparison</div>
+                            <div class="store-list">
+                                <div class="store-row best-price">
+                                    <span class="store-name">Dan Murphy's</span>
+                                    <span class="store-price">$119.99</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">Vintage Cellars</span>
+                                    <span class="store-price">$124.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-detail" onclick="event.stopPropagation()">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="card-container" onclick="toggleFlip(this)">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header-row">
+                        <span class="status-badge on-sale">On Sale</span>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <div class="three-canvas-wrapper" id="rum-3d-canvas-8"></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="meta">18 Years | Guatemala | 700ml | 40%</div>
+                        <div class="title">Aurum Gold Solera</div>
+                        <div class="price-row">
+                            <div class="price-box">
+                                <span class="original-price">$125.00</span>
+                                <span class="price">$109.99</span>
+                            </div>
+                            <span class="badge-tag best-ever">Best Ever</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 class="card-back-title">Aurum Gold</h3>
+                            <div class="meta" style="margin-bottom: 0;">Solera</div>
+                        </div>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="card-back-section">
+                        <div>
+                            <div class="section-title">Tasting Notes</div>
+                            <div class="tasting-notes">Sweet honey, dark raisins, butterscotch, rich oak, and light cinnamon spice.</div>
+                        </div>
+                        <div>
+                            <div class="section-title">Store Comparison</div>
+                            <div class="store-list">
+                                <div class="store-row best-price">
+                                    <span class="store-name">Dan Murphy's</span>
+                                    <span class="store-price">$109.99</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">BWS</span>
+                                    <span class="store-price">$114.99</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">Vintage Cellars</span>
+                                    <span class="store-price">$112.50</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-detail" onclick="event.stopPropagation()">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="card-container" onclick="toggleFlip(this)">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header-row">
+                        <span class="status-badge on-sale">On Sale</span>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <div class="three-canvas-wrapper" id="rum-3d-canvas-9"></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="meta">14 Years | Panama | 700ml | 41%</div>
+                        <div class="title">Royal Cane Reserve</div>
+                        <div class="price-row">
+                            <div class="price-box">
+                                <span class="original-price">$115.00</span>
+                                <span class="price">$99.99</span>
+                            </div>
+                            <span class="badge-tag best-ever">Best Ever</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 class="card-back-title">Royal Cane</h3>
+                            <div class="meta" style="margin-bottom: 0;">Reserve</div>
+                        </div>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="card-back-section">
+                        <div>
+                            <div class="section-title">Tasting Notes</div>
+                            <div class="tasting-notes">Creamy vanilla, soft oak, toasted almond, ripe banana, and sweet honeycomb.</div>
+                        </div>
+                        <div>
+                            <div class="section-title">Store Comparison</div>
+                            <div class="store-list">
+                                <div class="store-row best-price">
+                                    <span class="store-name">Dan Murphy's</span>
+                                    <span class="store-price">$99.99</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">BWS</span>
+                                    <span class="store-price">$105.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-detail" onclick="event.stopPropagation()">Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="card-container" onclick="toggleFlip(this)">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header-row">
+                        <span class="status-badge out-of-stock">Out of Stock</span>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <div class="three-canvas-wrapper" id="rum-3d-canvas-10"></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="meta">20 Years | Jamaica | 700ml | 48%</div>
+                        <div class="title">Vault Private Selection</div>
+                        <div class="out-of-stock-alert">Last seen in stock - 01 Jun 2026</div>
+                        <div class="price-row">
+                            <div class="price-box">
+                                <span class="price">$220.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 class="card-back-title">Vault Private</h3>
+                            <div class="meta" style="margin-bottom: 0;">Selection</div>
+                        </div>
+                        <button class="btn-star" onclick="toggleFavorite(event)" aria-label="Toggle Favorite">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </button>
+                    </div>
+                    <div class="card-back-section">
+                        <div>
+                            <div class="section-title">Tasting Notes</div>
+                            <div class="tasting-notes">Overripe banana, pineapple, funk, leather, spicy oak, and dark honey.</div>
+                        </div>
+                        <div>
+                            <div class="section-title">Store Comparison</div>
+                            <div class="store-list">
+                                <div class="store-row best-price">
+                                    <span class="store-name">Dan Murphy's (Last known)</span>
+                                    <span class="store-price">$220.00</span>
+                                </div>
+                                <div class="store-row">
+                                    <span class="store-name">Vintage Cellars</span>
+                                    <span class="store-price">$225.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-detail" onclick="event.stopPropagation()">Details</a>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Ensure web fonts are completely parsed before triggering the WebGL engine layout loop
-        window.addEventListener('load', init3DScene);
+        // Flip Interaction
+        function toggleFlip(card) {
+            card.classList.toggle('flipped');
+        }
 
-        function init3DScene() {
-            const container = document.getElementById('rum-3d-canvas');
-            const width = container.clientWidth;
-            const height = container.clientHeight;
+        // Favorite Button Interaction (Prevent Flip)
+        function toggleFavorite(event) {
+            event.stopPropagation();
+            const btn = event.currentTarget;
+            btn.classList.toggle('active');
+        }
 
-            const scene = new THREE.Scene();
+        window.addEventListener('load', init3DGrid);
 
-            const camera = new THREE.PerspectiveCamera(28, width / height, 0.1, 1000);
-            camera.position.set(0, 0.0, 8.0);
-
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(width, height);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.4;
-            container.appendChild(renderer.domElement);
-
-            // --- 1. Procedural High-Fidelity Studio Environment Mapping ---
-            // This replaces missing external assets to provide realistic glass highlight reflections
+        function init3DGrid() {
+            // --- 1. Shared High-Fidelity Studio Environment Mapping ---
             const envCanvas = document.createElement('canvas');
             envCanvas.width = 512;
             envCanvas.height = 256;
             const envCtx = envCanvas.getContext('2d');
-
-            envCtx.fillStyle = '#0f0804'; // Soft dark background horizon
+            envCtx.fillStyle = '#0f0804';
             envCtx.fillRect(0, 0, 512, 256);
 
-            // Soft studio box left reflection lane
             let leftBox = envCtx.createLinearGradient(40, 0, 140, 0);
             leftBox.addColorStop(0, 'rgba(255,255,255,0)');
             leftBox.addColorStop(0.5, 'rgba(255,255,255,0.75)');
@@ -150,7 +1049,6 @@
             envCtx.fillStyle = leftBox;
             envCtx.fillRect(40, 0, 100, 256);
 
-            // Bright clean studio softbox right reflection edge line
             let rightBox = envCtx.createLinearGradient(360, 0, 440, 0);
             rightBox.addColorStop(0, 'rgba(255,255,255,0)');
             rightBox.addColorStop(0.5, 'rgba(255,255,255,0.85)');
@@ -160,10 +1058,8 @@
 
             const envTexture = new THREE.CanvasTexture(envCanvas);
             envTexture.mapping = THREE.EquirectangularReflectionMapping;
-            scene.environment = envTexture;
 
-            // --- 1b. Scene Background Gradient ---
-            // Render the radial gradient spotlight inside WebGL so transmissive materials refract it
+            // --- 1b. Shared Scene Background Gradient ---
             const bgCanvas = document.createElement('canvas');
             bgCanvas.width = 512;
             bgCanvas.height = 512;
@@ -175,102 +1071,119 @@
             bgCtx.fillRect(0, 0, 512, 512);
 
             const bgTexture = new THREE.CanvasTexture(bgCanvas);
-            scene.background = bgTexture;
 
-            // --- 2. Anchor Spotlighting Layout ---
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
-            scene.add(ambientLight);
-
-            const frontKeyLight = new THREE.DirectionalLight(0xfff3e3, 1.8);
-            frontKeyLight.position.set(2, 2, 5);
-            scene.add(frontKeyLight);
-
-            const dramaticRimBacklight = new THREE.DirectionalLight(0xffaa44, 2.0);
-            dramaticRimBacklight.position.set(0, 0, -5);
-            scene.add(dramaticRimBacklight);
-
-            const topLight = new THREE.DirectionalLight(0xffffff, 1.2);
-            topLight.position.set(0, 4, 2);
-            scene.add(topLight);
-
-            // --- 3. Master Component Assembly ---
-            const masterBottleGroup = new THREE.Group();
-            scene.add(masterBottleGroup);
-
-            // --- 4. Precise Stout Premium Bottle Profiles ---
-
-            // Hollow Double-Walled Glass Profile Mapping (outer and inner profile)
+            // --- 2. Shared Bottle & Liquid Geometries ---
             const glassPoints = [];
-
-            // Outer profile (bottom to top lip)
+            // Outer profile
             glassPoints.push(new THREE.Vector2(0, -1.6));
-            glassPoints.push(new THREE.Vector2(0.78, -1.6));  // Base heel
-            glassPoints.push(new THREE.Vector2(0.81, -1.45)); // Rounded base corner
-            glassPoints.push(new THREE.Vector2(0.81, 0.50));  // Body wall cylinder
-            glassPoints.push(new THREE.Vector2(0.78, 0.70));  // Shoulder start
-            glassPoints.push(new THREE.Vector2(0.68, 0.90));  // Shoulder mid
-            glassPoints.push(new THREE.Vector2(0.50, 1.05));  // Shoulder top
-            glassPoints.push(new THREE.Vector2(0.28, 1.15));  // Neck base
-            glassPoints.push(new THREE.Vector2(0.26, 1.55));  // Neck mid
-            glassPoints.push(new THREE.Vector2(0.28, 1.58));  // Lower collar flare
+            glassPoints.push(new THREE.Vector2(0.78, -1.6));
+            glassPoints.push(new THREE.Vector2(0.81, -1.45));
+            glassPoints.push(new THREE.Vector2(0.81, 0.50));
+            glassPoints.push(new THREE.Vector2(0.78, 0.70));
+            glassPoints.push(new THREE.Vector2(0.68, 0.90));
+            glassPoints.push(new THREE.Vector2(0.50, 1.05));
+            glassPoints.push(new THREE.Vector2(0.28, 1.15));
+            glassPoints.push(new THREE.Vector2(0.26, 1.55));
+            glassPoints.push(new THREE.Vector2(0.28, 1.58));
             glassPoints.push(new THREE.Vector2(0.28, 1.63));
-            glassPoints.push(new THREE.Vector2(0.26, 1.65));  // Lip collar indent
-            glassPoints.push(new THREE.Vector2(0.29, 1.68));  // Upper mouth lip flare
+            glassPoints.push(new THREE.Vector2(0.26, 1.65));
+            glassPoints.push(new THREE.Vector2(0.29, 1.68));
             glassPoints.push(new THREE.Vector2(0.29, 1.76));
-            glassPoints.push(new THREE.Vector2(0.25, 1.78));  // Top rim outer
-            glassPoints.push(new THREE.Vector2(0.20, 1.78));  // Top rim inner
-
-            // Inner profile (top rim down to interior base)
-            glassPoints.push(new THREE.Vector2(0.20, 1.15));  // Inner neck hollow
-            glassPoints.push(new THREE.Vector2(0.42, 1.00));  // Inner shoulder top
-            glassPoints.push(new THREE.Vector2(0.60, 0.85));  // Inner shoulder mid
-            glassPoints.push(new THREE.Vector2(0.72, 0.65));  // Inner shoulder bottom
-            glassPoints.push(new THREE.Vector2(0.75, 0.45));  // Inner body wall top
-            glassPoints.push(new THREE.Vector2(0.75, -1.35)); // Inner body wall bottom
-            glassPoints.push(new THREE.Vector2(0.70, -1.42)); // Inner corner
-            glassPoints.push(new THREE.Vector2(0, -1.42));    // Inner base center
-
+            glassPoints.push(new THREE.Vector2(0.25, 1.78));
+            glassPoints.push(new THREE.Vector2(0.20, 1.78));
+            // Inner profile
+            glassPoints.push(new THREE.Vector2(0.20, 1.15));
+            glassPoints.push(new THREE.Vector2(0.42, 1.00));
+            glassPoints.push(new THREE.Vector2(0.60, 0.85));
+            glassPoints.push(new THREE.Vector2(0.72, 0.65));
+            glassPoints.push(new THREE.Vector2(0.75, 0.45));
+            glassPoints.push(new THREE.Vector2(0.75, -1.35));
+            glassPoints.push(new THREE.Vector2(0.70, -1.42));
+            glassPoints.push(new THREE.Vector2(0, -1.42));
             const glassGeometry = new THREE.LatheGeometry(glassPoints, 64);
 
-            // Internal Liquid Profile sitting inside the hollow glass cavity (below shoulder level)
             const liquidPoints = [];
-            liquidPoints.push(new THREE.Vector2(0, -1.41));    // Base center of liquid
-            liquidPoints.push(new THREE.Vector2(0.74, -1.41));  // Base edge
-            liquidPoints.push(new THREE.Vector2(0.74, 0.45));   // Vertical side top
-            liquidPoints.push(new THREE.Vector2(0.71, 0.65));   // Shoulder start / top of liquid
-            liquidPoints.push(new THREE.Vector2(0, 0.65));      // Liquid top center
-
+            liquidPoints.push(new THREE.Vector2(0, -1.41));
+            liquidPoints.push(new THREE.Vector2(0.74, -1.41));
+            liquidPoints.push(new THREE.Vector2(0.74, 0.45));
+            liquidPoints.push(new THREE.Vector2(0.71, 0.65));
+            liquidPoints.push(new THREE.Vector2(0, 0.65));
             const liquidGeometry = new THREE.LatheGeometry(liquidPoints, 64);
 
-            // Clear Glass Stopper Cap Sitting on Top Rim
             const stopperPoints = [];
-            stopperPoints.push(new THREE.Vector2(0, 1.75));      // Sits on mouth rim
-            stopperPoints.push(new THREE.Vector2(0.23, 1.75));   // Bottom edge of cap
-            stopperPoints.push(new THREE.Vector2(0.24, 1.80));   // Rounded side
-            stopperPoints.push(new THREE.Vector2(0.24, 1.92));   // Rounded side top
-            stopperPoints.push(new THREE.Vector2(0.20, 1.97));   // Curve to top center
-            stopperPoints.push(new THREE.Vector2(0, 1.97));      // Top center
-
+            stopperPoints.push(new THREE.Vector2(0, 1.75));
+            stopperPoints.push(new THREE.Vector2(0.23, 1.75));
+            stopperPoints.push(new THREE.Vector2(0.24, 1.80));
+            stopperPoints.push(new THREE.Vector2(0.24, 1.92));
+            stopperPoints.push(new THREE.Vector2(0.20, 1.97));
+            stopperPoints.push(new THREE.Vector2(0, 1.97));
             const stopperGeometry = new THREE.LatheGeometry(stopperPoints, 64);
 
-            // --- 5. Premium Physical PBR Shading Models ---
+            // --- 3. Shared Label Construction ---
+            const canvasWidth = 1024;
+            const canvasHeight = 512;
+            const textCanvas = document.createElement('canvas');
+            textCanvas.width = canvasWidth;
+            textCanvas.height = canvasHeight;
+            const ctx = textCanvas.getContext('2d');
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
+            ctx.translate(canvasWidth / 2, canvasHeight / 2);
+            ctx.scale(0.39, 1.0);
+
+            const labelW = 800;
+            const labelH = 460;
+            ctx.fillStyle = '#151311';
+            ctx.fillRect(-labelW / 2, -labelH / 2, labelW, labelH);
+
+            const borderGrad = ctx.createLinearGradient(0, -labelH / 2, 0, labelH / 2);
+            borderGrad.addColorStop(0, '#d4af37');
+            borderGrad.addColorStop(0.5, '#f3e5ab');
+            borderGrad.addColorStop(1, '#aa7c11');
+
+            ctx.strokeStyle = borderGrad;
+            ctx.lineWidth = 4;
+            ctx.strokeRect(-labelW / 2 + 8, -labelH / 2 + 8, labelW - 16, labelH - 16);
+
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(-labelW / 2 + 14, -labelH / 2 + 14, labelW - 28, labelH - 28);
+
+            ctx.fillStyle = '#e8c49e';
+            ctx.font = '600 72px "Cormorant Garamond", "Georgia", serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.letterSpacing = '5px';
+
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+            ctx.shadowBlur = 5;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+
+            ctx.fillText("Image coming soon", 0, -60);
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+            const textTexture = new THREE.CanvasTexture(textCanvas);
+            textTexture.wrapS = THREE.RepeatWrapping;
+            textTexture.repeat.x = 1;
+
+            const labelGeometry = new THREE.CylinderGeometry(0.818, 0.818, 1.4, 64, 1, true);
+
+            // --- 4. Shared Materials ---
             const glassMaterial = new THREE.MeshPhysicalMaterial({
                 color: 0xffffff,
                 roughness: 0.02,
                 metalness: 0.0,
                 transmission: 0.98,
                 ior: 1.52,
-                thickness: 0.0,     // 0.0 for double-walled glass to avoid double-refraction artifacts
+                thickness: 0.0,
                 clearcoat: 1.0,
                 clearcoatRoughness: 0.02,
-                transparent: true,  // Set to true so Three.js r128 puts the transmissive mesh in the refraction queue
-                depthWrite: false   // Prevents depth-buffer blocking of other layers
+                transparent: true,
+                depthWrite: false
             });
 
-            // Rich, dense transmissive physical liquid to make the rum highly obvious and glowing
             const liquidMaterial = new THREE.MeshPhysicalMaterial({
-                color: 0x9a4a04,       // Rich glowing amber rum color
+                color: 0xc25900,       // Rich glowing amber rum color
                 roughness: 0.05,
                 metalness: 0.0,
                 transmission: 0.45,    // Balanced transmission so it's highly obvious and lets back label show through
@@ -278,123 +1191,111 @@
                 thickness: 1.5,        // Volumetric absorption
                 clearcoat: 1.0,
                 clearcoatRoughness: 0.05,
-                transparent: true   // Set to true so Three.js r128 puts the transmissive mesh in the refraction queue
+                transparent: true
             });
 
-            const glassMesh = new THREE.Mesh(glassGeometry, glassMaterial);
-            const liquidMesh = new THREE.Mesh(liquidGeometry, liquidMaterial);
-            const stopperMesh = new THREE.Mesh(stopperGeometry, glassMaterial);
-
-            // Set explicit renderOrder to ensure nested layers are processed in correct back-to-front sequence
-            liquidMesh.renderOrder = 2;
-            glassMesh.renderOrder = 3;
-            stopperMesh.renderOrder = 4;
-
-            masterBottleGroup.add(liquidMesh);
-            masterBottleGroup.add(glassMesh);
-            masterBottleGroup.add(stopperMesh);
-
-            // --- 6. Custom Elegant Paper Label Construction ---
-            const canvasWidth = 1024;
-            const canvasHeight = 512;
-            const textCanvas = document.createElement('canvas');
-            textCanvas.width = canvasWidth;
-            textCanvas.height = canvasHeight;
-            const ctx = textCanvas.getContext('2d');
-
-            // Clear the canvas to keep the background transparent
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-            // Set up context translation & scale to compensate for Cylinder mapping horizontal stretch (2.57x)
-            ctx.translate(canvasWidth / 2, canvasHeight / 2);
-            ctx.scale(0.39, 1.0); // Mathematically cancels out the 2.57x cylinder stretch
-
-            // Label dimensions in "natural" coordinates (centered at 0, 0) - Enlarged for realistic size
-            const labelW = 800;
-            const labelH = 460;
-
-            // Draw sticker background with elegant dark charcoal color
-            ctx.fillStyle = '#151311';
-            ctx.fillRect(-labelW / 2, -labelH / 2, labelW, labelH);
-
-            // Draw a subtle gold gradient border
-            const borderGrad = ctx.createLinearGradient(0, -labelH / 2, 0, labelH / 2);
-            borderGrad.addColorStop(0, '#d4af37');
-            borderGrad.addColorStop(0.5, '#f3e5ab');
-            borderGrad.addColorStop(1, '#aa7c11');
-
-            // Outer gold border
-            ctx.strokeStyle = borderGrad;
-            ctx.lineWidth = 4;
-            ctx.strokeRect(-labelW / 2 + 8, -labelH / 2 + 8, labelW - 16, labelH - 16);
-
-            // Inner gold border (thin)
-            ctx.lineWidth = 1.5;
-            ctx.strokeRect(-labelW / 2 + 14, -labelH / 2 + 14, labelW - 28, labelH - 28);
-
-            // High-end Typography setup (non-italic, clean serif, enlarged font)
-            ctx.fillStyle = '#e8c49e'; // Soft textured matte gold color
-            ctx.font = '600 72px "Cormorant Garamond", "Georgia", serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.letterSpacing = '5px';
-
-            // Configure drop shadow for 3D embossed gold finish
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
-            ctx.shadowBlur = 5;
-            ctx.shadowOffsetX = 2;
-            ctx.shadowOffsetY = 2;
-
-            // Draw "Coming Soon" in two lines (non-italic)
-            ctx.fillText("Image coming soon", 0, -60);
-            // ctx.fillText("Coming", 0, 20);
-            // ctx.fillText("Soon", 0, 80);
-
-            // Restore context state to avoid affecting other canvas operations (just in case)
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-            const textTexture = new THREE.CanvasTexture(textCanvas);
-            textTexture.wrapS = THREE.RepeatWrapping;
-            textTexture.repeat.x = 1;
-
-            // Concentric cylindrical wrap sitting flush onto the body barrel (no Z tilt, DoubleSide allowed)
-            const labelGeometry = new THREE.CylinderGeometry(0.818, 0.818, 1.4, 64, 1, true);
             const labelMaterial = new THREE.MeshStandardMaterial({
                 map: textTexture,
-                side: THREE.DoubleSide, // Allows seeing the rear side of the label when it spins to the back
+                side: THREE.DoubleSide,
                 roughness: 0.40,
                 metalness: 0.10,
                 transparent: true,
-                depthWrite: false       // Crucial: prevents the label from clipping the liquid and blocking its own back-face refraction
+                depthWrite: false
             });
 
-            const labelMesh = new THREE.Mesh(labelGeometry, labelMaterial);
-            labelMesh.position.set(0, -0.4, 0); // Positioned centered onto the lower barrel body section
-            labelMesh.renderOrder = 1;          // Render first so it's fully visible and refracted correctly
-            masterBottleGroup.add(labelMesh);
+            // --- 5. Individual Scene Initializer ---
+            function createCard3D(containerId, startRotation, speed) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
 
-            // Vertically balance the focal anchor point center layer
-            masterBottleGroup.position.y = -0.15;
+                const width = container.clientWidth;
+                const height = container.clientHeight;
 
-            // --- 7. Smooth Uniform Global Rotation Execution Loop ---
-            function animateScene() {
-                requestAnimationFrame(animateScene);
+                const scene = new THREE.Scene();
+                scene.environment = envTexture;
+                scene.background = bgTexture;
 
-                // Elegant placeholder continuous spin
-                masterBottleGroup.rotation.y += 0.005;
+                const camera = new THREE.PerspectiveCamera(28, width / height, 0.1, 1000);
+                camera.position.set(0, 0.0, 8.0);
 
-                renderer.render(scene, camera);
+                const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                renderer.setSize(width, height);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                renderer.toneMappingExposure = 1.4;
+                container.appendChild(renderer.domElement);
+
+                // Spotlighting setup for this scene
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+                scene.add(ambientLight);
+
+                const frontKeyLight = new THREE.DirectionalLight(0xfff3e3, 1.8);
+                frontKeyLight.position.set(2, 2, 5);
+                scene.add(frontKeyLight);
+
+                const dramaticRimBacklight = new THREE.DirectionalLight(0xffaa44, 2.0);
+                dramaticRimBacklight.position.set(0, 0, -5);
+                scene.add(dramaticRimBacklight);
+
+                const topLight = new THREE.DirectionalLight(0xffffff, 1.2);
+                topLight.position.set(0, 4, 2);
+                scene.add(topLight);
+
+                const masterBottleGroup = new THREE.Group();
+                masterBottleGroup.position.y = -0.15;
+                masterBottleGroup.rotation.y = startRotation;
+                scene.add(masterBottleGroup);
+
+                // Add shared meshes
+                const glassMesh = new THREE.Mesh(glassGeometry, glassMaterial);
+                const liquidMesh = new THREE.Mesh(liquidGeometry, liquidMaterial);
+                const stopperMesh = new THREE.Mesh(stopperGeometry, glassMaterial);
+                const labelMesh = new THREE.Mesh(labelGeometry, labelMaterial);
+
+                // Position the label midway down the side of the bottle body
+                labelMesh.position.set(0, -0.55, 0);
+
+                liquidMesh.renderOrder = 2;
+                glassMesh.renderOrder = 3;
+                stopperMesh.renderOrder = 4;
+                labelMesh.renderOrder = 1;
+
+                masterBottleGroup.add(liquidMesh);
+                masterBottleGroup.add(glassMesh);
+                masterBottleGroup.add(stopperMesh);
+                masterBottleGroup.add(labelMesh);
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    masterBottleGroup.rotation.y += speed;
+                    renderer.render(scene, camera);
+                }
+                animate();
+
+                // Resize handling via ResizeObserver for fluid grid scaling
+                const resizeObserver = new ResizeObserver(entries => {
+                    for (let entry of entries) {
+                        const { width, height } = entry.contentRect;
+                        if (width === 0 || height === 0) continue;
+                        camera.aspect = width / height;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(width, height);
+                    }
+                });
+                resizeObserver.observe(container);
             }
-            animateScene();
 
-            // --- 8. Handle UI Card Dimensions Scaling Updates ---
-            window.addEventListener('resize', () => {
-                const w = container.clientWidth;
-                const h = container.clientHeight;
-                camera.aspect = w / h;
-                camera.updateProjectionMatrix();
-                renderer.setSize(w, h);
-            });
+            // --- 6. Initialize Grid Cards with custom spin parameters ---
+            createCard3D('rum-3d-canvas-1', 0.0, 0.005);
+            createCard3D('rum-3d-canvas-2', 1.0, 0.003);
+            createCard3D('rum-3d-canvas-3', 2.5, 0.006);
+            createCard3D('rum-3d-canvas-4', 3.8, 0.004);
+            createCard3D('rum-3d-canvas-5', 4.7, 0.0055);
+            createCard3D('rum-3d-canvas-6', 5.2, 0.0035);
+            createCard3D('rum-3d-canvas-7', 1.8, 0.0045);
+            createCard3D('rum-3d-canvas-8', 0.6, 0.005);
+            createCard3D('rum-3d-canvas-9', 3.1, 0.0038);
+            createCard3D('rum-3d-canvas-10', 4.2, 0.0048);
         }
     </script>
 </body>

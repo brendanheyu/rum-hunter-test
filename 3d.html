@@ -232,17 +232,13 @@
             
             const glassGeometry = new THREE.LatheGeometry(glassPoints, 64);
 
-            // Internal Liquid Profile sitting inside the hollow glass cavity
+            // Internal Liquid Profile sitting inside the hollow glass cavity (below shoulder level)
             const liquidPoints = [];
             liquidPoints.push(new THREE.Vector2(0, -1.41));    // Base center of liquid
             liquidPoints.push(new THREE.Vector2(0.74, -1.41));  // Base edge
             liquidPoints.push(new THREE.Vector2(0.74, 0.45));   // Vertical side top
-            liquidPoints.push(new THREE.Vector2(0.71, 0.65));   // Shoulder start
-            liquidPoints.push(new THREE.Vector2(0.59, 0.85));   // Shoulder mid
-            liquidPoints.push(new THREE.Vector2(0.41, 1.00));   // Shoulder top
-            liquidPoints.push(new THREE.Vector2(0.19, 1.15));   // Lower neck
-            liquidPoints.push(new THREE.Vector2(0.19, 1.35));   // Liquid fill level inside neck
-            liquidPoints.push(new THREE.Vector2(0, 1.35));      // Liquid top center
+            liquidPoints.push(new THREE.Vector2(0.71, 0.65));   // Shoulder start / top of liquid
+            liquidPoints.push(new THREE.Vector2(0, 0.65));      // Liquid top center
             
             const liquidGeometry = new THREE.LatheGeometry(liquidPoints, 64);
 
@@ -271,12 +267,12 @@
                 transparent: true
             });
 
-            // Rich, dense transmissive physical liquid to make the rum highly obvious
+            // Rich, dense transmissive physical liquid to make the rum highly obvious and glowing
             const liquidMaterial = new THREE.MeshPhysicalMaterial({
-                color: 0x8c3500,       // Rich deep amber rum color
+                color: 0x9a4a04,       // Rich glowing amber rum color
                 roughness: 0.05,
                 metalness: 0.0,
-                transmission: 0.35,    // Reduced transmission to make the liquid rich and dense
+                transmission: 0.45,    // Balanced transmission so it's highly obvious and lets back label show through
                 ior: 1.35,             // Index of refraction of water/alcohol
                 thickness: 1.5,        // Volumetric absorption
                 clearcoat: 1.0,
@@ -307,9 +303,9 @@
             ctx.translate(canvasWidth / 2, canvasHeight / 2);
             ctx.scale(0.39, 1.0); // Mathematically cancels out the 2.57x cylinder stretch
 
-            // Label dimensions in "natural" coordinates (centered at 0, 0)
-            const labelW = 480;
-            const labelH = 340;
+            // Label dimensions in "natural" coordinates (centered at 0, 0) - Enlarged for realistic size
+            const labelW = 800;
+            const labelH = 460;
 
             // Draw sticker background with elegant dark charcoal color
             ctx.fillStyle = '#151311';
@@ -330,9 +326,9 @@
             ctx.lineWidth = 1.5;
             ctx.strokeRect(-labelW / 2 + 14, -labelH / 2 + 14, labelW - 28, labelH - 28);
 
-            // High-end Typography setup (non-italic, clean serif)
+            // High-end Typography setup (non-italic, clean serif, enlarged font)
             ctx.fillStyle = '#e8c49e'; // Soft textured matte gold color
-            ctx.font = '600 64px "Cormorant Garamond", "Georgia", serif';
+            ctx.font = '600 72px "Cormorant Garamond", "Georgia", serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.letterSpacing = '5px';
@@ -344,8 +340,8 @@
             ctx.shadowOffsetY = 2;
 
             // Draw "Coming Soon" in two lines (non-italic)
-            ctx.fillText("Coming", 0, -45);
-            ctx.fillText("Soon", 0, 45);
+            ctx.fillText("Coming", 0, -60);
+            ctx.fillText("Soon", 0, 60);
 
             // Restore context state to avoid affecting other canvas operations (just in case)
             ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -354,18 +350,18 @@
             textTexture.wrapS = THREE.RepeatWrapping;
             textTexture.repeat.x = 1;
 
-            // Concentric cylindrical wrap sitting flush onto the body barrel (no Z tilt to prevent intersections)
-            const labelGeometry = new THREE.CylinderGeometry(0.818, 0.818, 1.0, 64, 1, true);
+            // Concentric cylindrical wrap sitting flush onto the body barrel (no Z tilt, DoubleSide allowed)
+            const labelGeometry = new THREE.CylinderGeometry(0.818, 0.818, 1.4, 64, 1, true);
             const labelMaterial = new THREE.MeshStandardMaterial({
                 map: textTexture,
-                side: THREE.FrontSide,
+                side: THREE.DoubleSide, // Allows seeing the rear side of the label when it spins to the back
                 roughness: 0.40,
                 metalness: 0.10,
                 transparent: true
             });
 
             const labelMesh = new THREE.Mesh(labelGeometry, labelMaterial);
-            labelMesh.position.set(0, -0.35, 0); // Positioned centered onto the lower barrel body section
+            labelMesh.position.set(0, -0.4, 0); // Positioned centered onto the lower barrel body section
             masterBottleGroup.add(labelMesh);
 
             // Vertically balance the focal anchor point center layer

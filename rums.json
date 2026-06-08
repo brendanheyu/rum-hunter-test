@@ -1375,7 +1375,8 @@
       },
       {
         "name": "Nick's Wine Merchant",
-        "price": 215
+        "price": 215,
+        "inStock": false
       },
       {
         "name": "First Class Cellars",

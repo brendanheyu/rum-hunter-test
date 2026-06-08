@@ -24,6 +24,7 @@
 
     // Viewport and Interaction Elements
     const searchBar = document.getElementById('search-bar');
+    const searchClearBtn = document.getElementById('search-clear-btn');
     const sortSelector = document.getElementById('sort-selector');
     const dialog = document.getElementById('details-dialog');
     const dialogContent = document.getElementById('dialog-body-content');
@@ -67,6 +68,17 @@
         });
     });
 
+    // Toggle Search Reset Button Visibility
+    function toggleClearButton(value) {
+      if (searchClearBtn) {
+        if (value) {
+          searchClearBtn.classList.add('visible');
+        } else {
+          searchClearBtn.classList.remove('visible');
+        }
+      }
+    }
+
     // Event Listeners Setup
     function setupEventListeners() {
       const debouncedSearchHandler = debounce((value) => {
@@ -77,8 +89,21 @@
       }, 250);
 
       searchBar.addEventListener('input', (e) => {
+        toggleClearButton(e.target.value);
         debouncedSearchHandler(e.target.value);
       });
+
+      if (searchClearBtn) {
+        searchClearBtn.addEventListener('click', () => {
+          searchBar.value = '';
+          toggleClearButton('');
+          currentSearch = '';
+          currentPage = 1;
+          searchBar.focus();
+          updateURLParams();
+          renderProductsWithTransition();
+        });
+      }
 
       sortSelector.addEventListener('change', (e) => {
         currentSort = e.target.value;
@@ -107,14 +132,40 @@
       return parts.join(" | ");
     }
 
+    // Helper to format last seen date string with ordinal suffix and full month
+    function formatLastSeen(dateStr) {
+      if (!dateStr) return '';
+      const parts = dateStr.trim().split(/\s+/);
+      if (parts.length === 3) {
+        // parts[0] is DD, parts[1] is Month, parts[2] is YYYY
+        let dayInt = parseInt(parts[0], 10);
+        let suffix = 'th';
+        if (dayInt % 10 === 1 && dayInt !== 11) suffix = 'st';
+        else if (dayInt % 10 === 2 && dayInt !== 12) suffix = 'nd';
+        else if (dayInt % 10 === 3 && dayInt !== 13) suffix = 'rd';
+        
+        const dayFormatted = `${dayInt}${suffix}`;
+        
+        const monthNames = {
+          'Jan': 'January', 'Feb': 'February', 'Mar': 'March', 'Apr': 'April',
+          'May': 'May', 'Jun': 'June', 'Jul': 'July', 'Aug': 'August',
+          'Sep': 'September', 'Oct': 'October', 'Nov': 'November', 'Dec': 'December'
+        };
+        const monthFull = monthNames[parts[1]] || parts[1];
+        
+        return `Last seen - ${dayFormatted} ${monthFull}, ${parts[2]}`;
+      }
+      return `Last seen - ${dateStr}`;
+    }
+
     // Dynamic 12-Month SVG spectrum graph generation (shows price band between nightly High & Low)
     function generateHistoryGraphSVG(history) {
       const width = 230;
-      const height = 55;
+      const height = 40;
       const paddingLeft = 30;
       const paddingRight = 10;
-      const paddingTop = 8;
-      const paddingBottom = 16;
+      const paddingTop = 6;
+      const paddingBottom = 6;
 
       const chartWidth = width - paddingLeft - paddingRight;
       const chartHeight = height - paddingTop - paddingBottom;
@@ -174,23 +225,19 @@
       const yLabelHigh = maxPrice.toFixed(0);
       const yLabelLow = minPrice.toFixed(0);
 
-      // Month X-axis labels (J, F, M, A, M, J, J, A, S, O, N, D)
+      // Month X-axis labels
       const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
-      const xLabelsHTML = months.map((m, idx) => {
-        const x = getX(idx);
-        return `<text x="${x}" y="${height - 3}" font-size="7" fill="var(--color-text-muted)" text-anchor="middle" font-family="var(--font-body)">${m}</text>`;
-      }).join('');
 
       const gradId = `graph-band-grad-${Math.floor(Math.random() * 1000000)}`;
 
       return `
         <div class="history-graph-wrapper" style="margin-bottom: 4px; width: 100%;">
-          <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--color-text-muted); margin-bottom:4px; font-weight:600;">
-            <span>12M PRICE SPECTRUM</span>
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:var(--color-text-muted); margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.03em;">
+            <span>Annual range</span>
             <span style="color:var(--color-refraction-gold)">
               ${Math.min(...lows) === Math.max(...highs)
           ? `Price $${Math.min(...lows).toFixed(2)}`
-          : `Range $${Math.min(...lows).toFixed(2)} - $${Math.max(...highs).toFixed(2)}`
+          : `Min/Max $${Math.min(...lows).toFixed(2)} - $${Math.max(...highs).toFixed(2)}`
         }
             </span>
           </div>
@@ -216,10 +263,12 @@
             <!-- Boundary Lines -->
             <path d="${topPath}" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.2" stroke-linecap="round" />
             <path d="${bottomPath}" fill="none" stroke="var(--color-rum-amber)" stroke-width="1.5" stroke-linecap="round" />
-            
-            <!-- X Labels -->
-            ${xLabelsHTML}
           </svg>
+          
+          <!-- Scaled HTML Month Labels flex row -->
+          <div style="display:flex; justify-content:space-between; margin-left: 13.04%; margin-right: 4.35%; margin-top: 2px;">
+            ${months.map(m => `<span style="font-size: 0.65rem; color: var(--color-text-muted); font-family: var(--font-body); width: 12px; text-align: center; display: inline-block;">${m}</span>`).join('')}
+          </div>
         </div>
       `;
     }
@@ -418,14 +467,19 @@
         // Sort store listings to highlight current best
         const sortedStores = [...rum.stores].sort((a, b) => a.price - b.price);
 
-        // Store scrollable rows
+        // Store scrollable rows (as clickable anchors)
         const storeRowsHTML = sortedStores.map(store => {
-          const isBest = store.price === minStorePrice;
+          const isStoreOutOfStock = store.inStock === false;
+          const isBest = !isStoreOutOfStock && store.price === minStorePrice;
+          const priceDisplay = isStoreOutOfStock 
+            ? '<span style="color:#e74c3c; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.02em;">Out of stock</span>' 
+            : `$${store.price.toFixed(2)}`;
+          const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(rum.name + ' ' + store.name)}`;
           return `
-            <div class="store-row ${isBest ? 'best-price' : ''}">
+            <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="store-row ${isBest ? 'best-price' : ''} ${isStoreOutOfStock ? 'store-out-of-stock' : ''}" onclick="event.stopPropagation()">
               <span class="store-name">${store.name}</span>
-              <span class="store-price">$${store.price.toFixed(2)}</span>
-            </div>
+              <span class="store-price">${priceDisplay}</span>
+            </a>
           `;
         }).join('');
 
@@ -494,19 +548,18 @@
                 <!-- Top Section -->
                 <div style="display: flex; flex-direction: column; flex-grow: 1; overflow: hidden;">
                   <h3 class="card-back-title" style="margin-bottom: 4px;">${rum.name}</h3>
-                  <p style="font-size: 0.82rem; color: var(--color-text-muted); line-height: 1.45; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;" title="${rum.tastingNotes}">
+                  <p class="card-back-tasting-notes" title="${rum.tastingNotes}">
                     ${rum.tastingNotes}
                   </p>
-                  ${!rum.inStock && rum.lastSeenStock ? `<div style="font-size:0.72rem; color:#e74c3c; margin-bottom:8px; font-weight:500;">Last seen in stock - ${rum.lastSeenStock}</div>` : ''}
                   
                   <!-- Scrollable comparative store list -->
                   <div class="store-list-container" style="display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; min-height: 90px; margin-bottom: 8px;">
-                    <div class="store-list-title">Compare Stores</div>
+                    <div class="store-list-title">${rum.stores.length === 1 ? 'Listing' : 'Listings'} (${rum.stores.length})</div>
                     <div class="store-scroll-area" style="flex-grow: 1; overflow-y: auto; margin-bottom: 4px;">
                       ${storeRowsHTML}
                     </div>
                     <div class="range-info" style="margin-top: auto; padding-top: 4px;">
-                      <span class="range-info-label">Store Range</span>
+                      <span class="range-info-label">Price range</span>
                       ${minStorePrice === maxStorePrice
             ? `<span class="range-min">$${minStorePrice.toFixed(2)}</span>`
             : `<span class="range-min">$${minStorePrice.toFixed(2)}</span> - <span class="range-max" style="font-size:0.72rem; opacity:0.75;">$${maxStorePrice.toFixed(2)}</span>`
@@ -519,6 +572,10 @@
                 <div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px;">
                   <!-- 12-Month Price Graph -->
                   ${historyGraphHTML}
+                  
+                  <div class="card-back-last-seen-container">
+                    ${!rum.inStock && rum.lastSeenStock ? `<div class="card-back-last-seen-text">${formatLastSeen(rum.lastSeenStock)}</div>` : ''}
+                  </div>
                   
                   <div class="card-back-actions">
                     <button class="btn btn-secondary btn-sm" style="width: 100%; font-size: 0.75rem;" onclick="openPlaceholderDetails(event, '${rum.name.replace(/'/g, "\\'")}')">View Details</button>
@@ -535,7 +592,7 @@
           listStatusTag = `
             <div style="display:flex; flex-direction:column; align-items:flex-start; gap:4px;">
               <span class="status-badge" style="color:#e74c3c; border-color:rgba(231,76,60,0.3);">Out of Stock</span>
-              ${rum.lastSeenStock ? `<span style="font-size:0.65rem; color:#e74c3c; white-space:nowrap; font-weight: 500;">Last seen in stock - ${rum.lastSeenStock}</span>` : ''}
+              ${rum.lastSeenStock ? `<span style="font-size:0.65rem; color:#e74c3c; font-weight: 500;">Last seen in stock - ${rum.lastSeenStock}</span>` : ''}
             </div>
           `;
         } else if (isSale) {
@@ -993,19 +1050,21 @@
         }
 
         buttonsHTML += `
-          <button class="pagination-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} aria-label="Previous Page">
-            &lt;
-          </button>
+          <button class="pagination-btn prev-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} aria-label="Previous Page"></button>
           <div class="pagination-page-jump">
             <span>Page</span>
-            <select class="pagination-page-select" onchange="changePage(parseInt(this.value, 10))" aria-label="Select Page">
-              ${pageSelectHTML}
-            </select>
+            <span class="select-wrapper">
+              <select class="pagination-page-select" onchange="changePage(parseInt(this.value, 10))" aria-label="Select Page">
+                <button>
+                  <selectedcontent></selectedcontent>
+                  <span class="select-arrow-caret"></span>
+                </button>
+                ${pageSelectHTML}
+              </select>
+            </span>
             <span>of ${totalPages}</span>
           </div>
-          <button class="pagination-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Next Page">
-            &gt;
-          </button>
+          <button class="pagination-btn next-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Next Page"></button>
         `;
       }
 
@@ -1018,12 +1077,18 @@
         
         <div class="pagination-limit-wrapper">
           <label for="limit-select">Items per page</label>
-          <select id="limit-select" class="pagination-limit-select" onchange="handleLimitChange(this.value)">
-            <option value="3" ${limitVal === 3 ? 'selected' : ''}>3</option>
-            <option value="6" ${limitVal === 6 ? 'selected' : ''}>6</option>
-            <option value="12" ${limitVal === 12 ? 'selected' : ''}>12</option>
-            <option value="all" ${limitVal === 'all' ? 'selected' : ''}>All</option>
-          </select>
+          <span class="select-wrapper">
+            <select id="limit-select" class="pagination-limit-select" onchange="handleLimitChange(this.value)">
+              <button>
+                <selectedcontent></selectedcontent>
+                <span class="select-arrow-caret"></span>
+              </button>
+              <option value="3" ${limitVal === 3 ? 'selected' : ''}>3</option>
+              <option value="6" ${limitVal === 6 ? 'selected' : ''}>6</option>
+              <option value="12" ${limitVal === 12 ? 'selected' : ''}>12</option>
+              <option value="all" ${limitVal === 'all' ? 'selected' : ''}>All</option>
+            </select>
+          </span>
         </div>
       `;
     }
@@ -1111,6 +1176,7 @@
 
       // Sync DOM controls values
       searchBar.value = currentSearch;
+      toggleClearButton(currentSearch);
       sortSelector.value = currentSort;
 
       // Sync quick filter pills active class
@@ -1184,14 +1250,24 @@
       const maxStorePrice = Math.max(...storePrices, rum.price);
       const sortedStores = [...rum.stores].sort((a, b) => a.price - b.price);
 
-      const storeListHTML = sortedStores.map(st => `
-        <div class="spec-item" style="padding:10px 0;">
-          <span class="spec-label">${st.name}</span>
-          <span class="spec-value" style="color:${st.price === minStorePrice ? 'var(--color-refraction-gold)' : 'var(--color-text-primary)'}">
-            $${st.price.toFixed(2)} ${st.price === minStorePrice ? '(Best)' : ''}
-          </span>
-        </div>
-      `).join('');
+      const storeListHTML = sortedStores.map(st => {
+        const isStoreOutOfStock = st.inStock === false;
+        const isBest = !isStoreOutOfStock && st.price === minStorePrice;
+        const priceDisplay = isStoreOutOfStock 
+          ? '<span style="color:#e74c3c; font-size:0.8rem; font-weight:600; text-transform:uppercase;">Out of stock</span>' 
+          : `$${st.price.toFixed(2)} ${isBest ? '(Best)' : ''}`;
+        const valColor = isStoreOutOfStock 
+          ? 'transparent' 
+          : (isBest ? 'var(--color-refraction-gold)' : 'var(--color-text-primary)');
+        return `
+          <div class="spec-item" style="padding:10px 0;">
+            <span class="spec-label">${st.name}</span>
+            <span class="spec-value" style="color:${valColor}">
+              ${priceDisplay}
+            </span>
+          </div>
+        `;
+      }).join('');
 
       dialogContent.innerHTML = `
         <div class="success-badge">
@@ -1200,7 +1276,7 @@
         <h2 class="dialog-title">${rum.name}</h2>
         <p class="dialog-subtitle">${getMetadataText(rum)}</p>
         <p class="dialog-desc">${rum.tastingNotes}</p>
-        ${!rum.inStock && rum.lastSeenStock ? `<div style="font-size:0.75rem; color:#e74c3c; margin:-8px 0 16px; font-weight:600; text-align:center;">Last seen in stock - ${rum.lastSeenStock}</div>` : ''}
+        ${!rum.inStock && rum.lastSeenStock ? `<div style="font-size:0.75rem; color:#e74c3c; margin:-8px 0 16px; font-weight:600; text-align:center;">${formatLastSeen(rum.lastSeenStock)}</div>` : ''}
         
         <div class="spec-list" style="margin-bottom: 24px;">
           <div class="spec-item">

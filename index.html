@@ -37,6 +37,75 @@
     html { scroll-behavior: smooth; }
     body { background-color: var(--color-cask-shadow); color: var(--color-text-primary); font-family: var(--font-body); overflow-x: hidden; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
+    /* --- Three-Tier Viewport Background Stack --- */
+    .background-viewport {
+      position: fixed;
+      top: -10vh;
+      left: -10vw;
+      width: 120vw;
+      height: 120vh;
+      z-index: -10;
+      pointer-events: none;
+      background: linear-gradient(135deg, var(--color-cask-shadow), var(--color-liquid-mahogany));
+      filter: blur(80px);
+      transform: scale(1.0) translate3d(0, 0, 0);
+      transition: transform 1.5s cubic-bezier(0.25, 1, 0.33, 1), filter 1.5s cubic-bezier(0.25, 1, 0.33, 1);
+      will-change: transform, filter;
+    }
+    .stir-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .blob {
+      transform-origin: center;
+      mix-blend-mode: color-dodge;
+      will-change: transform;
+    }
+    .blob-1 { animation: drift-1 12s ease-in-out infinite alternate; }
+    .blob-2 { animation: drift-2 16s ease-in-out infinite alternate; }
+    .blob-3 { animation: drift-3 14s ease-in-out infinite alternate; }
+    .blob-4 { animation: drift-4 10s ease-in-out infinite alternate; }
+    .blob-5 { animation: drift-5 18s ease-in-out infinite alternate; }
+
+    @keyframes drift-1 {
+      0% { transform: translate3d(-8%, -10%, 0) scale(1.0); }
+      50% { transform: translate3d(12%, 8%, 0) scale(1.2); }
+      100% { transform: translate3d(-4%, 15%, 0) scale(0.9); }
+    }
+    @keyframes drift-2 {
+      0% { transform: translate3d(6%, 12%, 0) scale(0.95); }
+      50% { transform: translate3d(-12%, -5%, 0) scale(1.25); }
+      100% { transform: translate3d(4%, -12%, 0) scale(1.0); }
+    }
+    @keyframes drift-3 {
+      0% { transform: translate3d(-12%, 8%, 0) scale(1.15); }
+      50% { transform: translate3d(8%, -15%, 0) scale(0.85); }
+      100% { transform: translate3d(12%, 4%, 0) scale(1.05); }
+    }
+    @keyframes drift-4 {
+      0% { transform: translate3d(4%, -12%, 0) scale(1.05); }
+      50% { transform: translate3d(-6%, 12%, 0) scale(0.95); }
+      100% { transform: translate3d(-12%, -8%, 0) scale(1.15); }
+    }
+    @keyframes drift-5 {
+      0% { transform: translate3d(10%, -8%, 0) scale(0.9); }
+      50% { transform: translate3d(-10%, 15%, 0) scale(1.2); }
+      100% { transform: translate3d(-2%, -12%, 0) scale(0.95); }
+    }
+    .vignette-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, transparent 30%, var(--color-cask-shadow) 100%);
+      pointer-events: none;
+    }
+
     /* Structural layout — prevents reflow when index.css applies */
     .app-wrapper { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
     header { width: 100%; position: sticky; top: 0; z-index: 100; background: rgba(16, 6, 2, 0.4); border-bottom: 1px solid rgba(59, 29, 10, 0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
@@ -127,7 +196,10 @@
     <!-- Header Navigation (Full stop removed, menu buttons cleaned) -->
     <header>
       <div class="nav-container">
-        <a href="#" class="logo">RUM HUNTER</a>
+        <div class="logo-group">
+          <a href="#" class="logo">RUM HUNTER</a>
+          <span class="logo-byline">Track your booty!</span>
+        </div>
         <button id="mobile-menu-toggle" class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round">
@@ -145,15 +217,6 @@
     </header>
 
     <main>
-      <!-- Hero Section (Border Bottom Removed) -->
-      <section class="hero">
-        <div class="section-container hero-content">
-          <h1>Track Premium Casks</h1>
-          <p class="lead">The vintage rum tracker mapping active store listings, matching historical price lows, and
-            identifying new products across major Australian retail merchants.</p>
-        </div>
-      </section>
-
       <!-- Aggregator Section -->
       <section class="aggregator-section" id="aggregator">
         <div class="section-container">
@@ -169,10 +232,17 @@
                 </svg>
                 <input type="text" id="search-bar" class="search-input"
                   placeholder="Search rum names, merchants, or tasting details..." autocomplete="off">
+                <button type="button" id="search-clear-btn" class="search-clear-btn" aria-label="Clear search">
+                  ✕ Reset
+                </button>
               </div>
 
               <div class="sort-wrapper">
                 <select id="sort-selector" aria-label="Sort rums list">
+                  <button>
+                    <selectedcontent></selectedcontent>
+                    <span class="select-arrow-caret"></span>
+                  </button>
                   <option value="price-asc">Price Low to High</option>
                   <option value="price-desc">Price High to Low</option>
                   <option value="name-asc">Name A to Z</option>
@@ -525,28 +595,40 @@
             <!-- Pre-rendered default Page 1 controls to prevent CLS -->
             <div class="pagination-info">Showing 1–6 of 25 items</div>
             <div class="pagination-controls-buttons">
-              <button class="pagination-btn" disabled aria-label="Previous Page">&lt;</button>
+              <button class="pagination-btn prev-btn" disabled aria-label="Previous Page"></button>
               <div class="pagination-page-jump">
                 <span>Page</span>
-                <select class="pagination-page-select" aria-label="Select Page">
-                  <option value="1" selected>1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
+                <span class="select-wrapper">
+                  <select class="pagination-page-select" aria-label="Select Page">
+                    <button>
+                      <selectedcontent></selectedcontent>
+                      <span class="select-arrow-caret"></span>
+                    </button>
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </span>
                 <span>of 5</span>
               </div>
-              <button class="pagination-btn" aria-label="Next Page">&gt;</button>
+              <button class="pagination-btn next-btn" aria-label="Next Page"></button>
             </div>
             <div class="pagination-limit-wrapper">
               <label for="limit-select">Items per page</label>
-              <select id="limit-select" class="pagination-limit-select">
-                <option value="3">3</option>
-                <option value="6" selected>6</option>
-                <option value="12">12</option>
-                <option value="all">All</option>
-              </select>
+              <span class="select-wrapper">
+                <select id="limit-select" class="pagination-limit-select">
+                  <button>
+                    <selectedcontent></selectedcontent>
+                    <span class="select-arrow-caret"></span>
+                  </button>
+                  <option value="3">3</option>
+                  <option value="6" selected>6</option>
+                  <option value="12">12</option>
+                  <option value="all">All</option>
+                </select>
+              </span>
             </div>
           </div>
 

@@ -261,26 +261,26 @@
 
             const glassMaterial = new THREE.MeshPhysicalMaterial({
                 color: 0xffffff,
-                roughness: 0.03,
+                roughness: 0.02,
                 metalness: 0.0,
-                transmission: 0.98, // Crystal clear transparency
-                ior: 1.52,          // Authentic optical glass refraction
-                thickness: 0.20,    // Solid glass thickness
+                transmission: 0.98,
+                ior: 1.52,
+                thickness: 0.0,     // 0.0 for double-walled glass to avoid double-refraction artifacts
                 clearcoat: 1.0,
                 clearcoatRoughness: 0.02,
                 transparent: true
             });
 
-            // Transmissive Physical Liquid simulating light refract through aged rum
+            // Rich, dense transmissive physical liquid to make the rum highly obvious
             const liquidMaterial = new THREE.MeshPhysicalMaterial({
-                color: 0x8a3a00,       // Warm deep amber/reddish-brown rum color
-                roughness: 0.02,
+                color: 0x8c3500,       // Rich deep amber rum color
+                roughness: 0.05,
                 metalness: 0.0,
-                transmission: 0.90,    // High transparency transmissive volume
-                ior: 1.35,             // Index of refraction of rum/water
-                thickness: 0.8,        // Volumetric absorption
+                transmission: 0.35,    // Reduced transmission to make the liquid rich and dense
+                ior: 1.35,             // Index of refraction of water/alcohol
+                thickness: 1.5,        // Volumetric absorption
                 clearcoat: 1.0,
-                clearcoatRoughness: 0.02,
+                clearcoatRoughness: 0.05,
                 transparent: true
             });
 
@@ -303,18 +303,20 @@
             // Clear the canvas to keep the background transparent
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-            // Label sticker dimensions (centered in the texture wrapping the cylinder)
-            const labelW = 560;
+            // Set up context translation & scale to compensate for Cylinder mapping horizontal stretch (2.57x)
+            ctx.translate(canvasWidth / 2, canvasHeight / 2);
+            ctx.scale(0.39, 1.0); // Mathematically cancels out the 2.57x cylinder stretch
+
+            // Label dimensions in "natural" coordinates (centered at 0, 0)
+            const labelW = 480;
             const labelH = 340;
-            const labelX = (canvasWidth - labelW) / 2;
-            const labelY = (canvasHeight - labelH) / 2;
 
             // Draw sticker background with elegant dark charcoal color
             ctx.fillStyle = '#151311';
-            ctx.fillRect(labelX, labelY, labelW, labelH);
+            ctx.fillRect(-labelW / 2, -labelH / 2, labelW, labelH);
 
             // Draw a subtle gold gradient border
-            const borderGrad = ctx.createLinearGradient(labelX, labelY, labelX, labelY + labelH);
+            const borderGrad = ctx.createLinearGradient(0, -labelH / 2, 0, labelH / 2);
             borderGrad.addColorStop(0, '#d4af37');
             borderGrad.addColorStop(0.5, '#f3e5ab');
             borderGrad.addColorStop(1, '#aa7c11');
@@ -322,15 +324,15 @@
             // Outer gold border
             ctx.strokeStyle = borderGrad;
             ctx.lineWidth = 4;
-            ctx.strokeRect(labelX + 8, labelY + 8, labelW - 16, labelH - 16);
+            ctx.strokeRect(-labelW / 2 + 8, -labelH / 2 + 8, labelW - 16, labelH - 16);
             
             // Inner gold border (thin)
             ctx.lineWidth = 1.5;
-            ctx.strokeRect(labelX + 14, labelY + 14, labelW - 28, labelH - 28);
+            ctx.strokeRect(-labelW / 2 + 14, -labelH / 2 + 14, labelW - 28, labelH - 28);
 
-            // High-end Typography setup
+            // High-end Typography setup (non-italic, clean serif)
             ctx.fillStyle = '#e8c49e'; // Soft textured matte gold color
-            ctx.font = 'italic 600 56px "Cormorant Garamond", "Georgia", serif';
+            ctx.font = '600 64px "Cormorant Garamond", "Georgia", serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.letterSpacing = '5px';
@@ -341,11 +343,12 @@
             ctx.shadowOffsetX = 2;
             ctx.shadowOffsetY = 2;
 
-            // Draw "Coming Soon" in two lines, centered in the sticker area
-            const centerX = canvasWidth / 2;
-            const centerY = canvasHeight / 2;
-            ctx.fillText("Coming", centerX, centerY - 45);
-            ctx.fillText("Soon", centerX, centerY + 45);
+            // Draw "Coming Soon" in two lines (non-italic)
+            ctx.fillText("Coming", 0, -45);
+            ctx.fillText("Soon", 0, 45);
+
+            // Restore context state to avoid affecting other canvas operations (just in case)
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
 
             const textTexture = new THREE.CanvasTexture(textCanvas);
             textTexture.wrapS = THREE.RepeatWrapping;
